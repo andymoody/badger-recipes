@@ -123,6 +123,49 @@ function renderCards(recipes) {
       `;
     }
 
+    // Build ratio & formula block for technique guides
+    let ratioFormulaHtml = '';
+    if (itemType === 'reference_guide' && r.ratioFormula && typeof r.ratioFormula === 'object' && Object.keys(r.ratioFormula).length > 0) {
+      const ratioItems = Object.entries(r.ratioFormula).map(([key, val]) => `
+        <li><strong>${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:</strong> ${val}</li>
+      `).join('');
+
+      ratioFormulaHtml = `
+        <div class="reference-meta-section">
+          <h3>Ratio & Formula</h3>
+          <ul class="ratio-list">${ratioItems}</ul>
+        </div>
+      `;
+    }
+
+    // Build timing rules block for technique guides
+    let timingRulesHtml = '';
+    if (itemType === 'reference_guide' && r.timingRules && typeof r.timingRules === 'object' && Object.keys(r.timingRules).length > 0) {
+      const timingItems = Object.entries(r.timingRules).map(([key, val]) => `
+        <li><strong>${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:</strong> ${val}</li>
+      `).join('');
+
+      timingRulesHtml = `
+        <div class="reference-meta-section">
+          <h3>Timing Rules</h3>
+          <ul class="timing-list">${timingItems}</ul>
+        </div>
+      `;
+    }
+
+    // Build equipment required block for technique guides
+    let equipmentHtml = '';
+    if (itemType === 'reference_guide' && Array.isArray(r.equipmentRequired) && r.equipmentRequired.length > 0) {
+      const eqItems = r.equipmentRequired.map(eq => `<li>${eq}</li>`).join('');
+
+      equipmentHtml = `
+        <div class="reference-meta-section">
+          <h3>Equipment Required</h3>
+          <ul>${eqItems}</ul>
+        </div>
+      `;
+    }
+
     const ingrList = Array.isArray(r.ingredients) ? r.ingredients : [];
     const instList = Array.isArray(r.instructions) ? r.instructions : [];
 
@@ -139,8 +182,8 @@ function renderCards(recipes) {
     let thumbImg = r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-thumb">` : '';
 
     // Adjust section titles dynamically based on type
-    const ingrHeading = itemType === 'reference_guide' ? 'Ingredients & Equipment' : 'Ingredients';
-    const instHeading = itemType === 'reference_guide' ? 'Searing & Cooking Steps' : 'Instructions';
+    const ingrHeading = itemType === 'reference_guide' ? 'Ingredients & Components' : 'Ingredients';
+    const instHeading = itemType === 'reference_guide' ? 'Step-by-Step Instructions' : 'Instructions';
 
     card.innerHTML = `
       <div class="card-header" onclick="toggleCard('${r.id}')">
@@ -156,6 +199,9 @@ function renderCards(recipes) {
       </div>
       <div class="card-body">
         ${tempChartHtml}
+        ${ratioFormulaHtml}
+        ${timingRulesHtml}
+        ${equipmentHtml}
         <h3>${ingrHeading}</h3>
         <ul>${ingrHtml}</ul>
         <h3>${instHeading}</h3>
