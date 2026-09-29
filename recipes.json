@@ -1883,23 +1883,84 @@
     "cookTime": "35 mins",
     "servings": "1 loaf",
     "image": "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=150&auto=format&fit=crop&q=80",
-    "ingredients": [
-      "333ml warm water",
-      "200g sourdough starter",
-      "500g bread flour (425g strong white + 75g rye)",
-      "5g salt",
-      "Flavor additions (e.g., caramelized red onion, 60g black olives & 25g jalapenos, or 100g cheese)"
-    ],
-    "instructions": [
-      "Mix warm water and sourdough starter together in a large straight-sided container to break up starter[cite: 62].",
-      "Gradually add flour, mix into a rough dough, cover, and rest for 30-60 minutes[cite: 62].",
-      "Add salt and perform 6 stretch-and-folds at 30-minute intervals[cite: 62]. Add desired flavorings during the 4th stretch-and-fold[cite: 62].",
-      "Leave to rise until doubled in size[cite: 62].",
-      "Turn onto work surface, stretch into rectangle, fold like a letter (thirds top/bottom and sides), and shape into a tight round[cite: 62]. Rest 15 mins[cite: 62].",
-      "Transfer to floured banneton seam-side up and refrigerate overnight[cite: 62].",
-      "Preheat oven to 230°C / 210°C fan with a roasting tin inside[cite: 62]. Turn out dough, score pattern on top, and bake for 35 minutes with 200ml water added to roasting tin[cite: 62]."
-    ],
-    "notes": "Includes recipe variations for caramelized red onion, olive & jalapeno, sun-dried tomato, cheese & pepper, and honey & oat bread[cite: 62]."
+    "baseIngredients": [
+    { "name": "Warm water", "amount": "333ml" },
+    { "name": "Sourdough starter", "amount": "200g" },
+    { "name": "Bread flour (typically 75g rye and 425g strong white bread flour)", "amount": "500g" },
+    { "name": "Salt", "amount": "5g" }
+  ],
+  "baseInstructions": [
+    "Pour the water into a mixing bowl or large container, add the sourdough starter, and stir to break up and distribute the starter[cite: 12].",
+    "Add the flour gradually, mixing until a rough dough has formed[cite: 12].",
+    "Cover and leave for 30 minutes to 1 hour[cite: 12].",
+    "Add the salt[cite: 12].",
+    "Perform stretch and folds 6 times at 30-minute intervals[cite: 12].",
+    "Leave to rise until doubled in size[cite: 12].",
+    "Turn out onto a work surface, stretch into a rectangle, and perform a letter fold from top to bottom and bottom to top, then repeat for the sides[cite: 12].",
+    "Form a round by dragging the dough towards you across the surface while tucking your fingers under the bottom, turn through 90 degrees, and repeat until smooth and tight[cite: 12].",
+    "Leave to bench rest for 15 minutes, shaping and resting again if necessary[cite: 12].",
+    "Flour a banneton or a tea towel in a bowl and turn the dough into it seam side up[cite: 12].",
+    "Leave to rise overnight in the fridge or for a few hours on the work surface, using the poke test to determine readiness[cite: 12].",
+    "Heat the oven to 230°C / 210°C fan with a roasting tin in the bottom[cite: 12].",
+    "Scatter flour over the dough, turn out onto a tray, cut a pattern into the top, and bake for 35 minutes while adding 200ml of water into the roasting tin[cite: 12]."
+  ],
+  "variants": [
+    {
+      "variantName": "Caramelized Red Onion",
+      "additionalIngredients": [
+        { "name": "Red onion finely chopped", "amount": "1" },
+        { "name": "Salt & pepper", "amount": "To taste" },
+        { "name": "Sugar", "amount": "0.5 teaspoon" },
+        { "name": "Olive oil", "amount": "As needed" }
+      ],
+      "preparation": "Add oil to a large shallow pan with a lid over low heat, sweat the red onion for 10 minutes until soft, remove lid, season with salt and pepper, add sugar, and gently fry until caramelized[cite: 12].",
+      "instructionModifications": "Add flavourings during the 4th stretch and fold, scattering some before each stretch for even distribution[cite: 12]."
+    },
+    {
+      "variantName": "Olive and Jalapeño",
+      "additionalIngredients": [
+        { "name": "Fresh black olives chopped", "amount": "Approx 60g" },
+        { "name": "Jalapeño slices chopped", "amount": "Approx 25g" }
+      ],
+      "ingredientModifications": "Reduce the water content in the base dough to 250g to account for moisture from these ingredients[cite: 12].",
+      "instructionModifications": "Add flavourings during the 4th stretch and fold[cite: 12]."
+    },
+    {
+      "variantName": "Sun-Dried Tomato and Olive",
+      "additionalIngredients": [
+        { "name": "Fresh black olives chopped", "amount": "Approx 60g" },
+        { "name": "Sun-dried tomatoes chopped", "amount": "7 or 8" },
+        { "name": "Sun-dried tomato oil", "amount": "A splash for flavor" }
+      ],
+      "ingredientModifications": "Reduce the water content and add some of the oil from the sun-dried tomatoes[cite: 12].",
+      "instructionModifications": "Add flavourings during the 4th stretch and fold[cite: 12]."
+    },
+    {
+      "variantName": "Cheese and Black Pepper",
+      "additionalIngredients": [
+        { "name": "Cheddar or other cheese", "amount": "75 - 100g" },
+        { "name": "Black pepper", "amount": "7g (or to taste)" }
+      ],
+      "instructionModifications": "Add flavourings during the 4th stretch and fold[cite: 12]."
+    },
+    {
+      "variantName": "Cheese and Jalapeño",
+      "additionalIngredients": [
+        { "name": "Cheese", "amount": "100g" },
+        { "name": "Jalapeños", "amount": "50g" }
+      ],
+      "instructionModifications": "Add flavourings during the 4th stretch and fold[cite: 12]."
+    },
+    {
+      "variantName": "Honey and Oat Bread",
+      "additionalIngredients": [
+        { "name": "Runny honey", "amount": "90g" },
+        { "name": "Rolled oats", "amount": "120g" }
+      ],
+      "ingredientModifications": "Increase the water in the base recipe to 400ml[cite: 12].",
+      "instructionModifications": "Add the runny honey and rolled oats at the mixing phase rather than during stretch and folds[cite: 12]."
+    }
+   ]
   },
   {
     "id": "sourdough_hot_cross_buns",
