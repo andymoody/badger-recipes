@@ -1,0 +1,370 @@
+[
+  {
+    "id": "ten_quick_steak_sauces",
+    "title": "10 Quick Steak Sauces",
+    "category": "Sauces & Condiments",
+    "prepTime": "5 - 25 mins",
+    "cookTime": "5 - 20 mins",
+    "servings": "Serves 2 per sauce",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=150&auto=format&fit=crop&q=80",
+    "keywords": "steak sauces salsa verde peppercorn bearnaise chimichurri black bean red wine teriyaki mustard blue cheese mushroom",
+    "ingredients": [
+      "1. Salsa Verde: Small bunch parsley, chives, mint, 1 tsp capers, 2-3 chopped anchovies, 1 crushed garlic clove, juice of 1 lemon, 3 tbsp olive oil",
+      "2. Smart Peppercorn: 2 tbsp white wine vinegar, 150ml chicken stock, 2 tsp green peppercorns, 4 tbsp double cream",
+      "3. Cheat's Béarnaise: 25g butter, 1 finely chopped shallot, 1 tsp white wine vinegar, 100g crème fraîche, 1 tsp Dijon mustard, 1/2 tsp capers, small bunch chopped tarragon",
+      "4. Spicy Chimichurri: 1 garlic clove, 1 red chilli, small bunch coriander & parsley, 3 tbsp red wine vinegar, 2 tbsp olive oil",
+      "5. Black Bean & Sesame: 1/2 can black beans, 1 tsp dark brown sugar, 2 tsp honey, 1 tsp 5-spice, 1/2 tsp ginger, 1 red chilli, 2 tsp tahini, 2 tbsp cider vinegar, 2 tsp soy sauce, 5 tbsp water",
+      "6. Quick Red Wine: 250ml beef stock, 125ml red wine, 2 tsp dark brown sugar, 1 tsp balsamic vinegar",
+      "7. Teriyaki Sauce: 5 tbsp soy sauce, 3 tbsp sake, 2 tbsp mirin, 1/2 tsp grated ginger, 1 tsp honey, 1 sliced spring onion",
+      "8. Super-swift Mustard Sauce: 2 tbsp Dijon mustard, 100g crème fraîche",
+      "9. Blue Cheese Sauce: 25g butter, 1 tbsp flour, 150ml milk, 50g Stilton or blue cheese",
+      "10. Mushroom Sauce: 1 tbsp olive oil, 6 chestnut mushrooms (sliced), 1 garlic clove, 2 tbsp brandy, 4 tbsp double cream, 1 tsp wholegrain mustard"
+    ],
+    "instructions": [
+      "1. Salsa Verde (15 mins): Chop herbs into small pieces. Mix in a bowl with capers, anchovies, garlic, lemon juice, and 3 tbsp olive oil. Season to taste.",
+      "2. Smart Peppercorn (20 mins): Put white wine vinegar in a non-stick pan, bring to simmer. Add chicken stock, reduce by half on high heat. Add green peppercorns (gently crushing a few), season, stir in double cream. Simmer 1-2 mins until thickened.",
+      "3. Cheat's Béarnaise (25 mins): Melt butter over medium heat, fry shallot 5-6 mins. Add vinegar, cook 2 mins. Stir in crème fraîche, Dijon, capers, tarragon. Simmer gently 2-3 mins.",
+      "4. Spicy Chimichurri (5 mins): Blitz garlic, chilli, herbs, vinegar in food processor until finely chopped. Add olive oil, blitz again, season, and refrigerate.",
+      "5. Black Bean & Sesame (20 mins): Put black beans, sugar, honey, 5-spice, ginger, chilli, tahini, cider vinegar, soy sauce, and water into a blender. Blend until very smooth. Pour into pan, simmer 5 mins stirring constantly until glossy and thick.",
+      "6. Quick Red Wine (25 mins): Pour beef stock into saucepan and reduce by half. Add red wine, sugar, balsamic vinegar. Leave to cook 10 mins over high heat until reduced by half again.",
+      "7. Teriyaki Sauce (20 mins): Mix soy sauce, sake, mirin, ginger, honey in small pan. Bring to simmer and cook 5 mins until thickened. Remove from heat and stir in spring onion.",
+      "8. Super-swift Mustard Sauce (10 mins): Mix Dijon mustard and crème fraîche in pan, heat gently until simmering. Season to taste.",
+      "9. Blue Cheese Sauce (20 mins): Melt butter in pan, stir in flour 1 min. Slowly whisk in milk until smooth. Bring to simmer, crumble in Stilton, stir until melted and thickened.",
+      "10. Mushroom Sauce (15 mins): Fry sliced mushrooms in oil 5 mins golden. Add garlic, brandy, cook until brandy evaporates. Stir in double cream and wholegrain mustard, simmer 2-3 mins."
+    ],
+    "notes": "All sauces yield approximately 2 portions.",
+    "needsReview": false
+  },
+  {
+    "id": "sourdough_starter_and_master_bread",
+    "title": "Sourdough Bread (Starter Guide & Master Loaves)",
+    "category": "Bread",
+    "prepTime": "7 Days Starter Prep",
+    "cookTime": "35-50 minutes",
+    "servings": "2 Loaves",
+    "image": "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=150&auto=format&fit=crop&q=80",
+    "keywords": "sourdough starter wholemeal flour white flour levain pyrex dish Dutch oven proving basket kneading fermentation",
+    "ingredients": [
+      "Starter Day 1: 50g wholemeal flour, 50g water",
+      "Starter Day 2: 50g wholemeal flour, 50g water",
+      "Starter Day 3: Discard 100g, add 100g wholemeal flour, 100g water",
+      "Starter Day 4: Discard 150g, add 100g wholemeal flour, 100g water",
+      "Starter Day 5: Discard 200g, add 150g wholemeal flour, 150g water",
+      "Starter Day 6: Discard 250g, add 200g wholemeal flour, 200g water",
+      "Starter Day 7: Ready to use",
+      "White Sourdough Dough (2 Loaves): 800g strong white flour, 10g salt, 460ml water, 320g sourdough starter"
+    ],
+    "instructions": [
+      "1. Master Dough Mix: Add flour to bowl, mix salt through. Add water and starter, combine to rough dough.",
+      "2. Kneading: Turn out onto clean surface, knead ~10 mins until windowpane effect achieved (dough becomes smooth, soft, elastic).",
+      "3. Bulk Fermentation: Cover bowl with cling film, prove 4 hours at room temperature.",
+      "4. Knocking Back: Turn onto surface, knock air out to equalise temp. Shape into tight round ball.",
+      "5. Proving Basket Method: Dust basket with flour, place dough seam-side up, cover with tea towel, prove 3-3.5 hrs (or overnight in fridge). Preheat oven to 230°C/210°C fan with shallow tray at bottom. Turn dough onto dusted tray, score up to 1/2cm deep. Pour boiled water into bottom tray for steam. Bake 30-35 mins.",
+      "6. Pyrex Dish Method: Line 2.5L Pyrex dish with tea towel, dust with flour, place dough inside, cover with greased/floured lid, prove 3-3.5 hrs (or overnight in fridge). Flip dish over so bowl becomes lid, remove towel, score top 1/2cm deep, cover with bowl, and bake at 230°C/210°C fan for 25 mins covered, then 25 mins uncovered."
+    ],
+    "notes": "Maintaining Starter: Store in fridge up to 10 days. Take out day before baking, refresh night before with equal parts starter, flour, water.",
+    "needsReview": false
+  },
+  {
+    "id": "sourdough_bread_flavours",
+    "title": "Sourdough Bread & Add-In Variations",
+    "category": "Bread",
+    "prepTime": "Overnight",
+    "cookTime": "35 minutes",
+    "servings": "1 Loaf",
+    "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=150&auto=format&fit=crop&q=80",
+    "keywords": "sourdough bread starter flour rye water salt onion jalapeño olive cheese oats",
+    "ingredients": [
+      "Base Dough: 333ml warm water, 200g sourdough starter, 500g bread flour (75g rye + 425g strong white), 5g salt",
+      "Caramelized Red Onion: 1 red onion finely chopped, salt & pepper, 1/2 tsp sugar, olive oil",
+      "Olive & Jalapeño: 60g black olives, 25g jalapeño slices (reduce water to 250g)",
+      "Sun-Dried Tomato & Olive: 60g black olives, 7-8 sun dried tomatoes (reduce water & add tomato oil)",
+      "Cheese & Black Pepper: 75-100g cheddar, 7g black pepper",
+      "Cheese & Jalapeño: 100g cheese, 50g jalapeños",
+      "Honey & Oat: Increase water to 400ml, add 90g honey & 120g rolled oats at mixing phase"
+    ],
+    "instructions": [
+      "1. Pour water into bowl, add starter, stir to break up.",
+      "2. Add flour gradually, mix to rough dough. Cover, leave 30-60 mins.",
+      "3. Add salt. Perform 6 stretch-and-folds at 30 minute intervals.",
+      "4. Leave to rise until doubled in size.",
+      "5. Letter fold dough rectangle, shape into round ball, bench rest 15 mins.",
+      "6. Flour banneton/bowl, place dough seam-side up, rise overnight in fridge.",
+      "7. Turn onto tray, score, bake at 230°C for 35 mins with 200ml water tray in oven bottom.",
+      "8. Adding Flavourings: Scatter flavourings evenly across dough during the 4th stretch and fold."
+    ],
+    "notes": "Always reduce base hydration when using wet add-ins like olives/tomatoes.",
+    "needsReview": true
+  },
+  {
+    "id": "raan_leg_of_lamb",
+    "title": "Raan (Roasted Spiced Leg of Lamb)",
+    "category": "Main Course",
+    "prepTime": "48 hours marinade",
+    "cookTime": "5 hours 20 mins",
+    "servings": "8 Servings",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=150&auto=format&fit=crop&q=80",
+    "keywords": "lamb raan leg of lamb roast yogurt ginger garlic saffron almonds cumin cardamom cloves indian",
+    "ingredients": [
+      "1 x 3kg (6lb) leg of lamb (trimmed, pricked & gashed all over)",
+      "Spice Purée: 125g fresh ginger, 12 garlic cloves, 1 lemon rind (grated), 5 tbsp lemon juice, 2 tsp cumin seeds, 1 tbsp cardamom seeds, 8 cloves, 1 tsp turmeric, 1 tsp chilli powder, 1 tbsp salt",
+      "Yogurt Glaze: 150g blanched almonds, 4 tbsp dark brown sugar, 300ml thick Greek yogurt",
+      "Sauce Finish: 1/2 tsp saffron threads in 2 tbsp boiling water"
+    ],
+    "instructions": [
+      "1. Blend all Spice Purée ingredients into a smooth paste. Rub thoroughly over lamb, into cuts and gashes. Rest 1 hour.",
+      "2. Blend almonds, 2 tbsp brown sugar, and half the yogurt until smooth. Fold into remaining yogurt and rub over lamb. Cover and chill in fridge for 48 hours.",
+      "3. Sprinkle remaining 2 tbsp brown sugar over lamb. Roast in oven at 220°C for 20 mins, reduce to 180°C for 1 hr, then cover tightly with foil and reduce to 170°C for 4 hours until meat falls off bone.",
+      "4. Remove lamb, wrap in foil to rest. Skim fat from roasting pan, stir in saffron water, boil on hob 15-20 mins until sauce reduces by half. Serve reduction over carved lamb."
+    ],
+    "notes": "Requires 2 days advance preparation for full flavor infusion.",
+    "needsReview": false
+  },
+  {
+    "id": "fish_pie_sheekey",
+    "title": "J Sheekey's Fish Pie",
+    "category": "Main Course",
+    "prepTime": "20 minutes",
+    "cookTime": "45 minutes",
+    "servings": "4 Servings",
+    "image": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=150&auto=format&fit=crop&q=80",
+    "keywords": "fish pie cod salmon smoked haddock cream mash potato parmesan peas",
+    "ingredients": [
+      "125g skinless cod fillet (2cm cubes)",
+      "125g skinless salmon fillet (2cm cubes)",
+      "125g skinless smoked haddock fillet (2cm cubes)",
+      "250ml fish stock & 50ml white wine",
+      "Sauce: 25g butter, 25g flour, 90ml double cream, 1 tsp Dijon, 1 tsp Worcestershire sauce, 1 tbsp parsley, 1 hard-boiled egg (diced)",
+      "Topping: 500g mashed potatoes, 15g breadcrumbs, 10g Parmesan, 50g frozen peas"
+    ],
+    "instructions": [
+      "1. Poach cod, salmon, and smoked haddock in fish stock and white wine for 2 minutes; drain and save the poaching liquid.",
+      "2. Melt butter in pan, stir in flour, gradually whisk in saved stock liquid, and simmer 10 mins until thick.",
+      "3. Stir in double cream, Dijon mustard, Worcestershire sauce, parsley, and diced hard-boiled egg.",
+      "4. Gently fold poached fish into sauce, transfer to pie dish, and scatter frozen peas on top.",
+      "5. Pipe or spread mashed potatoes over top, sprinkle with breadcrumbs and Parmesan.",
+      "6. Bake at 180°C for 30 mins, then flash under grill until golden."
+    ],
+    "notes": "",
+    "needsReview": false
+  },
+  {
+    "id": "jerk_chicken_rice_peas",
+    "title": "Jerk Chicken with Rice & Peas",
+    "category": "Main Course",
+    "prepTime": "Overnight Marinate",
+    "cookTime": "45 mins",
+    "servings": "6 Servings",
+    "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=150&auto=format&fit=crop&q=80",
+    "keywords": "jerk chicken scotch bonnet spring onions allspice coconut milk kidney beans basmati rice",
+    "ingredients": [
+      "12 chicken thighs & 1 lime",
+      "Jerk Marinade: Spring onions, ginger, garlic, scotch bonnet, thyme, lime juice, soy sauce, oil, brown sugar, allspice",
+      "Rice & Peas: 200g basmati rice, 400g coconut milk, spring onions, thyme, 2 cans kidney beans"
+    ],
+    "instructions": [
+      "1. Blend Jerk Marinade ingredients in food processor into a thick paste.",
+      "2. Slash chicken thighs deeply, rub marinade all over, cover and chill overnight in fridge.",
+      "3. Bake at 180°C for 45 mins (or smoke-grill over barbecue coals).",
+      "4. Rice & Peas: Bring basmati rice, coconut milk, spring onions, and thyme to a boil. Simmer covered 10 mins, stir in drained kidney beans, cover and steam off heat 5 mins."
+    ],
+    "notes": "",
+    "needsReview": false
+  },
+  {
+    "id": "slow_cooker_bbq_brisket",
+    "title": "Slow Cooker BBQ Beef Brisket",
+    "category": "Main Course",
+    "prepTime": "15 mins",
+    "cookTime": "10 Hours",
+    "servings": "8 Servings",
+    "image": "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=150&auto=format&fit=crop&q=80",
+    "keywords": "beef brisket slow cooker bbq sauce cider vinegar paprika garlic onion powder mustard slider",
+    "ingredients": [
+      "1.5-2kg beef brisket",
+      "Rub: Brown sugar, paprika, onion powder, garlic powder, cumin, mustard powder, salt, pepper",
+      "BBQ Sauce: Garlic, cider vinegar, ketchup, brown sugar, Worcestershire sauce"
+    ],
+    "instructions": [
+      "1. Rub brisket thoroughly with dry spice rub.",
+      "2. Combine BBQ sauce ingredients in bottom of slow cooker, nestle brisket inside, cook on LOW for 8-10 hours.",
+      "3. Remove brisket to foil. Pour slow cooker liquid into saucepan and reduce on high heat until syrupy.",
+      "4. Roast brisket in oven at 200°C for 15 mins, baste generously with reduced BBQ sauce, roast 5 mins more to caramelize."
+    ],
+    "notes": "",
+    "needsReview": false
+  },
+  {
+    "id": "salted_caramel_peanut_brittle_brownies",
+    "title": "Salted Caramel Peanut Brittle Brownies",
+    "category": "Baking",
+    "prepTime": "30 mins",
+    "cookTime": "40 mins",
+    "servings": "12 Servings",
+    "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=150&auto=format&fit=crop&q=80",
+    "keywords": "brownies salted caramel peanut brittle dark chocolate peanuts",
+    "ingredients": [
+      "Caramel Sauce: Caster sugar, double cream, sea salt",
+      "Peanut Brittle: Sugar, water, salted peanuts, bicarb",
+      "Brownie Batter: 250g butter, 250g dark chocolate, 4 eggs, 300g sugar, 1 tsp vanilla, 150g flour"
+    ],
+    "instructions": [
+      "1. Peanut Brittle: Boil sugar/water to caramel colour, stir in bicarb and peanuts, pour onto tray, cool and crush.",
+      "2. Salted Caramel: Caramelize sugar in pan, whisk in double cream and sea salt; cool.",
+      "3. Brownie Batter: Melt butter and dark chocolate. Whisk eggs, sugar, vanilla; combine with chocolate and fold flour.",
+      "4. Assembly: Layer half batter in pan, drizzle caramel sauce, scatter crushed brittle, top with remaining batter, swirl with skewer. Bake at 170°C for 35-40 mins."
+    ],
+    "notes": "",
+    "needsReview": false
+  },
+  {
+    "id": "slow_cooker_chicken_curry",
+    "title": "Slow Cooker Chicken Curry",
+    "category": "Main Course",
+    "prepTime": "10 minutes",
+    "cookTime": "3.5 hours",
+    "servings": "6 Servings",
+    "image": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=150&auto=format&fit=crop&q=80",
+    "keywords": "chicken curry slow cooker baby potatoes Indian coriander turmeric garam masala tomato puree kid friendly gluten free",
+    "ingredients": [
+      "1 tablespoon Oil",
+      "1 cup finely chopped Onions",
+      "1 tablespoon minced Garlic",
+      "7-8 Baby Potatoes, halved",
+      "8 boneless, skinless Chicken Thighs (1-inch pieces)",
+      "1 Bayleaf, 2-3 Cloves, 6-8 Peppercorns, 1 Green Chilli",
+      "1 tbsp Coriander Powder, 1 tsp Red Chilli Powder, 1/2 tsp Turmeric, 1 tsp Garam Masala, 1 tsp Salt",
+      "1 cup Tomato Puree, 1/2 cup Water, 1 tbsp Butter, Chopped coriander"
+    ],
+    "instructions": [
+      "1. Heat oil in a pan and saute chopped onions and minced garlic for 3-4 minutes until soft. Transfer mixture to slow cooker.",
+      "2. Add chicken thighs, halved baby potatoes, whole spices, ground spices, tomato puree, water, and salt. Mix well.",
+      "3. Cover and cook on HIGH for 3.5-4 hours or LOW for 6 hours.",
+      "4. Stir in butter and fresh coriander before serving over steamed rice or with naan."
+    ],
+    "notes": "Recommend chicken thighs to retain juiciness.",
+    "needsReview": false
+  },
+  {
+    "id": "smoked_chipotle_chicken",
+    "title": "Smoked Chipotle Chicken",
+    "category": "Main Course",
+    "prepTime": "5 minutes",
+    "cookTime": "3 - 5 hours",
+    "servings": "4 Servings",
+    "image": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=150&auto=format&fit=crop&q=80",
+    "keywords": "smoked chipotle chicken rub smoked paprika garlic powder cumin coriander brown sugar smoker BBQ",
+    "ingredients": [
+      "Chicken thighs or whole chicken",
+      "2 tsp chipotle powder",
+      "2 tsp smoked paprika",
+      "1 tsp garlic powder",
+      "1/2 tsp cumin, 1/2 tsp coriander",
+      "1 tsp salt, 2 tsp brown sugar"
+    ],
+    "instructions": [
+      "1. Combine chipotle powder, smoked paprika, garlic powder, cumin, coriander, salt, and brown sugar into a rub.",
+      "2. Apply rub evenly all over chicken.",
+      "3. Smoke chicken between 120-130°C for 3 to 5 hours until internal probe in thickest part of thigh reads 74°C."
+    ],
+    "notes": "",
+    "needsReview": false
+  },
+  {
+    "id": "smokey_hake_beans_greens",
+    "title": "Smoky Hake with Beans & Greens",
+    "category": "Main Course",
+    "prepTime": "10 minutes",
+    "cookTime": "10 minutes",
+    "servings": "2 Servings",
+    "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=150&auto=format&fit=crop&q=80",
+    "keywords": "hake fish chorizo spinach cannellini beans smoked paprika red chilli lemon juice quick dinner",
+    "ingredients": [
+      "1/2 x 200g raw cooking chorizo",
+      "1 onion, finely chopped",
+      "260g spinach",
+      "2 x 140g skinless hake fillets",
+      "1/2 tsp sweet smoked paprika",
+      "1 red chilli, deseeded and shredded",
+      "400g can cannellini beans",
+      "Juice 1/2 lemon, 1 tbsp olive oil"
+    ],
+    "instructions": [
+      "1. Squeeze chorizo meat into pan with 1 tsp oil. Add onion and fry 5 mins until browned.",
+      "2. Wilt spinach with boiling water, squeeze dry. Season hake fillets, sprinkle smoked paprika, drizzle oil.",
+      "3. Add chilli, beans, spinach, lemon juice, extra virgin olive oil to chorizo pan; warm through.",
+      "4. Grill hake under high heat 5 mins. Top bean mixture with grilled hake."
+    ],
+    "notes": "",
+    "needsReview": false
+  },
+  {
+    "id": "white_chocolate_ginger_cheesecake",
+    "title": "White Chocolate & Ginger Cheesecake",
+    "category": "Dessert",
+    "prepTime": "30 minutes",
+    "cookTime": "Overnight set",
+    "servings": "8-10 Servings",
+    "image": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=150&auto=format&fit=crop&q=80",
+    "keywords": "cheesecake white chocolate stem ginger butterscotch sauce gingernut mascarpone cream cheese wagamama",
+    "ingredients": [
+      "Base: 300g gingernut biscuits, 100g butter",
+      "Filling: 300g cream cheese, 250g mascarpone, 150ml double cream, 400g melted white chocolate",
+      "Butterscotch: 50g caster sugar, 1 tbsp butter, 120ml double cream, 10g stem ginger, 1 tbsp ginger syrup"
+    ],
+    "instructions": [
+      "1. Press buttered crushed biscuits into 20cm tin; chill 30 mins.",
+      "2. Whisk cream cheese, mascarpone, double cream, melted white chocolate; pour over base and set overnight.",
+      "3. Caramelize sugar, stir in butter, double cream, stem ginger, syrup; drizzle over cheesecake."
+    ],
+    "notes": "",
+    "needsReview": false
+  },
+  {
+    "id": "best_yorkshire_puddings",
+    "title": "Best Yorkshire Puddings",
+    "category": "Side Dish",
+    "prepTime": "10 minutes",
+    "cookTime": "25 minutes",
+    "servings": "12 Puddings",
+    "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=150&auto=format&fit=crop&q=80",
+    "keywords": "yorkshire puddings batter eggs flour milk sunflower oil Sunday roast bbc good food",
+    "ingredients": [
+      "140g plain flour",
+      "4 eggs",
+      "200ml milk",
+      "Sunflower oil"
+    ],
+    "instructions": [
+      "1. Drizzle sunflower oil into 12 muffin holes; heat in oven at 230°C (210°C fan) until smoking hot.",
+      "2. Whisk flour, eggs, milk until lump-free batter forms.",
+      "3. Pour batter into hot holes and bake undisturbed 20-25 mins."
+    ],
+    "notes": "",
+    "needsReview": false
+  },
+  {
+    "id": "spaghetti_bolognese",
+    "title": "The Best Spaghetti Bolognese",
+    "category": "Main Course",
+    "prepTime": "25 minutes",
+    "cookTime": "1 hour 50 minutes",
+    "servings": "6 Servings",
+    "image": "https://images.unsplash.com/photo-1621996346565-e3d5d6281288?w=150&auto=format&fit=crop&q=80",
+    "keywords": "spaghetti bolognese beef mince bacon tomato parmesan basil oregano red wine",
+    "ingredients": [
+      "500g beef mince, 4 rashers streaky bacon",
+      "2 onions, 2 carrots, 2 celery sticks, 2 garlic cloves, rosemary",
+      "2 x 400g plum tomatoes, basil, oregano, bay leaves, tomato purée, beef stock cube, 125ml red wine",
+      "400g spaghetti, 75g parmesan"
+    ],
+    "instructions": [
+      "1. Fry chopped bacon 10 mins crisp. Add chopped veg and rosemary; fry 10 mins soft.",
+      "2. Brown beef mince 4 mins.",
+      "3. Add tomatoes, herbs, wine, stock cube; simmer covered 1 hr 15 mins.",
+      "4. Stir in parmesan and serve over cooked spaghetti."
+    ],
+    "notes": "",
+    "needsReview": false
+  }
+]
