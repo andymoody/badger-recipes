@@ -30,7 +30,7 @@ body {
 
 /* Left Navigation Sidebar */
 aside {
-  width: 320px;
+  width: 340px;
   background-color: var(--sidebar-bg);
   border-right: 1px solid var(--border);
   display: flex;
@@ -42,23 +42,79 @@ aside {
   padding: 20px;
   border-bottom: 1px solid var(--border);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
 }
 
 .badger-avatar {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--canton-light);
   box-shadow: 0 0 10px var(--canton-glow);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sidebar-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
 }
 
 .sidebar-title-group h2 {
-  margin: 0 0 4px 0;
+  margin: 0;
   color: var(--canton-light);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+/* Search Action Bar under the title */
+.search-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+#search-bar {
+  flex: 1;
+  background: #242424;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#search-bar:focus {
+  border-color: var(--canton-teal);
+}
+
+#add-recipe-btn {
+  background: var(--canton-teal);
+  color: #ffffff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.1s;
+}
+
+#add-recipe-btn:hover {
+  background: var(--canton-light);
+  transform: translateY(-1px);
 }
 
 .sidebar-count {
@@ -136,7 +192,7 @@ main {
   overflow-y: auto;
 }
 
-header {
+.main-top-header {
   padding: 20px 30px;
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -356,6 +412,7 @@ li {
   z-index: 1000;
   align-items: center;
   justify-content: center;
+  padding: 15px;
 }
 
 .modal.open { 
@@ -368,10 +425,12 @@ li {
   width: 100%;
   max-width: 600px;
   border-radius: 10px;
-  padding: 30px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-content h2 {
@@ -438,4 +497,52 @@ li {
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: bold;
+}
+
+/* ==========================================
+   Mobile Responsiveness Media Queries
+   ========================================== */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    height: 100vh;
+    overflow: auto;
+  }
+
+  aside {
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  main {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .main-top-header {
+    padding: 15px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-box {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .btn-add-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .content-body {
+    padding: 15px;
+  }
+
+  .card-header {
+    padding: 14px 16px;
+  }
 }

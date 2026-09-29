@@ -235,38 +235,6 @@
     "notes": "If galangal is unavailable, ginger can be used as a replacement."
   },
   {
-    "id": "black_pudding_scotch_eggs",
-    "title": "Black pudding / chorizo scotch eggs",
-    "category": "Main Course",
-    "keywords": "scotch eggs, black pudding, chorizo, pork, eggs, deep fry",
-    "prepTime": "20 mins",
-    "cookTime": "20 mins",
-    "servings": "6 servings",
-    "image": "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=150&auto=format&fit=crop&q=80",
-    "ingredients": [
-      "400g homemade or good-quality shop-bought black pudding (for chorizo use 300g each)",
-      "200g fatty minced pork",
-      "50g fresh white breadcrumbs",
-      "1 tbsp chopped parsley",
-      "6 medium eggs, at room temperature",
-      "Sunflower oil, for deep-frying",
-      "Sea salt and freshly ground black pepper",
-      "100g plain flour (for coating)",
-      "1–2 medium eggs (for coating)",
-      "200g coarse fresh white breadcrumbs (for coating)"
-    ],
-    "instructions": [
-      "Preheat the oven to 180 degrees.",
-      "Put the black pudding, minced pork, breadcrumbs and parsley into a large bowl and mix until evenly combined, seasoning well with salt and pepper. Divide the mixture into 12 even-sized balls.",
-      "Bring a pan of water to the boil, add the 6 eggs and cook for 6 minutes, which should give you a soft-set yolk. Drain the eggs and run them under the cold tap until cool enough to handle. Carefully shell them.",
-      "For the coating, set out three bowls. Put the flour into one bowl and season it with salt and pepper. Break an egg into the next and beat it lightly. Tip the coarse breadcrumbs into the third bowl.",
-      "Take two of the black pudding balls and flatten them out to rough discs, about 6cm in diameter. Place one disc in the palm of your hand, set a boiled egg in the middle, then top with the second disc. Mould the black pudding around the egg, sealing the joins well. Repeat with the remaining black pudding and eggs.",
-      "Coat each Scotch egg with seasoned flour. Next, dip it in the beaten egg (lightly beat in another egg if you need to) and finally roll it in the breadcrumbs. Chill the eggs until you’re ready to cook them.",
-      "Heat a 5–7cm depth of oil in a deep pan to 175°C, or until hot enough to turn a few breadcrumbs golden in 30–40 seconds. Cook 2 or 3 eggs at a time. Lower them into the oil and fry for 2 minutes, turning regularly until golden and crisp. Transfer to the oven and cook for 10 minutes. Drain on kitchen paper and leave to stand for 5–10 minutes before tucking in."
-    ],
-    "notes": "For chorizo variation, use 300g chorizo and 300g minced pork."
-  },
-  {
     "id": "the_perfect_burger",
     "title": "The Perfect Burger",
     "category": "Main Course",
@@ -2423,6 +2391,7 @@
   },
   {
   "title": "Thai red chicken curry",
+  "category": "Main Course",
   "prep_time": "15 minutes",
   "cook_time": "25-30 minutes",
   "servings": null,
@@ -2484,6 +2453,7 @@
 },
   {
     "title": "Beer Gravy",
+    "category": "Sides",
     "source_url": "https://brooklynbrewshop.com/blogs/themash/recipe-beer-gravy",
     "prep_time": null,
     "cook_time": null,
@@ -2512,6 +2482,7 @@
   },
   {
     "title": "Pork chops baked in chorizo and black olive tomato sauce",
+    "category": "Main Course",
     "source_url": "http://www.deliciousmagazine.co.uk/recipes/pork-chops-baked-in-chorizo-and-black-olive-tomato-sauce/",
     "prep_time": "15 minutes",
     "cook_time": "40 minutes",
