@@ -16,7 +16,7 @@
         <h2>Badger Recipe Collection</h2>
         <span class="sidebar-count" id="sidebarCount">Loading recipes...</span>
         <div class="search-action-bar">
-          <input type="text" id="search-bar" placeholder="Search recipes..." aria-label="Search recipes">
+          <input type="text" id="searchInput" placeholder="Search recipes..." aria-label="Search recipes" oninput="filterRecipes()">
           <button id="add-recipe-btn" aria-label="Add recipe" onclick="openModal()">+</button>
         </div>
       </div>
@@ -26,11 +26,6 @@
 
   <!-- Main Content Workspace -->
   <main>
-    <header class="main-top-header">
-      <input type="text" id="searchInput" class="search-box" placeholder="Search title, ingredients, tags..." onkeyup="filterRecipes()">
-      <button class="btn-add-primary" onclick="openModal()">+ Add Recipe</button>
-    </header>
-
     <div class="content-body">
       <div class="recipe-list" id="recipeContainer"></div>
     </div>
