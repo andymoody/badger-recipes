@@ -5,10 +5,21 @@ function sortRecipesAlphabetically(recipes) {
   return recipes.sort((a, b) => a.title.localeCompare(b.title));
 }
 
+// Data Normalizer: Defaults missing 'type' properties to 'recipe'
+function normalizeRecipeData(recipes) {
+  return recipes.map(r => ({
+    ...r,
+    type: r.type || 'recipe'
+  }));
+}
+
 async function loadRecipes() {
   try {
     const response = await fetch('./recipes.json');
-    masterRecipes = await response.json();
+    const rawData = await response.json();
+    
+    // Normalize data to ensure 'type' is set for all items
+    masterRecipes = normalizeRecipeData(rawData);
     
     // Sort overall list alphabetically
     masterRecipes = sortRecipesAlphabetically(masterRecipes);
@@ -75,24 +86,68 @@ function renderCards(recipes) {
   const sortedRecipes = sortRecipesAlphabetically([...recipes]);
 
   sortedRecipes.forEach(r => {
+    const itemType = r.type || 'recipe';
     const card = document.createElement('article');
-    card.className = 'recipe-card';
+    card.className = `recipe-card type-${itemType}`;
     card.id = `card-${r.id}`;
-    card.setAttribute('data-keywords', `${r.title} ${r.category} ${r.keywords} ${r.ingredients.join(' ')}`);
 
-    let ingrHtml = r.ingredients.map(i => `<li>${i}</li>`).join('');
-    let instHtml = r.instructions.map(i => `<li>${i}</li>`).join('');
+    // Build temperature chart table for reference guides
+    let tempChartHtml = '';
+    if (itemType === 'reference_guide' && Array.isArray(r.temperatureChart) && r.temperatureChart.length > 0) {
+      const rowsHtml = r.temperatureChart.map(row => `
+        <tr>
+          <td><strong>${row.doneness || ''}</strong></td>
+          <td>${row.tempRange || ''}</td>
+          <td>${row.timeRange || ''}</td>
+          <td>${row.description || ''}</td>
+        </tr>
+      `).join('');
+
+      tempChartHtml = `
+        <div class="temperature-chart-container">
+          <h3>Temperature & Timing Guide</h3>
+          <table class="temp-table">
+            <thead>
+              <tr>
+                <th>Doneness</th>
+                <th>Temperature</th>
+                <th>Time Range</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    const ingrList = Array.isArray(r.ingredients) ? r.ingredients : [];
+    const instList = Array.isArray(r.instructions) ? r.instructions : [];
+
+    card.setAttribute(
+      'data-keywords',
+      `${r.title} ${r.category} ${r.keywords || ''} ${ingrList.join(' ')}`
+    );
+
+    let ingrHtml = ingrList.map(i => `<li>${i}</li>`).join('');
+    let instHtml = instList.map(i => `<li>${i}</li>`).join('');
     let metaHtml = (r.prepTime || r.cookTime || r.servings) ? 
       `⏱️ Prep: ${r.prepTime || 'N/A'} | Cook: ${r.cookTime || 'N/A'} | 🍽️ ${r.servings || ''}` : '';
     let notesHtml = r.notes ? `<div class="notes-box"><strong>Notes:</strong><br>${r.notes}</div>` : '';
     let thumbImg = r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-thumb">` : '';
+
+    // Adjust section titles dynamically based on type
+    const ingrHeading = itemType === 'reference_guide' ? 'Ingredients & Equipment' : 'Ingredients';
+    const instHeading = itemType === 'reference_guide' ? 'Searing & Cooking Steps' : 'Instructions';
 
     card.innerHTML = `
       <div class="card-header" onclick="toggleCard('${r.id}')">
         <div class="header-left">
           ${thumbImg}
           <div class="title-group">
-            <span class="tag-badge">${r.category}</span>
+            <span class="tag-badge tag-${itemType}">${r.category}</span>
             <h2 class="recipe-title">${r.title}</h2>
             <div class="card-meta">${metaHtml}</div>
           </div>
@@ -100,9 +155,10 @@ function renderCards(recipes) {
         <span class="expand-icon">▼</span>
       </div>
       <div class="card-body">
-        <h3>Ingredients</h3>
+        ${tempChartHtml}
+        <h3>${ingrHeading}</h3>
         <ul>${ingrHtml}</ul>
-        <h3>Instructions</h3>
+        <h3>${instHeading}</h3>
         <ol>${instHtml}</ol>
         ${notesHtml}
       </div>
@@ -157,6 +213,7 @@ function addNewRecipe() {
 
   const newRecipe = {
     id: 'custom_' + Date.now(),
+    type: 'recipe',
     title, category, keywords, ingredients, instructions, notes: '', needsReview: false,
     image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=150&auto=format&fit=crop&q=80'
   };
