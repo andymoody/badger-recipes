@@ -90,7 +90,6 @@ function renderCards(recipes) {
     card.className = `recipe-card type-${itemType}`;
     card.id = `card-${r.id}`;
 
-    // Optional reference guide blocks...
     let tempChartHtml = '';
     if (itemType === 'reference_guide' && Array.isArray(r.temperatureChart) && r.temperatureChart.length > 0) {
       const rowsHtml = r.temperatureChart.map(row => `
@@ -115,17 +114,17 @@ function renderCards(recipes) {
     const baseIngrList = Array.isArray(r.baseIngredients) ? r.baseIngredients : (Array.isArray(r.ingredients) ? r.ingredients.map(i => ({ name: i, amount: '' })) : []);
     const baseInstList = Array.isArray(r.baseInstructions) ? r.baseInstructions : (Array.isArray(r.instructions) ? r.instructions : []);
 
+    // Restricted to title, category, and explicit keywords to eliminate false positives
     card.setAttribute(
-     'data-keywords',
-     `${r.title} ${r.category || ''} ${r.keywords || ''}`
+      'data-keywords',
+      `${r.title} ${r.category \vert{}\vert{} ''}${r.keywords || ''}`
     );
 
     let metaHtml = (r.prepTime || r.cookTime || r.servings || r.bakeTimeMinutes) ? 
-      `⏱️ Prep: ${r.prepTime || (r.prepTimeMinutes ? r.prepTimeMinutes + 'm' : 'N/A')} | Bake: ${r.bakeTimeMinutes ? r.bakeTimeMinutes + 'm' : (r.cookTime || 'N/A')}` : '';
+      `⏱️ Prep: ${r.prepTime \vert{}\vert{} (r.prepTimeMinutes ? r.prepTimeMinutes + 'm' : 'N/A')} \vert{} Bake: ${r.bakeTimeMinutes ? r.bakeTimeMinutes + 'm' : (r.cookTime || 'N/A')}` : '';
     let notesHtml = r.notes ? `<div class="notes-box"><strong>Notes:</strong><br>${r.notes}</div>` : '';
     let thumbImg = r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-thumb">` : '';
 
-    // Build Variants UI section if variants exist
     let variantsHtml = '';
     if (Array.isArray(r.variants) && r.variants.length > 0) {
       const optionsHtml = r.variants.map((v, idx) => `
@@ -163,8 +162,7 @@ function renderCards(recipes) {
         <span class="expand-icon">▼</span>
       </div>
       <div class="card-body">
-        ${tempChartHtml}
-        ${variantsHtml}
+        ${tempChartHtml}${variantsHtml}
         <h3>Ingredients</h3>
         <ul id="ingredients-list-${r.id}">
           ${baseIngrList.map(i => `<li>${i.amount ? `<strong>${i.amount}</strong> — ` : ''}${i.name}</li>`).join('')}
@@ -180,7 +178,6 @@ function renderCards(recipes) {
   });
 }
 
-// Dynamic state update when variant checkboxes change
 function updateRecipeView(recipeId) {
   const recipe = masterRecipes.find(r => r.recipeId === recipeId || r.id === recipeId);
   if (!recipe) return;
@@ -196,7 +193,6 @@ function updateRecipeView(recipeId) {
     }
   });
 
-  // Rebuild ingredients dynamically
   let currentIngredients = [...(recipe.baseIngredients || [])];
   let currentInstructions = [...(recipe.baseInstructions || [])];
   let modNotes = [];
@@ -204,10 +200,9 @@ function updateRecipeView(recipeId) {
   selectedVariants.forEach(v => {
     if (v.ingredientSubstitutions) {
       v.ingredientSubstitutions.forEach(sub => {
-        // Handle replacement or adjustments if configured
         currentIngredients = currentIngredients.map(ing => {
           if (ing.name.toLowerCase().includes(sub.target.toLowerCase())) {
-            return { name: `${sub.replacementName} (replacing ${sub.target})`, amount: sub.replacementAmount || ing.amount };
+            return { name: `${sub.replacementName} (replacing${sub.target})`, amount: sub.replacementAmount || ing.amount };
           }
           return ing;
         });
@@ -219,14 +214,13 @@ function updateRecipeView(recipeId) {
       });
     }
     if (v.ingredientModifications) {
-      modNotes.push(`<strong>${v.variantName} Note:</strong> ${v.ingredientModifications}`);
+      modNotes.push(`<strong>${v.variantName} Note:</strong>${v.ingredientModifications}`);
     }
     if (v.instructionModifications) {
-      currentInstructions.push(`(${v.variantName}) ${v.instructionModifications}`);
+      currentInstructions.push(`(${v.variantName})${v.instructionModifications}`);
     }
   });
 
-  // Update DOM elements inside this specific card
   const ingrUl = document.getElementById(`ingredients-list-${recipeId}`);
   ingrUl.innerHTML = currentIngredients.map(i => `<li>${i.amount ? `<strong>${i.amount}</strong> — ` : ''}${i.name}</li>`).join('');
 
@@ -273,10 +267,11 @@ function closeModal() {
   document.getElementById('addModal').classList.remove('open');
 }
 
+// Generates a GitHub Issue link containing the JSON payload and opens it
 function addNewRecipe() {
-  const title = document.getElementById('addTitle').value;
+  const title = document.getElementById('addTitle').value.trim();
   const category = document.getElementById('addCategory').value;
-  const keywords = document.getElementById('addKeywords').value;
+  const keywords = document.getElementById('addKeywords').value.trim();
   const ingredients = document.getElementById('addIngredients').value.split('\n').filter(i => i.trim());
   const instructions = document.getElementById('addInstructions').value.split('\n').filter(i => i.trim());
 
@@ -285,20 +280,32 @@ function addNewRecipe() {
     return;
   }
 
-  const newRecipe = {
-    id: 'custom_' + Date.now(),
+  // Helper to generate slug ID
+  const recipeId = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+
+  const newRecipeObj = {
+    id: recipeId,
     type: 'recipe',
-    title, category, keywords, ingredients, instructions, notes: '', needsReview: false,
+    title: title,
+    category: category,
+    keywords: keywords,
+    ingredients: ingredients,
+    instructions: instructions,
+    notes: '',
     image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=150&auto=format&fit=crop&q=80'
   };
 
-  masterRecipes.push(newRecipe);
-  masterRecipes = sortRecipesAlphabetically(masterRecipes);
+  const issueTitle = encodeURIComponent(`[New Recipe]: ${title}`);
+  const issueBody = encodeURIComponent(
+    `Please add this new recipe to \`recipes.json\`:\n\n\`\`\`json\n${JSON.stringify(newRecipeObj, null, 2)}\n\`\`\``
+  );
 
-  renderSidebar();
-  renderCards(masterRecipes);
+  const githubIssueUrl = `https://github.com/andymoody/badger-recipes/issues/new?title=${issueTitle}&body=${issueBody}&labels=new-recipe`;
+
+  // Open the GitHub issue pre-filled in a new tab
+  window.open(githubIssueUrl, '_blank');
+
   closeModal();
-  scrollToAndOpenRecipe(newRecipe.id);
 }
 
 window.onload = loadRecipes;
