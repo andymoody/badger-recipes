@@ -168,7 +168,7 @@
   {
     "id": "beef_jerky",
     "title": "Homemade Beef Jerky",
-    "category": "Snack",
+    "category": "Snacks",
     "keywords": "beef, jerky, snack, high protein, chef john",
     "prepTime": "15 mins",
     "cookTime": "3 hours",
@@ -427,7 +427,7 @@
   },
   {
     "id": "chicken_and_chorizo_cassoulet",
-    "title": "CHICKEN AND CHORIZO CASSOULET",
+    "title": "Chicken and Chorizo Cassoulet",
     "category": "Main Course",
     "keywords": "chicken, chorizo, cassoulet, butter beans, cannellini, stew, spanish",
     "prepTime": "15 mins",
@@ -501,7 +501,7 @@
   },
   {
     "id": "chipotle_barbacoa_beef",
-    "title": "Chipotle Barbacoa Beef Burrito (Copycat)",
+    "title": "Chipotle Barbacoa Beef",
     "category": "Main Course",
     "keywords": "barbacoa, beef, chipotle, copycat, mexican, slow cook, burrito",
     "prepTime": "10 mins",
@@ -531,8 +531,7 @@
       "Pour spice mixture over the beef and spread evenly.",
       "Add chicken broth along the sides of the beef so you don't wash the topping off.",
       "Bake covered in the oven at 325 degrees for 3-4 hours until fork tender (or cook in a slow cooker on low for 7 hours)."
-    ],
-    "notes": "Copycat version of Chipotle Barbacoa Beef."
+    ]
   },
   {
     "id": "chocolate_brownies",
@@ -908,45 +907,6 @@
     "notes": "Famous classic London fish pie recipe."
   },
   {
-    "id": "kerala_egg_puffs",
-    "title": "KERALA EGG PUFFS",
-    "category": "Main Course",
-    "keywords": "egg puffs, kerala, puff pastry, hard boiled egg, curry leaves, masala, snack",
-    "prepTime": "20 mins",
-    "cookTime": "20-25 mins",
-    "servings": "8 puffs",
-    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=150&auto=format&fit=crop&q=80",
-    "ingredients": [
-      "8 squares Puff pastry (4 inch square)",
-      "4 Hard boiled eggs, cut into half",
-      "2-3 Onion (medium - big), finely sliced",
-      "1.5-2 tsp Crushed ginger",
-      "1.5-2 tsp Crushed garlic",
-      "1/4 tsp Turmeric powder",
-      "1.5 tsp Chilli powder",
-      "1/2-1 tsp Coriander powder",
-      "1/2 tsp Pepper powder",
-      "1/2 tsp Garam masala / meat masala",
-      "1 tbsp Tomato ketchup",
-      "Curry leaves",
-      "1 Egg (for egg wash)",
-      "Coconut oil",
-      "Salt"
-    ],
-    "instructions": [
-      "Preheat oven to 200°C for 10 minutes before baking and line a baking sheet with foil or parchment paper.",
-      "Heat coconut oil in a wide pan and cook sliced onions until golden brown.",
-      "Add crushed ginger and garlic and cook for 2-3 minutes.",
-      "Add turmeric, chilli powder, coriander powder, pepper powder, garam masala, and salt. Cook until oil appears (2-3 mins).",
-      "Add 1-2 tbsp hot water, tomato ketchup, and curry leaves. Mix well and remove from heat.",
-      "Thaw puff pastry squares. Beat 1 egg with 1-2 tsp water for egg wash and apply along four sides of each pastry square.",
-      "Place 1 tbsp masala on each pastry square, followed by half a hard-boiled egg and a bit more masala on top.",
-      "Bring diagonally opposite corners together and seal securely. Apply egg wash over sealed puffs.",
-      "Bake in preheated oven for 20-25 minutes until golden brown. Serve with tomato ketchup."
-    ],
-    "notes": "Masala can be prepared 1-2 days in advance and refrigerated. Can substitute 1 sliced tomato + 1/2-1 tsp vinegar for ketchup."
-  },
-  {
     "id": "jerk_chicken_with_rice_and_peas",
     "title": "Jerk chicken with rice & peas",
     "category": "Main Course",
@@ -991,7 +951,7 @@
   },
   {
     "id": "raan_leg_of_lamb",
-    "title": "RAAN (Leg of Lamb Marinated in Spiced Yogurt and Roasted)",
+    "title": "Lamb Raan" 
     "category": "Main Course",
     "keywords": "raan, leg of lamb, indian, marinated, roasted, spices, yogurt, almonds, saffron",
     "prepTime": "1 hour (plus 48 hours chilling)",
@@ -1146,7 +1106,7 @@
   },
   {
     "id": "homemade_christmas_mincemeat",
-    "title": "HOME-MADE CHRISTMAS MINCEMEAT",
+    "title": "Mincemeat",
     "category": "Baking",
     "keywords": "mincemeat, christmas, apples, raisins, sultanas, brandy, spice, delia smith",
     "prepTime": "20 mins (plus 12 hrs standing)",
@@ -1268,7 +1228,7 @@
   },
   {
     "id": "authentic_spanish_paella",
-    "title": "AUTHENTIC SPANISH PAELLA",
+    "title": "Authentic Spanish Paella",
     "category": "Main Course",
     "keywords": "paella, spanish, bomba rice, rabbit, chorizo, shrimp, saffron, seafood",
     "prepTime": "40 mins",
@@ -1462,7 +1422,7 @@
   },
   {
     "id": "roasted_skate",
-    "title": "ROASTED SKATE",
+    "title": "Roasted Skate",
     "category": "Main Course",
     "keywords": "skate wings, roasted fish, cherry tomatoes, capers, lemon, dijon mustard, quick dinner",
     "prepTime": "5 mins",
@@ -2541,85 +2501,6 @@
     ]
   },
   {
-    "title": "Pork chops baked in chorizo and black olive tomato sauce",
-    "category": "Main Course",
-    "source_url": "http://www.deliciousmagazine.co.uk/recipes/pork-chops-baked-in-chorizo-and-black-olive-tomato-sauce/",
-    "prep_time": "15 minutes",
-    "cook_time": "40 minutes",
-    "servings": "4",
-    "difficulty": "easy",
-    "nutrition": {
-      "calories": "586 kcal",
-      "fat": "36.2g",
-      "saturated_fat": "12.8g",
-      "protein": "51.4g",
-      "carbs": "11.1g",
-      "sugars": "8.8g",
-      "fibre": "3.3g",
-      "salt": "2.9g"
-    },
-    "ingredients": {
-      "main": [
-        "1 tbsp olive oil",
-        "4 pork loin chops",
-        "100g cooking chorizo, skin removed and diced",
-        "1 onion, finely sliced",
-        "2 garlic cloves, crushed",
-        "1 tsp smoked paprika",
-        "400g can chopped tomatoes",
-        "100ml chicken stock",
-        "75g pitted black olives (preferably Kalamata), halved",
-        "Handful of fresh flat-leaf parsley, chopped",
-        "Crusty bread or mashed potatoes, to serve"
-      ]
-    },
-    "instructions": [
-      "Heat the oven to 180°C/160°C fan/gas 4.",
-      "Heat the olive oil in a large, ovenproof skillet or casserole dish over high heat.",
-      "Season the pork chops and sear for 2 minutes on each side until browned, then remove and set aside on a plate.",
-      "Turn down the heat to medium, add the diced chorizo and onion to the pan, and fry for 5 minutes until the onion is soft and the chorizo has released its oil.",
-      "Stir in the garlic and smoked paprika, frying for another minute until fragrant.",
-      "Pour in the canned tomatoes and chicken stock, then bring to a simmer.",
-      "Return the pork chops (and any resting juices) to the pan, along with the black olives, nestling them into the sauce.",
-      "Transfer to the oven and bake uncovered for 20-25 minutes until the pork is cooked through and tender.",
-      "Scatter over the fresh chopped parsley and serve hot with crusty bread or mashed potatoes."
-    ]
-  },
-  {
-    "id": "paprika_pork",
-    "title": "Paprika Pork",
-    "category": "Main Course",
-    "keywords": "paprika, pork, bbc good food, stew, easy dinner, quick meal",
-    "prepTime": "10 mins",
-    "cookTime": "20 mins",
-    "servings": "4",
-    "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-1088656_11-dc1604a.jpg",
-    "ingredients": [
-      "1 tbsp sunflower oil",
-      "1 large onion, chopped",
-      "1 tbsp smoked paprika",
-      "500g pork tenderloin, cut into bite-sized pieces",
-      "1 red pepper, deseeded and sliced",
-      "1 yellow pepper, deseeded and sliced",
-      "225g button mushrooms, halved",
-      "300ml hot chicken stock",
-      "100ml reduced-fat sour cream",
-      "Handful chopped fresh parsley",
-      "Rice or crusty bread, to serve"
-    ],
-    "instructions": [
-      "Heat the oil in a large skillet or casserole dish over medium-high heat.",
-      "Add the onion and fry for 3–4 minutes until soft.",
-      "Stir in the smoked paprika and cook for 1 minute until fragrant.",
-      "Add the pork tenderloin pieces and cook for 3–5 minutes until browned all over.",
-      "Add the sliced red and yellow peppers along with the button mushrooms.",
-      "Pour in the chicken stock and bring to a simmer. Cover and cook over medium heat for 10–12 minutes until the pork is cooked through and tender.",
-      "Remove from the heat and stir through the reduced-fat sour cream and fresh parsley.",
-      "Serve warm over rice or with crusty bread."
-    ],
-    "notes": "Ensure the heat is low or turned off before stirring in sour cream to prevent curdling."
-  },
-  {
     "id": "sams_toad_in_the_hole",
     "title": "Sam's Toad in the Hole",
     "category": "Main Course",
@@ -2800,40 +2681,6 @@
       "Bake for 20-25 minutes until puff pastry is puffed and golden brown."
     ],
     "notes": "Press edges down firmly to ensure the pastry doesn't unfold during baking."
-  },
-  {
-    "id": "chipotle_barbacoa_beef_burrito",
-    "title": "Copycat Chipotle Barbacoa Beef",
-    "category": "Main Course",
-    "keywords": "barbacoa, chipotle copycat, shredded beef, Mexican, tacos, burritos, slow cooker",
-    "prepTime": "15 mins",
-    "cookTime": "8 hours (Low)",
-    "servings": "8",
-    "image": "https://dinnerthendessert.com/wp-content/uploads/2017/04/Chipotle-Barbacoa-Beef-4.jpg",
-    "ingredients": [
-      "1.5kg (3 lbs) beef chuck roast, cut into large chunks",
-      "3-4 chipotle peppers in adobo sauce, plus 2 tbsp adobo sauce",
-      "4 cloves garlic, minced",
-      "1 cup beef broth",
-      "¼ cup lime juice",
-      "2 tbsp apple cider vinegar",
-      "1 tbsp dried oregano",
-      "2 tsp ground cumin",
-      "1 tsp ground cloves",
-      "3 bay leaves",
-      "1 tbsp salt",
-      "1 tsp black pepper",
-      "2 tbsp vegetable oil"
-    ],
-    "instructions": [
-      "In a blender, combine chipotle peppers, adobo sauce, garlic, beef broth, lime juice, apple cider vinegar, oregano, cumin, ground cloves, salt, and pepper. Blend until smooth.",
-      "Heat vegetable oil in a large skillet over high heat. Sear beef chunks on all sides until deeply browned.",
-      "Transfer seared beef to slow cooker.",
-      "Pour blended adobo sauce over beef and add bay leaves.",
-      "Cover and cook on LOW for 8-9 hours (or HIGH for 4-5 hours) until meat easily shreds with two forks.",
-      "Remove bay leaves. Shred beef inside slow cooker and let it absorb juices for 10 minutes before serving in burritos or tacos."
-    ],
-    "notes": "Can also be cooked in an Instant Pot on High Pressure for 60 minutes with a 15-minute natural release."
   },
   {
     "id": "thai_red_curry_with_chicken",
