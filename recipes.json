@@ -2400,6 +2400,10 @@
         "description": "Grayish-brown throughout, dry and firm."
       }
     ],
+    "ratioFormula": null,
+    "timingRules": null,
+    "equipmentRequired": [],
+    "optionalAromatics": [],
     "ingredients": [
       "1.5-inch to 2-inch thick steaks (Ribeye, New York Strip, Porterhouse, or Tenderloin)",
       "Kosher salt and freshly ground black pepper",
@@ -3674,5 +3678,52 @@
       "Garnish with fresh parsley and serve with additional lemon slices."
     ],
     "notes": "Use fresh cod fillets of uniform thickness to ensure even baking time."
-  }
+  },
+  {
+  "id": "kitchn_turkey_wet_brine_guide",
+  "type": "reference_guide",
+  "title": "How to Wet Brine a Turkey",
+  "category": "Technique & Preparation",
+  "keywords": "turkey, wet brine, Thanksgiving, ratio, poultry, salt water",
+  "prepTime": "20 mins",
+  "cookTime": "15 mins (stovetop brine preparation)",
+  "servings": "12-16 servings",
+  "image": "https://images.unsplash.com/photo-1574672280636-47209bed44c5?w=150&auto=format&fit=crop&q=80",
+  "temperatureChart": [],
+  "ratioFormula": {
+    "baseLiquid": "1 gallon water",
+    "salt": "1 cup kosher salt (or ½ cup table salt)",
+    "sugar": "½ cup light brown sugar",
+    "coolingLiquid": "1 gallon ice water"
+  },
+  "timingRules": {
+    "minDuration": "12 hours",
+    "maxDuration": "24 hours",
+    "postBrineRest": "30–60 minutes at room temperature before roasting"
+  },
+  "equipmentRequired": [
+    "Large stockpot",
+    "Food-safe bucket, brining bag, or large pot",
+    "Refrigerator space"
+  ],
+  "ingredients": [
+    "1 (12 to 16 lb) whole turkey, thawed",
+    "1 cup kosher salt (or ½ cup table salt)",
+    "½ cup light brown sugar",
+    "1 gallon water",
+    "1 gallon ice water",
+    "Optional aromatics: 1 tbsp black peppercorns, 3-4 crushed garlic cloves, 3-4 sprigs fresh rosemary/thyme, 2 bay leaves, sliced citrus fruits"
+  ],
+  "instructions": [
+    "In a large stockpot, combine 1 cup kosher salt, brown sugar, optional aromatics, and 1 gallon of water.",
+    "Bring the water to a simmer over medium-high heat, stirring until the salt and sugar completely dissolve.",
+    "Remove from heat and allow the brine to cool to room temperature, then stir in the 1 gallon of ice water to chill completely.",
+    "Remove the giblets and neck from the turkey cavity.",
+    "Place the turkey breast-side down into a large pot, food-safe bucket, or brining bag, and pour the cooled brine over the turkey until fully submerged.",
+    "Refrigerate and brine for 12 to 24 hours (do not exceed 24 hours).",
+    "Remove the turkey from the brine, rinse thoroughly with cold water, and pat dry with paper towels inside and out.",
+    "Allow the turkey to sit at room temperature for 30 to 60 minutes before roasting as desired."
+  ],
+  "notes": "Food Safety Note: Never leave poultry in wet brine past 24 hours to prevent texturing issues, and ensure liquid temperature stays under 40°F (4°C) throughout."
+}
 ]
