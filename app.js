@@ -82,7 +82,6 @@ function renderCards(recipes) {
   const container = document.getElementById('recipeContainer');
   container.innerHTML = '';
 
-  // Ensure main card view stays strictly alphabetical A-Z
   const sortedRecipes = sortRecipesAlphabetically([...recipes]);
 
   sortedRecipes.forEach(r => {
@@ -91,7 +90,7 @@ function renderCards(recipes) {
     card.className = `recipe-card type-${itemType}`;
     card.id = `card-${r.id}`;
 
-    // Build temperature chart table for reference guides
+    // Optional reference guide blocks...
     let tempChartHtml = '';
     if (itemType === 'reference_guide' && Array.isArray(r.temperatureChart) && r.temperatureChart.length > 0) {
       const rowsHtml = r.temperatureChart.map(row => `
@@ -102,95 +101,61 @@ function renderCards(recipes) {
           <td>${row.description || ''}</td>
         </tr>
       `).join('');
-
       tempChartHtml = `
         <div class="temperature-chart-container">
           <h3>Temperature & Timing Guide</h3>
           <table class="temp-table">
-            <thead>
-              <tr>
-                <th>Doneness</th>
-                <th>Temperature</th>
-                <th>Time Range</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rowsHtml}
-            </tbody>
+            <thead><tr><th>Doneness</th><th>Temperature</th><th>Time Range</th><th>Description</th></tr></thead>
+            <tbody>${rowsHtml}</tbody>
           </table>
         </div>
       `;
     }
 
-    // Build ratio & formula block for technique guides
-    let ratioFormulaHtml = '';
-    if (itemType === 'reference_guide' && r.ratioFormula && typeof r.ratioFormula === 'object' && Object.keys(r.ratioFormula).length > 0) {
-      const ratioItems = Object.entries(r.ratioFormula).map(([key, val]) => `
-        <li><strong>${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:</strong> ${val}</li>
-      `).join('');
-
-      ratioFormulaHtml = `
-        <div class="reference-meta-section">
-          <h3>Ratio & Formula</h3>
-          <ul class="ratio-list">${ratioItems}</ul>
-        </div>
-      `;
-    }
-
-    // Build timing rules block for technique guides
-    let timingRulesHtml = '';
-    if (itemType === 'reference_guide' && r.timingRules && typeof r.timingRules === 'object' && Object.keys(r.timingRules).length > 0) {
-      const timingItems = Object.entries(r.timingRules).map(([key, val]) => `
-        <li><strong>${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:</strong> ${val}</li>
-      `).join('');
-
-      timingRulesHtml = `
-        <div class="reference-meta-section">
-          <h3>Timing Rules</h3>
-          <ul class="timing-list">${timingItems}</ul>
-        </div>
-      `;
-    }
-
-    // Build equipment required block for technique guides
-    let equipmentHtml = '';
-    if (itemType === 'reference_guide' && Array.isArray(r.equipmentRequired) && r.equipmentRequired.length > 0) {
-      const eqItems = r.equipmentRequired.map(eq => `<li>${eq}</li>`).join('');
-
-      equipmentHtml = `
-        <div class="reference-meta-section">
-          <h3>Equipment Required</h3>
-          <ul>${eqItems}</ul>
-        </div>
-      `;
-    }
-
-    const ingrList = Array.isArray(r.ingredients) ? r.ingredients : [];
-    const instList = Array.isArray(r.instructions) ? r.instructions : [];
+    const baseIngrList = Array.isArray(r.baseIngredients) ? r.baseIngredients : (Array.isArray(r.ingredients) ? r.ingredients.map(i => ({ name: i, amount: '' })) : []);
+    const baseInstList = Array.isArray(r.baseInstructions) ? r.baseInstructions : (Array.isArray(r.instructions) ? r.instructions : []);
 
     card.setAttribute(
       'data-keywords',
-      `${r.title} ${r.category} ${r.keywords || ''} ${ingrList.join(' ')}`
+      `${r.title} ${r.category} ${r.keywords || ''} ${baseIngrList.map(i => i.name).join(' ')}`
     );
 
-    let ingrHtml = ingrList.map(i => `<li>${i}</li>`).join('');
-    let instHtml = instList.map(i => `<li>${i}</li>`).join('');
-    let metaHtml = (r.prepTime || r.cookTime || r.servings) ? 
-      `⏱️ Prep: ${r.prepTime || 'N/A'} | Cook: ${r.cookTime || 'N/A'} | 🍽️ ${r.servings || ''}` : '';
+    let metaHtml = (r.prepTime || r.cookTime || r.servings || r.bakeTimeMinutes) ? 
+      `⏱️ Prep: ${r.prepTime || (r.prepTimeMinutes ? r.prepTimeMinutes + 'm' : 'N/A')} | Bake: ${r.bakeTimeMinutes ? r.bakeTimeMinutes + 'm' : (r.cookTime || 'N/A')}` : '';
     let notesHtml = r.notes ? `<div class="notes-box"><strong>Notes:</strong><br>${r.notes}</div>` : '';
     let thumbImg = r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-thumb">` : '';
 
-    // Adjust section titles dynamically based on type
-    const ingrHeading = itemType === 'reference_guide' ? 'Ingredients & Components' : 'Ingredients';
-    const instHeading = itemType === 'reference_guide' ? 'Step-by-Step Instructions' : 'Instructions';
+    // Build Variants UI section if variants exist
+    let variantsHtml = '';
+    if (Array.isArray(r.variants) && r.variants.length > 0) {
+      const optionsHtml = r.variants.map((v, idx) => `
+        <label class="variant-chip">
+          <input type="checkbox" class="variant-checkbox" data-recipe-id="${r.id}" data-variant-index="${idx}" onchange="updateRecipeView('${r.id}')">
+          <span>${v.variantName}</span>
+        </label>
+      `).join('');
+
+      variantsHtml = `
+        <div class="variants-container" id="variants-container-${r.id}">
+          <h3>Flavor Variants & Add-ins</h3>
+          <div class="variants-chips-group">
+            <label class="variant-chip base-chip">
+              <input type="checkbox" checked disabled>
+              <span>Base Recipe</span>
+            </label>
+            ${optionsHtml}
+          </div>
+          <div class="variant-modifications-notes" id="variant-notes-${r.id}"></div>
+        </div>
+      `;
+    }
 
     card.innerHTML = `
       <div class="card-header" onclick="toggleCard('${r.id}')">
         <div class="header-left">
           ${thumbImg}
           <div class="title-group">
-            <span class="tag-badge tag-${itemType}">${r.category}</span>
+            <span class="tag-badge tag-${itemType}">${r.category || 'Breads'}</span>
             <h2 class="recipe-title">${r.title}</h2>
             <div class="card-meta">${metaHtml}</div>
           </div>
@@ -199,18 +164,80 @@ function renderCards(recipes) {
       </div>
       <div class="card-body">
         ${tempChartHtml}
-        ${ratioFormulaHtml}
-        ${timingRulesHtml}
-        ${equipmentHtml}
-        <h3>${ingrHeading}</h3>
-        <ul>${ingrHtml}</ul>
-        <h3>${instHeading}</h3>
-        <ol>${instHtml}</ol>
+        ${variantsHtml}
+        <h3>Ingredients</h3>
+        <ul id="ingredients-list-${r.id}">
+          ${baseIngrList.map(i => `<li>${i.amount ? `<strong>${i.amount}</strong> — ` : ''}${i.name}</li>`).join('')}
+        </ul>
+        <h3>Instructions</h3>
+        <ol id="instructions-list-${r.id}">
+          ${baseInstList.map(i => `<li>${i}</li>`).join('')}
+        </ol>
         ${notesHtml}
       </div>
     `;
     container.appendChild(card);
   });
+}
+
+// Dynamic state update when variant checkboxes change
+function updateRecipeView(recipeId) {
+  const recipe = masterRecipes.find(r => r.recipeId === recipeId || r.id === recipeId);
+  if (!recipe) return;
+
+  const container = document.getElementById(`card-${recipeId}`);
+  const checkboxes = container.querySelectorAll(`.variant-checkbox[data-recipe-id="${recipeId}"]`);
+  
+  const selectedVariants = [];
+  checkboxes.forEach(cb => {
+    if (cb.checked) {
+      const idx = parseInt(cb.getAttribute('data-variant-index'));
+      selectedVariants.push(recipe.variants[idx]);
+    }
+  });
+
+  // Rebuild ingredients dynamically
+  let currentIngredients = [...(recipe.baseIngredients || [])];
+  let currentInstructions = [...(recipe.baseInstructions || [])];
+  let modNotes = [];
+
+  selectedVariants.forEach(v => {
+    if (v.ingredientSubstitutions) {
+      v.ingredientSubstitutions.forEach(sub => {
+        // Handle replacement or adjustments if configured
+        currentIngredients = currentIngredients.map(ing => {
+          if (ing.name.toLowerCase().includes(sub.target.toLowerCase())) {
+            return { name: `${sub.replacementName} (replacing ${sub.target})`, amount: sub.replacementAmount || ing.amount };
+          }
+          return ing;
+        });
+      });
+    }
+    if (v.additionalIngredients) {
+      v.additionalIngredients.forEach(add => {
+        currentIngredients.push({ name: add.name, amount: add.amount });
+      });
+    }
+    if (v.ingredientModifications) {
+      modNotes.push(`<strong>${v.variantName} Note:</strong> ${v.ingredientModifications}`);
+    }
+    if (v.instructionModifications) {
+      currentInstructions.push(`(${v.variantName}) ${v.instructionModifications}`);
+    }
+  });
+
+  // Update DOM elements inside this specific card
+  const ingrUl = document.getElementById(`ingredients-list-${recipeId}`);
+  ingrUl.innerHTML = currentIngredients.map(i => `<li>${i.amount ? `<strong>${i.amount}</strong> — ` : ''}${i.name}</li>`).join('');
+
+  const instOl = document.getElementById(`instructions-list-${recipeId}`);
+  instOl.innerHTML = currentInstructions.map(i => `<li>${i}</li>`).join('');
+
+  const notesDiv = document.getElementById(`variant-notes-${recipeId}`);
+  if (notesDiv) {
+    notesDiv.innerHTML = modNotes.join('<br>');
+    notesDiv.style.display = modNotes.length > 0 ? 'block' : 'none';
+  }
 }
 
 function toggleCard(id) {

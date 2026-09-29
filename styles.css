@@ -546,3 +546,65 @@ li {
     padding: 14px 16px;
   }
 }
+
+/* Variants Interactive Container Styling */
+.variants-container {
+  margin: 1rem 0 1.5rem 0;
+  background: #161616;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.variants-container h3 {
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+  border-bottom: none !important;
+  font-size: 0.95rem !important;
+}
+
+.variants-chips-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.variant-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #242424;
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+  color: var(--text);
+}
+
+.variant-chip:hover {
+  border-color: var(--canton-teal);
+  background: rgba(44, 107, 116, 0.1);
+}
+
+.variant-chip input[type="checkbox"] {
+  accent-color: var(--canton-teal);
+  cursor: pointer;
+}
+
+.variant-chip.base-chip {
+  background: rgba(44, 107, 116, 0.2);
+  border-color: var(--canton-teal);
+  color: var(--canton-light);
+}
+
+.variant-modifications-notes {
+  margin-top: 10px;
+  padding: 10px;
+  background: #1f1f1f;
+  border-left: 3px solid var(--canton-bright);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
