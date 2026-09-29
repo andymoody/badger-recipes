@@ -168,7 +168,7 @@
   {
     "id": "beef_jerky",
     "title": "Homemade Beef Jerky",
-    "category": "Snack",
+    "category": "Snacks",
     "keywords": "beef, jerky, snack, high protein, chef john",
     "prepTime": "15 mins",
     "cookTime": "3 hours",
@@ -427,7 +427,7 @@
   },
   {
     "id": "chicken_and_chorizo_cassoulet",
-    "title": "CHICKEN AND CHORIZO CASSOULET",
+    "title": "Chicken and Chorizo Cassoulet",
     "category": "Main Course",
     "keywords": "chicken, chorizo, cassoulet, butter beans, cannellini, stew, spanish",
     "prepTime": "15 mins",
@@ -501,7 +501,7 @@
   },
   {
     "id": "chipotle_barbacoa_beef",
-    "title": "Chipotle Barbacoa Beef Burrito (Copycat)",
+    "title": "Chipotle Barbacoa Beef",
     "category": "Main Course",
     "keywords": "barbacoa, beef, chipotle, copycat, mexican, slow cook, burrito",
     "prepTime": "10 mins",
@@ -531,8 +531,7 @@
       "Pour spice mixture over the beef and spread evenly.",
       "Add chicken broth along the sides of the beef so you don't wash the topping off.",
       "Bake covered in the oven at 325 degrees for 3-4 hours until fork tender (or cook in a slow cooker on low for 7 hours)."
-    ],
-    "notes": "Copycat version of Chipotle Barbacoa Beef."
+    ]
   },
   {
     "id": "chocolate_brownies",
@@ -908,45 +907,6 @@
     "notes": "Famous classic London fish pie recipe."
   },
   {
-    "id": "kerala_egg_puffs",
-    "title": "KERALA EGG PUFFS",
-    "category": "Main Course",
-    "keywords": "egg puffs, kerala, puff pastry, hard boiled egg, curry leaves, masala, snack",
-    "prepTime": "20 mins",
-    "cookTime": "20-25 mins",
-    "servings": "8 puffs",
-    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=150&auto=format&fit=crop&q=80",
-    "ingredients": [
-      "8 squares Puff pastry (4 inch square)",
-      "4 Hard boiled eggs, cut into half",
-      "2-3 Onion (medium - big), finely sliced",
-      "1.5-2 tsp Crushed ginger",
-      "1.5-2 tsp Crushed garlic",
-      "1/4 tsp Turmeric powder",
-      "1.5 tsp Chilli powder",
-      "1/2-1 tsp Coriander powder",
-      "1/2 tsp Pepper powder",
-      "1/2 tsp Garam masala / meat masala",
-      "1 tbsp Tomato ketchup",
-      "Curry leaves",
-      "1 Egg (for egg wash)",
-      "Coconut oil",
-      "Salt"
-    ],
-    "instructions": [
-      "Preheat oven to 200°C for 10 minutes before baking and line a baking sheet with foil or parchment paper.",
-      "Heat coconut oil in a wide pan and cook sliced onions until golden brown.",
-      "Add crushed ginger and garlic and cook for 2-3 minutes.",
-      "Add turmeric, chilli powder, coriander powder, pepper powder, garam masala, and salt. Cook until oil appears (2-3 mins).",
-      "Add 1-2 tbsp hot water, tomato ketchup, and curry leaves. Mix well and remove from heat.",
-      "Thaw puff pastry squares. Beat 1 egg with 1-2 tsp water for egg wash and apply along four sides of each pastry square.",
-      "Place 1 tbsp masala on each pastry square, followed by half a hard-boiled egg and a bit more masala on top.",
-      "Bring diagonally opposite corners together and seal securely. Apply egg wash over sealed puffs.",
-      "Bake in preheated oven for 20-25 minutes until golden brown. Serve with tomato ketchup."
-    ],
-    "notes": "Masala can be prepared 1-2 days in advance and refrigerated. Can substitute 1 sliced tomato + 1/2-1 tsp vinegar for ketchup."
-  },
-  {
     "id": "jerk_chicken_with_rice_and_peas",
     "title": "Jerk chicken with rice & peas",
     "category": "Main Course",
@@ -991,7 +951,7 @@
   },
   {
     "id": "raan_leg_of_lamb",
-    "title": "RAAN (Leg of Lamb Marinated in Spiced Yogurt and Roasted)",
+    "title": "Lamb Raan" 
     "category": "Main Course",
     "keywords": "raan, leg of lamb, indian, marinated, roasted, spices, yogurt, almonds, saffron",
     "prepTime": "1 hour (plus 48 hours chilling)",
@@ -1146,8 +1106,8 @@
   },
   {
     "id": "homemade_christmas_mincemeat",
-    "title": "HOME-MADE CHRISTMAS MINCEMEAT",
-    "category": "Baking",
+    "title": "Mincemeat",
+    "category": "Christmas",
     "keywords": "mincemeat, christmas, apples, raisins, sultanas, brandy, spice, delia smith",
     "prepTime": "20 mins (plus 12 hrs standing)",
     "cookTime": "3 hours",
@@ -1268,7 +1228,7 @@
   },
   {
     "id": "authentic_spanish_paella",
-    "title": "AUTHENTIC SPANISH PAELLA",
+    "title": "Authentic Spanish Paella",
     "category": "Main Course",
     "keywords": "paella, spanish, bomba rice, rabbit, chorizo, shrimp, saffron, seafood",
     "prepTime": "40 mins",
@@ -1462,7 +1422,7 @@
   },
   {
     "id": "roasted_skate",
-    "title": "ROASTED SKATE",
+    "title": "Roasted Skate",
     "category": "Main Course",
     "keywords": "skate wings, roasted fish, cherry tomatoes, capers, lemon, dijon mustard, quick dinner",
     "prepTime": "5 mins",
@@ -1662,7 +1622,7 @@
   {
     "id": "sausage_sage_and_onion_stuffing",
     "title": "Sausage, sage & onion stuffing",
-    "category": "Sides",
+    "category": "Christmas",
     "keywords": "stuffing, cumberland sausages, sage, onion, bramley apple, granary breadcrumbs, christmas",
     "prepTime": "15 mins",
     "cookTime": "30-40 mins",
@@ -2541,85 +2501,6 @@
     ]
   },
   {
-    "title": "Pork chops baked in chorizo and black olive tomato sauce",
-    "category": "Main Course",
-    "source_url": "http://www.deliciousmagazine.co.uk/recipes/pork-chops-baked-in-chorizo-and-black-olive-tomato-sauce/",
-    "prep_time": "15 minutes",
-    "cook_time": "40 minutes",
-    "servings": "4",
-    "difficulty": "easy",
-    "nutrition": {
-      "calories": "586 kcal",
-      "fat": "36.2g",
-      "saturated_fat": "12.8g",
-      "protein": "51.4g",
-      "carbs": "11.1g",
-      "sugars": "8.8g",
-      "fibre": "3.3g",
-      "salt": "2.9g"
-    },
-    "ingredients": {
-      "main": [
-        "1 tbsp olive oil",
-        "4 pork loin chops",
-        "100g cooking chorizo, skin removed and diced",
-        "1 onion, finely sliced",
-        "2 garlic cloves, crushed",
-        "1 tsp smoked paprika",
-        "400g can chopped tomatoes",
-        "100ml chicken stock",
-        "75g pitted black olives (preferably Kalamata), halved",
-        "Handful of fresh flat-leaf parsley, chopped",
-        "Crusty bread or mashed potatoes, to serve"
-      ]
-    },
-    "instructions": [
-      "Heat the oven to 180°C/160°C fan/gas 4.",
-      "Heat the olive oil in a large, ovenproof skillet or casserole dish over high heat.",
-      "Season the pork chops and sear for 2 minutes on each side until browned, then remove and set aside on a plate.",
-      "Turn down the heat to medium, add the diced chorizo and onion to the pan, and fry for 5 minutes until the onion is soft and the chorizo has released its oil.",
-      "Stir in the garlic and smoked paprika, frying for another minute until fragrant.",
-      "Pour in the canned tomatoes and chicken stock, then bring to a simmer.",
-      "Return the pork chops (and any resting juices) to the pan, along with the black olives, nestling them into the sauce.",
-      "Transfer to the oven and bake uncovered for 20-25 minutes until the pork is cooked through and tender.",
-      "Scatter over the fresh chopped parsley and serve hot with crusty bread or mashed potatoes."
-    ]
-  },
-  {
-    "id": "paprika_pork",
-    "title": "Paprika Pork",
-    "category": "Main Course",
-    "keywords": "paprika, pork, bbc good food, stew, easy dinner, quick meal",
-    "prepTime": "10 mins",
-    "cookTime": "20 mins",
-    "servings": "4",
-    "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-1088656_11-dc1604a.jpg",
-    "ingredients": [
-      "1 tbsp sunflower oil",
-      "1 large onion, chopped",
-      "1 tbsp smoked paprika",
-      "500g pork tenderloin, cut into bite-sized pieces",
-      "1 red pepper, deseeded and sliced",
-      "1 yellow pepper, deseeded and sliced",
-      "225g button mushrooms, halved",
-      "300ml hot chicken stock",
-      "100ml reduced-fat sour cream",
-      "Handful chopped fresh parsley",
-      "Rice or crusty bread, to serve"
-    ],
-    "instructions": [
-      "Heat the oil in a large skillet or casserole dish over medium-high heat.",
-      "Add the onion and fry for 3–4 minutes until soft.",
-      "Stir in the smoked paprika and cook for 1 minute until fragrant.",
-      "Add the pork tenderloin pieces and cook for 3–5 minutes until browned all over.",
-      "Add the sliced red and yellow peppers along with the button mushrooms.",
-      "Pour in the chicken stock and bring to a simmer. Cover and cook over medium heat for 10–12 minutes until the pork is cooked through and tender.",
-      "Remove from the heat and stir through the reduced-fat sour cream and fresh parsley.",
-      "Serve warm over rice or with crusty bread."
-    ],
-    "notes": "Ensure the heat is low or turned off before stirring in sour cream to prevent curdling."
-  },
-  {
     "id": "sams_toad_in_the_hole",
     "title": "Sam's Toad in the Hole",
     "category": "Main Course",
@@ -2800,40 +2681,6 @@
       "Bake for 20-25 minutes until puff pastry is puffed and golden brown."
     ],
     "notes": "Press edges down firmly to ensure the pastry doesn't unfold during baking."
-  },
-  {
-    "id": "chipotle_barbacoa_beef_burrito",
-    "title": "Copycat Chipotle Barbacoa Beef",
-    "category": "Main Course",
-    "keywords": "barbacoa, chipotle copycat, shredded beef, Mexican, tacos, burritos, slow cooker",
-    "prepTime": "15 mins",
-    "cookTime": "8 hours (Low)",
-    "servings": "8",
-    "image": "https://dinnerthendessert.com/wp-content/uploads/2017/04/Chipotle-Barbacoa-Beef-4.jpg",
-    "ingredients": [
-      "1.5kg (3 lbs) beef chuck roast, cut into large chunks",
-      "3-4 chipotle peppers in adobo sauce, plus 2 tbsp adobo sauce",
-      "4 cloves garlic, minced",
-      "1 cup beef broth",
-      "¼ cup lime juice",
-      "2 tbsp apple cider vinegar",
-      "1 tbsp dried oregano",
-      "2 tsp ground cumin",
-      "1 tsp ground cloves",
-      "3 bay leaves",
-      "1 tbsp salt",
-      "1 tsp black pepper",
-      "2 tbsp vegetable oil"
-    ],
-    "instructions": [
-      "In a blender, combine chipotle peppers, adobo sauce, garlic, beef broth, lime juice, apple cider vinegar, oregano, cumin, ground cloves, salt, and pepper. Blend until smooth.",
-      "Heat vegetable oil in a large skillet over high heat. Sear beef chunks on all sides until deeply browned.",
-      "Transfer seared beef to slow cooker.",
-      "Pour blended adobo sauce over beef and add bay leaves.",
-      "Cover and cook on LOW for 8-9 hours (or HIGH for 4-5 hours) until meat easily shreds with two forks.",
-      "Remove bay leaves. Shred beef inside slow cooker and let it absorb juices for 10 minutes before serving in burritos or tacos."
-    ],
-    "notes": "Can also be cooked in an Instant Pot on High Pressure for 60 minutes with a 15-minute natural release."
   },
   {
     "id": "thai_red_curry_with_chicken",
@@ -3714,7 +3561,7 @@
   "id": "kitchn_turkey_wet_brine_guide",
   "type": "reference_guide",
   "title": "How to Wet Brine a Turkey",
-  "category": "Technique & Preparation",
+  "category": "Christmas",
   "keywords": "turkey, wet brine, Thanksgiving, ratio, poultry, salt water",
   "prepTime": "20 mins",
   "cookTime": "15 mins (stovetop brine preparation)",
@@ -3756,5 +3603,79 @@
     "Allow the turkey to sit at room temperature for 30 to 60 minutes before roasting as desired."
   ],
   "notes": "Food Safety Note: Never leave poultry in wet brine past 24 hours to prevent texturing issues, and ensure liquid temperature stays under 40°F (4°C) throughout."
-}
+},
+{
+    "id": "turkey_in_parts_white_dark",
+    "title": "Braised Turkey Legs and Roasted Breast",
+    "category": "Christmas",
+    "keywords": "turkey, roast turkey, braised turkey, split turkey, turkey parts, gravy, serious eats, thanksgiving, christmas",
+    "prepTime": "45 mins",
+    "cookTime": "3 hours",
+    "servings": "8 to 10 servings",
+    "image": "https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?w=150&auto=format&fit=crop&q=80",
+    "ingredients": [
+      "1 whole turkey (12 to 15 pounds), butchered into 2 breast halves (on the bone), 2 whole leg quarters, and wings/back/neck reserved for stock",
+      "Kosher salt and freshly ground black pepper",
+      "2 tablespoons vegetable oil",
+      "2 medium yellow onions, chopped",
+      "2 medium carrots, chopped",
+      "2 ribs celery, chopped",
+      "4 cloves garlic, minced",
+      "1 cup dry white wine",
+      "4 cups homemade or low-sodium chicken stock",
+      "4 sprigs fresh thyme",
+      "2 sprigs fresh rosemary",
+      "1 bay leaf",
+      "4 tablespoons unsalted butter",
+      "1/4 cup all-purpose flour"
+    ],
+    "instructions": [
+      "Season all turkey parts generously with salt and black pepper.",
+      "Preheat oven to 300°F (150°C). Heat vegetable oil in a large roasting pan or Dutch oven over medium-high heat. Add turkey leg quarters skin side down and cook until well browned, about 8 minutes. Flip and brown the other side, about 5 minutes longer. Remove legs and set aside.",
+      "Add onions, carrots, celery, and garlic to the pan. Cook, stirring, until vegetables are softened and lightly browned, about 6 minutes.",
+      "Pour in the white wine, scraping up any browned bits from the bottom of the pan, and simmer until reduced by half.",
+      "Add chicken stock, thyme, rosemary, and bay leaf. Return the dark meat legs to the pan skin side up, ensuring the liquid reaches roughly halfway up the sides of the legs.",
+      "Transfer the pan to the oven and braise uncovered for 1 hour.",
+      "Place the turkey breast halves on a wire rack set over a rimmed baking sheet. Rub lightly with oil and season.",
+      "Increase oven temperature to 400°F (200°C). Place the baking sheet with breasts into the oven while the legs continue braising.",
+      "Roast until an instant-read thermometer inserted into the thickest part of the breast registers 150°F (66°C), about 45 to 60 minutes. Remove breasts and rest 15 minutes before carving.",
+      "Check dark meat; it should be tender and register at least 175°F (80°C). Remove legs from the braising liquid and rest.",
+      "Strain braising liquid into a saucepan, discarding solids, and skim off excess fat.",
+      "In a separate saucepan, melt butter over medium heat, whisk in flour, and cook for 2 minutes to make a roux. Slowly whisk in the strained braising liquid.",
+      "Simmer until gravy is thickened, season to taste with salt and pepper, and serve alongside the carved turkey."
+    ],
+    "notes": "Separating the white and dark meat allows the breasts to be roasted at high heat to ideal temperature (150°F) while the legs braise low-and-slow to break down tough connective tissue."
+  },
+  {
+    "id": "sous_vide_turkey_breast_crispy_skin",
+    "title": "Sous Vide Turkey Breast With Crispy Skin",
+    "category": "Christmas",
+    "keywords": "sous vide, turkey breast, turkey, juicy turkey, crispy skin, serious eats, thanksgiving, christmas",
+    "prepTime": "30 mins",
+    "cookTime": "3 to 4 hours",
+    "servings": "4 to 6 servings",
+    "image": "https://images.unsplash.com/photo-1514944288352-fffac99f0bdf?w=150&auto=format&fit=crop&q=80",
+    "ingredients": [
+      "1 boneless, skin-on turkey breast half or whole turkey breast (4 to 6 pounds), butterflied or rolled",
+      "1 1/2 tablespoons kosher salt",
+      "1/2 teaspoon freshly ground black pepper",
+      "4 sprigs fresh thyme",
+      "2 sprigs fresh sage",
+      "2 tablespoons unsalted butter or duck fat",
+      "Vegetable or neutral oil for searing"
+    ],
+    "instructions": [
+      "Set a water bath with an immersion circulator to 145°F (63°C) for traditional juicy turkey breast, or 135°F (57°C) for extra-tender/rose-pink meat.",
+      "Season turkey breast thoroughly with kosher salt and black pepper.",
+      "If desired, roll and tie the turkey breast using butcher's twine into a uniform cylinder for even cooking.",
+      "Place turkey breast into a vacuum bag or heavy-duty gallon Ziploc bag along with butter/duck fat, thyme, and sage.",
+      "Seal the bag using a vacuum sealer or the water displacement method.",
+      "Submerge the bag in the water bath and cook for 2.5 to 3 hours (up to 4 hours maximum).",
+      "Remove turkey from the bag, discarding herbs, and pat the skin completely dry with paper towels.",
+      "Heat neutral oil in a large skillet or cast iron pan over high heat until smoking, or preheat an oven to 500°F (260°C).",
+      "Place turkey skin side down in the hot pan (or in the oven) and sear until the skin is deep golden brown and crisp, about 2 to 3 minutes.",
+      "Transfer to a cutting board, carefully remove butcher's twine, slice, and serve immediately."
+    ],
+    "notes": "Cooking at 145°F yields classic tender, juicy turkey breast. Cooking at 135°F yields a remarkably tender, slightly pink result."
+  }
 ]
