@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Badger recipe collection</title>
+  <style>
+    :root {
+      --bg-dark: #121212;
+      --card-bg: #1e1e1e;
+      --sidebar-bg: #181818;
+      --text: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --border: #2d2d2d;
+      
+      /* Little Greene Canton Teal Palette */
+      --canton-teal: #2C6B74;
+      --canton-light: #3B8B97;
+      --canton-bright: #43A0AD;
+      --canton-glow: rgba(44, 107, 116, 0.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Left Navigation Sidebar */
+    aside {
+      width: 320px;
+      background-color: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badger-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--canton-light);
+      box-shadow: 0 0 10px var(--canton-glow);
+    }
+
+    .sidebar-title-group h2 {
+      margin: 0 0 4px 0;
+      color: var(--canton-light);
+      font-size: 1.15rem;
+    }
+
+    .sidebar-count {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .nav-list {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding: 10px;
+    }
+
+    .category-group {
+      margin-bottom: 8px;
+    }
+
+    .category-btn {
+      width: 100%;
+      background: #242424;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 12px 15px;
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .category-btn:hover {
+      background: #2c2c2c;
+      color: var(--canton-light);
+    }
+
+    .category-btn .arrow {
+      transition: transform 0.2s;
+      font-size: 0.8rem;
+    }
+
+    .category-btn.open .arrow {
+      transform: rotate(90deg);
+    }
+
+    .category-recipes {
+      display: none;
+      list-style: none;
+      padding: 5px 0 5px 15px;
+      margin: 0;
+    }
+
+    .category-recipes li {
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .category-recipes li:hover {
+      color: var(--canton-light);
+      background: rgba(44, 107, 116, 0.15);
+    }
+
+    /* Main Workspace */
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    header {
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: #151515;
+    }
+
+    .search-box {
+      flex-grow: 1;
+      max-width: 600px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #242424;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus {
+      border-color: var(--canton-teal);
+    }
+
+    .btn-add-primary {
+      background: var(--canton-teal);
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .btn-add-primary:hover {
+      background: var(--canton-light);
+      transform: translateY(-1px);
+    }
+
+    .content-body {
+      padding: 30px;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .recipe-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* Recipe Cards */
+    .recipe-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .recipe-card.open {
+      border-color: var(--canton-teal);
+      box-shadow: 0 0 15px var(--canton-glow);
+    }
+
+    .card-header {
+      padding: 18px 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      background: #222222;
+      gap: 15px;
+    }
+
+    .card-header:hover {
+      background: #282828;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-grow: 1;
+    }
+
+    .recipe-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .recipe-title {
+      color: var(--canton-light) !important;
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .card-header:hover .recipe-title {
+      color: var(--canton-bright) !important;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .tag-badge {
+      background: rgba(44, 107, 116, 0.2);
+      color: var(--canton-light);
+      border: 1px solid var(--canton-teal);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      align-self: flex-start;
+    }
+
+    .expand-icon {
+      color: var(--canton-light);
+      font-size: 1.2rem;
+      transition: transform 0.2s;
+    }
+
+    .recipe-card.open .expand-icon {
+      transform: rotate(180deg);
+    }
+
+    .card-body {
+      display: none;
+      padding: 20px 25px;
+      border-top: 1px solid var(--border);
+      background: var(--card-bg);
+    }
+
+    .recipe-card.open .card-body {
+      display: block;
+    }
+
+    .card-body h3 {
+      color: var(--canton-light);
+      font-size: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-top: 20px;
+    }
+
+    .card-body h3:first-child {
+      margin-top: 0;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    li { margin-bottom: 6px; }
+
+    .notes-box {
+      background: #171717;
+      border-left: 3px solid var(--canton-teal);
+      padding: 12px 15px;
+      font-size: 0.85rem;
+      color: #cccccc;
+      margin-top: 20px;
+      white-space: pre-line;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-content {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: var(--canton-light);
+    }
+
+    .modal-content input, .modal-content textarea, .modal-content select {
+      width: 100%;
+      background: #242424;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-cancel {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left Navigation Accordion -->
+  <aside>
+    <div class="sidebar-header">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRQZI4IggFotmYhSMmAl55CSIkO2ac-aXnxtUlkXFDdeOqUmTkIJBl1KY&s=10" alt="Badger Face" class="badger-avatar">
+      <div class="sidebar-title-group">
+        <h2>Badger recipe collection</h2>
+        <div class="sidebar-count" id="sidebarCount">Loading database...</div>
+      </div>
+    </div>
+    <div class="nav-list" id="navList"></div>
+  </aside>
+
+  <!-- Main Content Workspace -->
+  <main>
+    <header>
+      <input type="text" id="searchInput" class="search-box" placeholder="Search title, ingredients, tags..." onkeyup="filterRecipes()">
+      <button class="btn-add-primary" onclick="openModal()">+ Add Recipe</button>
+    </header>
+
+    <div class="content-body">
+      <div class="recipe-list" id="recipeContainer"></div>
+    </div>
+  </main>
+
+  <!-- Add Recipe Modal -->
+  <div class="modal" id="addModal">
+    <div class="modal-content">
+      <h2>➕ Add New Recipe</h2>
+      <input type="text" id="addTitle" placeholder="Recipe Title">
+      <select id="addCategory">
+        <option value="Main Course">Main Course</option>
+        <option value="Bread">Bread</option>
+        <option value="Baking">Baking</option>
+        <option value="Dessert">Dessert</option>
+        <option value="Sauces & Condiments">Sauces & Condiments</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Side Dish">Side Dish</option>
+        <option value="Soup">Soup</option>
+        <option value="Snack / Pastry">Snack / Pastry</option>
+      </select>
+      <input type="text" id="addKeywords" placeholder="Keywords (e.g. lemon, garlic, pasta)">
+      <textarea id="addIngredients" rows="4" placeholder="Ingredients (one per line)"></textarea>
+      <textarea id="addInstructions" rows="4" placeholder="Instructions (step by step)"></textarea>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-add-primary" onclick="addNewRecipe()">Save Recipe</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let masterRecipes = [];
+
+    async function loadRecipes() {
+      try {
+        const response = await fetch('./recipes.json');
+        masterRecipes = await response.json();
+        renderSidebar();
+        renderCards(masterRecipes);
+      } catch (err) {
+        document.getElementById('sidebarCount').innerText = 'Error loading recipes.json';
+        console.error(err);
+      }
+    }
+
+    function renderSidebar() {
+      const navList = document.getElementById('navList');
+      navList.innerHTML = '';
+
+      const categories = {};
+      masterRecipes.forEach(r => {
+        const cat = r.category || 'Uncategorized';
+        if (!categories[cat]) categories[cat] = [];
+        categories[cat].push(r);
+      });
+
+      document.getElementById('sidebarCount').innerText = `${masterRecipes.length} Total Recipes`;
+
+      Object.keys(categories).sort().forEach(cat => {
+        const group = document.createElement('div');
+        group.className = 'category-group';
+
+        const btn = document.createElement('button');
+        btn.className = 'category-btn';
+        btn.innerHTML = `<span>${cat} (${categories[cat].length})</span><span class="arrow">▶</span>`;
+        btn.onclick = () => {
+          btn.classList.toggle('open');
+          const list = group.querySelector('.category-recipes');
+          list.style.display = btn.classList.contains('open') ? 'block' : 'none';
+        };
+
+        const list = document.createElement('ul');
+        list.className = 'category-recipes';
+
+        categories[cat].forEach(r => {
+          const li = document.createElement('li');
+          li.innerText = r.title;
+          li.onclick = () => scrollToAndOpenRecipe(r.id);
+          list.appendChild(li);
+        });
+
+        group.appendChild(btn);
+        group.appendChild(list);
+        navList.appendChild(group);
+      });
+    }
+
+    function renderCards(recipes) {
+      const container = document.getElementById('recipeContainer');
+      container.innerHTML = '';
+
+      recipes.forEach(r => {
+        const card = document.createElement('article');
+        card.className = 'recipe-card';
+        card.id = `card-${r.id}`;
+        card.setAttribute('data-keywords', `${r.title} ${r.category} ${r.keywords} ${r.ingredients.join(' ')}`);
+
+        let ingrHtml = r.ingredients.map(i => `<li>${i}</li>`).join('');
+        let instHtml = r.instructions.map(i => `<li>${i}</li>`).join('');
+        let metaHtml = (r.prepTime || r.cookTime || r.servings) ? 
+          `⏱️ Prep: ${r.prepTime || 'N/A'} | Cook: ${r.cookTime || 'N/A'} | 🍽️ ${r.servings || ''}` : '';
+        let notesHtml = r.notes ? `<div class="notes-box"><strong>Notes:</strong><br>${r.notes}</div>` : '';
+        let thumbImg = r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-thumb">` : '';
+
+        card.innerHTML = `
+          <div class="card-header" onclick="toggleCard('${r.id}')">
+            <div class="header-left">
+              ${thumbImg}
+              <div class="title-group">
+                <span class="tag-badge">${r.category}</span>
+                <h2 class="recipe-title">${r.title}</h2>
+                <div class="card-meta">${metaHtml}</div>
+              </div>
+            </div>
+            <span class="expand-icon">▼</span>
+          </div>
+          <div class="card-body">
+            <h3>Ingredients</h3>
+            <ul>${ingrHtml}</ul>
+            <h3>Instructions</h3>
+            <ol>${instHtml}</ol>
+            ${notesHtml}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleCard(id) {
+      const card = document.getElementById(`card-${id}`);
+      if (card) {
+        card.classList.toggle('open');
+      }
+    }
+
+    function scrollToAndOpenRecipe(id) {
+      const card = document.getElementById(`card-${id}`);
+      if (card) {
+        card.classList.add('open');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function filterRecipes() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.recipe-card');
+      cards.forEach(card => {
+        const text = card.getAttribute('data-keywords').toLowerCase() + card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function openModal() {
+      document.getElementById('addModal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('addModal').classList.remove('open');
+    }
+
+    function addNewRecipe() {
+      const title = document.getElementById('addTitle').value;
+      const category = document.getElementById('addCategory').value;
+      const keywords = document.getElementById('addKeywords').value;
+      const ingredients = document.getElementById('addIngredients').value.split('\n').filter(i => i.trim());
+      const instructions = document.getElementById('addInstructions').value.split('\n').filter(i => i.trim());
+
+      if (!title) {
+        alert('Please enter a recipe title.');
+        return;
+      }
+
+      const newRecipe = {
+        id: 'custom_' + Date.now(),
+        title, category, keywords, ingredients, instructions, notes: '', needsReview: false,
+        image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=150&auto=format&fit=crop&q=80'
+      };
+
+      masterRecipes.unshift(newRecipe);
+      renderSidebar();
+      renderCards(masterRecipes);
+      closeModal();
+      scrollToAndOpenRecipe(newRecipe.id);
+    }
+
+    window.onload = loadRecipes;
+  </script>
+</body>
+</html>
