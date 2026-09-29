@@ -326,6 +326,27 @@ li {
   white-space: pre-line;
 }
 
+/* Reference Guide Metadata Sections */
+.reference-meta-section {
+  margin: 1.25rem 0;
+  background: #161616;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 18px;
+}
+
+.reference-meta-section h3 {
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+  border-bottom: none !important;
+  font-size: 0.95rem !important;
+}
+
+.reference-meta-section ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
 /* Modal Styling */
 .modal {
   display: none;
@@ -398,19 +419,23 @@ li {
 
 .temp-table th,
 .temp-table td {
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border);
   padding: 8px 12px;
   text-align: left;
 }
 
 .temp-table th {
-  background-color: #f5f5f5;
+  background-color: #242424;
+  color: var(--canton-light);
   font-weight: 600;
 }
 
-.badge-reference_guide {
-  background-color: #e0f7fa;
-  color: #006064;
-  padding: 4px 8px;
+.tag-reference_guide {
+  background-color: rgba(44, 107, 116, 0.2);
+  color: var(--canton-light);
+  border: 1px solid var(--canton-teal);
+  padding: 3px 8px;
   border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
 }
