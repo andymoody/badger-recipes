@@ -2,7 +2,7 @@
   {
     "id": "alcoholic_ginger_beer",
     "title": "Alcoholic Ginger Beer",
-    "category": "Sauces & Condiments",
+    "category": "Drinks",
     "keywords": "ginger, beer, alcoholic, homemade, beverage, fermented",
     "prepTime": "20 mins",
     "cookTime": "3 weeks (fermenting)",
@@ -35,7 +35,7 @@
   {
     "id": "american_pancakes",
     "title": "Fluffy American pancakes",
-    "category": "Breakfast",
+    "category": "Baking",
     "keywords": "pancakes, american, fluffy, breakfast, brunch",
     "prepTime": "<30 mins",
     "cookTime": "<10 mins",
@@ -64,7 +64,7 @@
   {
     "id": "apple_cranberry_sauce",
     "title": "Apple & cranberry sauce",
-    "category": "Sauces & Condiments",
+    "category": "Sauces",
     "keywords": "apple, cranberry, sauce, christmas, jamie oliver",
     "prepTime": "10 mins",
     "cookTime": "30 mins",
@@ -168,7 +168,7 @@
   {
     "id": "beef_jerky",
     "title": "Homemade Beef Jerky",
-    "category": "Snack / Pastry",
+    "category": "Snack",
     "keywords": "beef, jerky, snack, high protein, chef john",
     "prepTime": "15 mins",
     "cookTime": "3 hours",
@@ -662,7 +662,7 @@
       "For the icing, lightly whip the cream cheese until smooth, sieve over the icing sugar, and beat together (or process in a food processor).",
       "Add the cream and beat again until it reaches a spreadable consistency, then spread over the top of the cooled cake."
     ],
-    "notes": "Leaves a very damp, moist cake texture[cite: 21]. Make sure to cool completely in the tin before topping[cite: 21]."
+    "notes": "Leaves a very damp, moist cake texture. Make sure to cool completely in the tin before topping."
   },
   {
     "id": "crumble_recipe",
@@ -687,7 +687,7 @@
       "Spread the crumble topping evenly over the fruit.",
       "Bake in the oven at 180°C fan for approximately 30 minutes until golden and bubbling."
     ],
-    "notes": "Place on top of any tasty fruit of choice before baking[cite: 22]."
+    "notes": "Place on top of any tasty fruit of choice before baking."
   },
   {
     "id": "daffys_gin_and_tonic_cheesecake",
@@ -721,7 +721,7 @@
       "Gently fold the whipped cream into the mascarpone mixture.",
       "Press the base mixture into a dish or cling-film-lined ramekins and top with the gin cheesecake mixture. Chill in the fridge before serving."
     ],
-    "notes": "Can be set in individual ramekins lined with cling film and inverted onto plates for serving[cite: 23]."
+    "notes": "Can be set in individual ramekins lined with cling film and inverted onto plates for serving."
   },
   {
     "id": "easy_chocolate_cake",
@@ -746,7 +746,7 @@
       "Pour the batter into the prepared tin and level the surface.",
       "Bake for 25-30 minutes until risen and springy to the touch."
     ],
-    "notes": "Makes 1 x 20cm round cake[cite: 24]."
+    "notes": "Makes 1 x 20cm round cake."
   },
   {
     "id": "ginger_honey_roasted_pork_tenderloin",
@@ -778,7 +778,7 @@
       "Brush with leftover marinade and broil on HIGH for 1-2 minutes until golden.",
       "Cover with foil and let rest a few minutes until internal temperature reaches 140-145°F. Slice and serve garnished with fresh parsley."
     ],
-    "notes": "Prep time does not include marinating time[cite: 26]."
+    "notes": "Prep time does not include marinating time."
   },
   {
     "id": "homemade_coleslaw",
@@ -807,7 +807,7 @@
       "Pour two-thirds of the dressing over the cabbage and carrot mixture and toss well to coat.",
       "Add more dressing if needed. Serve immediately or chill in the refrigerator for an hour to let flavors meld."
     ],
-    "notes": "You can use green, red, savoy, or Napa cabbage[cite: 27]."
+    "notes": "You can use green, red, savoy, or Napa cabbage."
   },
   {
     "id": "honey_and_rye_sourdough_loaf",
@@ -836,7 +836,7 @@
       "Bake in a preheated oven at 220°C/Gas mark 7 with a dish of boiling water for 25 minutes.",
       "Turn down to 200°C/Gas mark 6 for 20 minutes until it sounds hollow when tapped on the bottom. Cool completely."
     ],
-    "notes": "Addition of white flour makes rye dough easier to handle[cite: 28]."
+    "notes": "Addition of white flour makes rye dough easier to handle."
   },
   {
     "id": "honey_dijon_pork_tenderloin",
@@ -865,7 +865,7 @@
       "Bake for 40-50 minutes, spooning pan sauce over meat every 10 minutes, until internal temperature reaches 145°F.",
       "Rest 10-15 minutes before slicing and serving with pan juices."
     ],
-    "notes": "Resting time: 10 minutes[cite: 29]."
+    "notes": "Resting time: 10 minutes."
   },
   {
     "id": "j_sheekeys_fish_pie",
@@ -905,7 +905,7 @@
       "Top with a layer of peas, then spread mashed potato on top and rake with a fork.",
       "Bake at 180°C/gas 4 for 30 minutes. Scatter breadcrumbs and Parmesan on top, then bake 15 minutes more until golden."
     ],
-    "notes": "Famous classic London fish pie recipe[cite: 30]."
+    "notes": "Famous classic London fish pie recipe."
   },
   {
     "id": "kerala_egg_puffs",
@@ -944,7 +944,7 @@
       "Bring diagonally opposite corners together and seal securely. Apply egg wash over sealed puffs.",
       "Bake in preheated oven for 20-25 minutes until golden brown. Serve with tomato ketchup."
     ],
-    "notes": "Masala can be prepared 1-2 days in advance and refrigerated[cite: 31]. Can substitute 1 sliced tomato + 1/2-1 tsp vinegar for ketchup[cite: 31]."
+    "notes": "Masala can be prepared 1-2 days in advance and refrigerated. Can substitute 1 sliced tomato + 1/2-1 tsp vinegar for ketchup."
   },
   {
     "id": "jerk_chicken_with_rice_and_peas",
@@ -987,7 +987,7 @@
       "Add kidney beans to rice, cover, remove from heat, and let sit for 5 minutes until liquid is absorbed.",
       "Squeeze roasted lime over chicken and serve alongside rice & peas and hot sauce."
     ],
-    "notes": "Marinate overnight in the fridge for full flavor development[cite: 32]."
+    "notes": "Marinate overnight in the fridge for full flavor development."
   },
   {
     "id": "raan_leg_of_lamb",
@@ -1028,7 +1028,7 @@
       "Wrap lamb in foil and keep warm in oven. Skim excess fat from roasting pan, stir in soaked saffron mixture, and boil pan juices over high heat for 15-20 minutes until reduced by half.",
       "Discard foil, carve lamb, and serve topped with reduced saffron sauce."
     ],
-    "notes": "Requires 48 hours chilling time in refrigerator after marinating[cite: 34]."
+    "notes": "Requires 48 hours chilling time in refrigerator after marinating."
   },
   {
     "id": "lasagne",
@@ -1070,7 +1070,7 @@
       "Assemble: layer 1/4 ragù, 1/4 white sauce, and lasagne sheets in a deep 25x30cm dish. Repeat 3 times, ending with white sauce.",
       "Top with remaining cheese and bake for 45 minutes until golden and bubbling. Rest 5-10 minutes before serving."
     ],
-    "notes": "Makes a double batch of ragù so half can be frozen flat for later[cite: 35]."
+    "notes": "Makes a double batch of ragù so half can be frozen flat for later."
   },
   {
     "id": "mexican_tortilla_bake",
@@ -1109,7 +1109,7 @@
       "Spread 1/3 of mince in baking dish, top with 1 tortilla, 1/3 mascarpone, 1/3 mozzarella, and 1/3 cheddar. Repeat twice to form 3 layers.",
       "Bake for 25 minutes until golden-brown and bubbling. Garnish with remaining coriander."
     ],
-    "notes": "Recipe by Mary Berry[cite: 36]. Can assemble up to 6 hours ahead or freeze uncooked[cite: 36]."
+    "notes": "Recipe by Mary Berry. Can assemble up to 6 hours ahead or freeze uncooked."
   },
   {
     "id": "millionaires_shortbread",
@@ -1142,7 +1142,7 @@
       "Pour caramel over cooled shortbread base.",
       "Melt 170g chocolate and spread evenly over caramel layer; let set before slicing."
     ],
-    "notes": "Makes two full trays of shortbread[cite: 37]."
+    "notes": "Makes two full trays of shortbread."
   },
   {
     "id": "homemade_christmas_mincemeat",
@@ -1178,7 +1178,7 @@
       "Once completely cold, stir in brandy.",
       "Pack into sterilised jars, top with waxed discs, seal, and store in a cool, dark cupboard."
     ],
-    "notes": "Recipe by Delia Smith[cite: 38]. Keeps for up to 3 years in a cool cupboard[cite: 38]. Vegetarian suet can be used[cite: 38]."
+    "notes": "Recipe by Delia Smith. Keeps for up to 3 years in a cool cupboard. Vegetarian suet can be used."
   },
   {
     "id": "mince_pies_shortcrust_pastry",
@@ -1204,7 +1204,7 @@
       "Add 1-2 tbsp cold water a little at a time until dough draws together into a ball.",
       "Wrap dough in cling film and chill in fridge for at least 10 minutes before rolling out for mince pies."
     ],
-    "notes": "Makes 315g pastry, perfect for 12 mince pies[cite: 39]."
+    "notes": "Makes 315g pastry, perfect for 12 mince pies."
   },
   {
     "id": "mixed_spice",
@@ -1264,7 +1264,7 @@
       "Bake for 15-17 minutes until a toothpick inserted off-center comes out clean.",
       "Cool in pan for 10 minutes, then transfer to a wire rack to cool completely."
     ],
-    "notes": "Homemade buttermilk shortcut: add 1 tbsp lemon juice or white vinegar to 1 cup milk and let stand 5-10 minutes[cite: 41]."
+    "notes": "Homemade buttermilk shortcut: add 1 tbsp lemon juice or white vinegar to 1 cup milk and let stand 5-10 minutes."
   },
   {
     "id": "authentic_spanish_paella",
@@ -1306,7 +1306,7 @@
       "Lay shrimp on top during final 8 minutes of cooking, turning after 2-4 minutes.",
       "Remove from heat, cover, and let rest for 15-20 minutes before serving garnished with lemon wedges."
     ],
-    "notes": "Patience is key: do not stir during the final cooking stage to achieve the classic 'socarrat' crust at the bottom[cite: 42]."
+    "notes": "Patience is key: do not stir during the final cooking stage to achieve the classic 'socarrat' crust at the bottom."
   },
   {
     "id": "paprika_pork",
@@ -1335,12 +1335,12 @@
       "Stir in tomato purée and chicken stock, then simmer for 5-8 minutes until pork is cooked through.",
       "Mix in soured cream and seasoning. Serve over egg noodles, tagliatelle, or rice."
     ],
-    "notes": "Fast weeknight dinner; serve with an extra dollop of soured cream if desired[cite: 43]."
+    "notes": "Fast weeknight dinner; serve with an extra dollop of soured cream if desired."
   },
   {
     "id": "peppercorn_sauce",
     "title": "Peppercorn Sauce",
-    "category": "Sauces / Sides",
+    "category": "Sauces",
     "keywords": "peppercorn sauce, steak sauce, peppercorns, brandy, roux, creamy sauce without cream",
     "prepTime": "10 mins",
     "cookTime": "5 mins",
@@ -1363,7 +1363,7 @@
       "Add chicken stock, cracked peppercorns, and salt.",
       "Simmer gently until sauce reduces to desired consistency."
     ],
-    "notes": "Cream-free recipe made with a quick roux and milk[cite: 44]. To make ahead, cover surface directly with clingfilm to prevent skin forming[cite: 44]."
+    "notes": "Cream-free recipe made with a quick roux and milk. To make ahead, cover surface directly with clingfilm to prevent skin forming."
   },
   {
     "id": "plum_crumble",
@@ -1395,7 +1395,7 @@
       "Scatter crumble mixture evenly over plums.",
       "Bake for 30-40 minutes until golden brown. Rest 15 minutes before serving with custard or cream."
     ],
-    "notes": "Rest for 15 minutes after baking before serving[cite: 45]."
+    "notes": "Rest for 15 minutes after baking before serving."
   },
   {
     "id": "pork_chops_with_tomato_and_chorizo_sauce",
@@ -1428,7 +1428,7 @@
       "Stir the baked sauce, nestle seared pork chops on top, and bake for a further 15 minutes.",
       "Serve hot with rocket leaves and crusty bread."
     ],
-    "notes": "Provide crusty bread on the side to soak up the rich, spicy tomato and chorizo sauce[cite: 46]."
+    "notes": "Provide crusty bread on the side to soak up the rich, spicy tomato and chorizo sauce."
   },
   {
     "id": "pork_roast_with_crackle",
@@ -1458,7 +1458,7 @@
       "Increase temperature back up to 230°C / 440°F and roast for 10 minutes until golden and crisp.",
       "Rest for 15 minutes before carving."
     ],
-    "notes": "Allowing the skin to dry uncovered in the fridge overnight guarantees perfect, crunchy crackling[cite: 47]."
+    "notes": "Allowing the skin to dry uncovered in the fridge overnight guarantees perfect, crunchy crackling."
   },
   {
     "id": "roasted_skate",
@@ -1490,7 +1490,7 @@
       "Pour dressing over fish and tomatoes, returning to oven for 2-3 minutes.",
       "Season to taste and serve immediately with lemon wedges and pan juices."
     ],
-    "notes": "A simple, healthy seafood meal on the table in under 30 minutes[cite: 48]."
+    "notes": "A simple, healthy seafood meal on the table in under 30 minutes."
   },
   {
     "id": "salmon_and_prawn_tagliatelle",
@@ -1522,7 +1522,7 @@
       "Add fresh dill and simmer gently until prawns are fully cooked.",
       "Toss with cooked tagliatelle pasta and top with freshly grated Parmesan cheese."
     ],
-    "notes": "Takes under 20 minutes from start to finish[cite: 49]."
+    "notes": "Takes under 20 minutes from start to finish."
   },
   {
     "id": "salmon_en_croute",
@@ -1557,7 +1557,7 @@
       "Top with second puff pastry sheet, press down securely, trim excess pastry, and seal edges tightly with a fork.",
       "Score top criss-cross lightly, apply pastry decorations if desired, brush with egg wash, and bake for 30 minutes until golden."
     ],
-    "notes": "Great impressive center-piece for dinner parties or an alternative Christmas main[cite: 50]."
+    "notes": "Great impressive center-piece for dinner parties or an alternative Christmas main."
   },
   {
     "id": "salmon_risotto",
@@ -1585,7 +1585,7 @@
       "Gradually add warm stock a ladle at a time, stirring constantly until rice is tender.",
       "Stir in lemon juice, lemon zest, flaked hot-smoked salmon, and chopped dill before serving."
     ],
-    "notes": "Uses hot-smoked salmon flaked in at the end for rich flavor without overcooking[cite: 51]."
+    "notes": "Uses hot-smoked salmon flaked in at the end for rich flavor without overcooking."
   },
   {
     "id": "salted_caramel_peanut_brittle_brownies",
@@ -1657,7 +1657,7 @@
       "Add passata, sugar, paprika, and basil. Simmer gently for 30 minutes.",
       "Season to taste and serve with rice, crusty bread, or pasta."
     ],
-    "notes": "Flavors deepen when made in advance and reheated the next day[cite: 54]."
+    "notes": "Flavors deepen when made in advance and reheated the next day."
   },
   {
     "id": "sausage_sage_and_onion_stuffing",
@@ -1684,7 +1684,7 @@
       "Use to stuff poultry or roll into balls/pack into a 1kg loaf tin topped with extra sage leaves.",
       "Bake in oven at 190°C/170°C fan for 30-40 minutes until cooked through."
     ],
-    "notes": "Pairs perfectly with roast turkey or chicken[cite: 55]."
+    "notes": "Pairs perfectly with roast turkey or chicken."
   },
   {
     "id": "sausages_with_sticky_onion_gravy",
@@ -1705,14 +1705,14 @@
       "Salt and pepper"
     ],
     "instructions": [
-      "For the onions: Melt 50g butter in a large deep frying pan, stir through 12 sliced medium onions, cover, and cook gently for 10 minutes until softened[cite: 56]. Remove lid, add 1 tsp sugar, and cook for 15-20 minutes, stirring, until liquid evaporates and onions turn golden[cite: 56]. Divide into 3 batches[cite: 56].",
-      "Fry sausages for 15 minutes or until browned, then remove from pan and keep warm[cite: 56].",
-      "Heat 1 batch of basic sticky onions in the same pan, then add plain flour, stirring for 1 minute[cite: 56].",
-      "Add picked thyme leaves, then gradually stir in beef stock[cite: 56].",
-      "Bring to a boil, then simmer for 5 minutes until smooth[cite: 56].",
-      "Add a splash of Worcestershire sauce, season to taste, and serve poured over the warm sausages[cite: 56]."
+      "For the onions: Melt 50g butter in a large deep frying pan, stir through 12 sliced medium onions, cover, and cook gently for 10 minutes until softened. Remove lid, add 1 tsp sugar, and cook for 15-20 minutes, stirring, until liquid evaporates and onions turn golden. Divide into 3 batches.",
+      "Fry sausages for 15 minutes or until browned, then remove from pan and keep warm.",
+      "Heat 1 batch of basic sticky onions in the same pan, then add plain flour, stirring for 1 minute.",
+      "Add picked thyme leaves, then gradually stir in beef stock.",
+      "Bring to a boil, then simmer for 5 minutes until smooth.",
+      "Add a splash of Worcestershire sauce, season to taste, and serve poured over the warm sausages."
     ],
-    "notes": "Basic sticky onions recipe makes 3 batches; remaining batches can be kept in the fridge for up to 5 days or frozen for 1 month[cite: 56]."
+    "notes": "Basic sticky onions recipe makes 3 batches; remaining batches can be kept in the fridge for up to 5 days or frozen for 1 month."
   },
   {
     "id": "slow_cooker_beef_brisket_with_bbq_sauce",
@@ -1743,15 +1743,15 @@
       "1 tbsp Worcestershire sauce"
     ],
     "instructions": [
-      "Mix rub ingredients together in a bowl and rub all over brisket[cite: 57].",
-      "Combine all BBQ sauce ingredients in a slow cooker and submerge the brisket[cite: 57].",
-      "Slow cook on low for 8 hours (1.5 kg) to 10 hours (2 kg)[cite: 57].",
-      "Remove brisket onto a baking tray[cite: 57]. Pour remaining slow cooker liquid into a saucepan and simmer over medium-high heat until reduced to a syrup consistency[cite: 57].",
-      "Drizzle brisket with oil and roast at 200°C / 390°F for 15 minutes until browned spots appear[cite: 57].",
-      "Baste generously with reduced BBQ sauce and return to oven for 5 minutes; repeat basting and roasting for 5-10 minutes until deeply caramelised[cite: 57].",
-      "Slice thinly across the grain and serve with remaining sauce[cite: 57]."
+      "Mix rub ingredients together in a bowl and rub all over brisket.",
+      "Combine all BBQ sauce ingredients in a slow cooker and submerge the brisket.",
+      "Slow cook on low for 8 hours (1.5 kg) to 10 hours (2 kg).",
+      "Remove brisket onto a baking tray. Pour remaining slow cooker liquid into a saucepan and simmer over medium-high heat until reduced to a syrup consistency.",
+      "Drizzle brisket with oil and roast at 200°C / 390°F for 15 minutes until browned spots appear.",
+      "Baste generously with reduced BBQ sauce and return to oven for 5 minutes; repeat basting and roasting for 5-10 minutes until deeply caramelised.",
+      "Slice thinly across the grain and serve with remaining sauce."
     ],
-    "notes": "Can also be cooked in a pressure cooker (1 hr 15 mins to 1 hr 30 mins) or oven (4 hours covered at 160°C)[cite: 57]."
+    "notes": "Can also be cooked in a pressure cooker (1 hr 15 mins to 1 hr 30 mins) or oven (4 hours covered at 160°C)."
   },
   {
     "id": "slow_cooker_chicken_curry",
@@ -1783,12 +1783,12 @@
       "Chopped coriander (for serving)"
     ],
     "instructions": [
-      "Heat oil in a pan and sauté chopped onions and minced garlic for 3-4 minutes until softened[cite: 58].",
-      "Transfer sautéed mixture to slow cooker along with baby potatoes, chicken thigh pieces, bay leaf, cloves, peppercorns, green chilli, all spices, salt, tomato puree, water, and butter; mix well[cite: 58].",
-      "Cover and cook on high for 3.5-4 hours (or on low for 6 hours)[cite: 58].",
-      "Stir in freshly chopped coriander and serve hot over steamed rice or with butter naan[cite: 58]."
+      "Heat oil in a pan and sauté chopped onions and minced garlic for 3-4 minutes until softened.",
+      "Transfer sautéed mixture to slow cooker along with baby potatoes, chicken thigh pieces, bay leaf, cloves, peppercorns, green chilli, all spices, salt, tomato puree, water, and butter; mix well.",
+      "Cover and cook on high for 3.5-4 hours (or on low for 6 hours).",
+      "Stir in freshly chopped coriander and serve hot over steamed rice or with butter naan."
     ],
-    "notes": "Chicken thighs are recommended as they stay juicy in the slow cooker without drying out[cite: 58]."
+    "notes": "Chicken thighs are recommended as they stay juicy in the slow cooker without drying out."
   },
   {
     "id": "smoked_chipotle_chicken",
@@ -1810,12 +1810,12 @@
       "2 tsp brown sugar"
     ],
     "instructions": [
-      "Combine chipotle powder, smoked paprika, garlic powder, cumin, coriander, salt, and brown sugar in a bowl to make the dry rub[cite: 59].",
-      "Apply rub evenly over the chicken flesh and skin[cite: 59].",
-      "Preheat smoker to 120°C - 130°C[cite: 59].",
-      "Smoke chicken for between 3 and 5 hours until a probe thermometer inserted into the thickest part of the thigh reads 74°C[cite: 59]."
+      "Combine chipotle powder, smoked paprika, garlic powder, cumin, coriander, salt, and brown sugar in a bowl to make the dry rub.",
+      "Apply rub evenly over the chicken flesh and skin.",
+      "Preheat smoker to 120°C - 130°C.",
+      "Smoke chicken for between 3 and 5 hours until a probe thermometer inserted into the thickest part of the thigh reads 74°C."
     ],
-    "notes": "Ensure internal temperature reaches 74°C in the thickest part of the thigh for safe consumption[cite: 59]."
+    "notes": "Ensure internal temperature reaches 74°C in the thickest part of the thigh for safe consumption."
   },
   {
     "id": "smokey_hake_with_beans_and_spinach",
@@ -1840,13 +1840,13 @@
       "Quick garlic mayonnaise (optional, to serve)"
     ],
     "instructions": [
-      "Heat 1 tsp oil in a large frying pan, squeeze chorizo meat into pan, add chopped onion, and fry for 5 minutes, breaking up chorizo with a spatula until golden[cite: 60].",
-      "Wilt spinach by pouring boiling water over it in a colander, refresh under cold water, squeeze dry with hands, and set aside[cite: 60].",
-      "Place hake fillets on a foil-lined, oiled baking tray, season with salt, pepper, smoked paprika, and a drizzle of oil[cite: 60]. Grill on high for 5 minutes until flaky[cite: 60].",
-      "Add shredded chilli to chorizo pan and fry for 1 minute, then stir in cannellini beans, wilted spinach, lemon juice, and extra virgin olive oil to warm through gently[cite: 60].",
-      "Spoon bean and spinach mixture onto plates and top with grilled hake fillets[cite: 60]."
+      "Heat 1 tsp oil in a large frying pan, squeeze chorizo meat into pan, add chopped onion, and fry for 5 minutes, breaking up chorizo with a spatula until golden.",
+      "Wilt spinach by pouring boiling water over it in a colander, refresh under cold water, squeeze dry with hands, and set aside.",
+      "Place hake fillets on a foil-lined, oiled baking tray, season with salt, pepper, smoked paprika, and a drizzle of oil. Grill on high for 5 minutes until flaky.",
+      "Add shredded chilli to chorizo pan and fry for 1 minute, then stir in cannellini beans, wilted spinach, lemon juice, and extra virgin olive oil to warm through gently.",
+      "Spoon bean and spinach mixture onto plates and top with grilled hake fillets."
     ],
-    "notes": "Optionally serve with quick garlic mayonnaise on the side[cite: 60]."
+    "notes": "Optionally serve with quick garlic mayonnaise on the side."
   },
   {
     "id": "sourdough_bread",
@@ -1864,15 +1864,14 @@
       "320g active sourdough starter"
     ],
     "instructions": [
-      "Mix salt through flour in a clean bowl, then add water and active sourdough starter to form a rough dough[cite: 61].",
-      "Turn dough out onto a clean work surface and knead for approximately 10 minutes until smooth, soft, and elastic (windowpane test)[cite: 61].",
-      "Return to bowl, cover, and allow to prove for 4 hours at room temperature[cite: 61].",
-      "Knock back dough, form into a tight round ball, and place seam-side up into a floured proving basket (or floured tea-towel-lined Pyrex dish)[cite: 61].",
-      "Cover and prove for another 3–3.5 hours at room temperature, or overnight in the fridge[cite: 61].",
-      "Preheat oven to 230°C / 210°C fan with a shallow tray in the bottom[cite: 61].",
-      "Turn loaf out onto a tray, score top with a sharp knife 1/2 cm deep, pour boiling water into bottom tray to create steam, and bake for 30–35 minutes until golden and hollow sounding when tapped[cite: 61]."
+      "Mix salt through flour in a clean bowl, then add water and active sourdough starter to form a rough dough.",
+      "Turn dough out onto a clean work surface and knead for approximately 10 minutes until smooth, soft, and elastic (windowpane test).",
+      "Return to bowl, cover, and allow to prove for 4 hours at room temperature.",
+      "Knock back dough, form into a tight round ball, and place seam-side up into a floured proving basket (or floured tea-towel-lined Pyrex dish).",
+      "Cover and prove for another 3–3.5 hours at room temperature, or overnight in the fridge.",
+      "Preheat oven to 230°C / 210°C fan with a shallow tray in the bottom.",
+      "Turn loaf out onto a tray, score top with a sharp knife 1/2 cm deep, pour boiling water into bottom tray to create steam, and bake for 30–35 minutes until golden and hollow sounding when tapped."
     ],
-    "notes": "Includes full 7-day starter creation guide and Pyrex dish baking alternative[cite: 61]."
   },
   {
     "id": "sourdough_bread_variations",
@@ -1890,19 +1889,19 @@
     { "name": "Salt", "amount": "5g" }
   ],
   "baseInstructions": [
-    "Pour the water into a mixing bowl or large container, add the sourdough starter, and stir to break up and distribute the starter[cite: 12].",
-    "Add the flour gradually, mixing until a rough dough has formed[cite: 12].",
-    "Cover and leave for 30 minutes to 1 hour[cite: 12].",
-    "Add the salt[cite: 12].",
-    "Perform stretch and folds 6 times at 30-minute intervals[cite: 12].",
-    "Leave to rise until doubled in size[cite: 12].",
-    "Turn out onto a work surface, stretch into a rectangle, and perform a letter fold from top to bottom and bottom to top, then repeat for the sides[cite: 12].",
-    "Form a round by dragging the dough towards you across the surface while tucking your fingers under the bottom, turn through 90 degrees, and repeat until smooth and tight[cite: 12].",
-    "Leave to bench rest for 15 minutes, shaping and resting again if necessary[cite: 12].",
-    "Flour a banneton or a tea towel in a bowl and turn the dough into it seam side up[cite: 12].",
-    "Leave to rise overnight in the fridge or for a few hours on the work surface, using the poke test to determine readiness[cite: 12].",
-    "Heat the oven to 230°C / 210°C fan with a roasting tin in the bottom[cite: 12].",
-    "Scatter flour over the dough, turn out onto a tray, cut a pattern into the top, and bake for 35 minutes while adding 200ml of water into the roasting tin[cite: 12]."
+    "Pour the water into a mixing bowl or large container, add the sourdough starter, and stir to break up and distribute the starter.",
+    "Add the flour gradually, mixing until a rough dough has formed.",
+    "Cover and leave for 30 minutes to 1 hour.",
+    "Add the salt.",
+    "Perform stretch and folds 6 times at 30-minute intervals.",
+    "Leave to rise until doubled in size.",
+    "Turn out onto a work surface, stretch into a rectangle, and perform a letter fold from top to bottom and bottom to top, then repeat for the sides.",
+    "Form a round by dragging the dough towards you across the surface while tucking your fingers under the bottom, turn through 90 degrees, and repeat until smooth and tight.",
+    "Leave to bench rest for 15 minutes, shaping and resting again if necessary.",
+    "Flour a banneton or a tea towel in a bowl and turn the dough into it seam side up.",
+    "Leave to rise overnight in the fridge or for a few hours on the work surface, using the poke test to determine readiness.",
+    "Heat the oven to 230°C / 210°C fan with a roasting tin in the bottom.",
+    "Scatter flour over the dough, turn out onto a tray, cut a pattern into the top, and bake for 35 minutes while adding 200ml of water into the roasting tin."
   ],
   "variants": [
     {
@@ -1913,8 +1912,8 @@
         { "name": "Sugar", "amount": "0.5 teaspoon" },
         { "name": "Olive oil", "amount": "As needed" }
       ],
-      "preparation": "Add oil to a large shallow pan with a lid over low heat, sweat the red onion for 10 minutes until soft, remove lid, season with salt and pepper, add sugar, and gently fry until caramelized[cite: 12].",
-      "instructionModifications": "Add flavourings during the 4th stretch and fold, scattering some before each stretch for even distribution[cite: 12]."
+      "preparation": "Add oil to a large shallow pan with a lid over low heat, sweat the red onion for 10 minutes until soft, remove lid, season with salt and pepper, add sugar, and gently fry until caramelized.",
+      "instructionModifications": "Add flavourings during the 4th stretch and fold, scattering some before each stretch for even distribution."
     },
     {
       "variantName": "Olive and Jalapeño",
@@ -1922,8 +1921,8 @@
         { "name": "Fresh black olives chopped", "amount": "Approx 60g" },
         { "name": "Jalapeño slices chopped", "amount": "Approx 25g" }
       ],
-      "ingredientModifications": "Reduce the water content in the base dough to 250g to account for moisture from these ingredients[cite: 12].",
-      "instructionModifications": "Add flavourings during the 4th stretch and fold[cite: 12]."
+      "ingredientModifications": "Reduce the water content in the base dough to 250g to account for moisture from these ingredients.",
+      "instructionModifications": "Add flavourings during the 4th stretch and fold."
     },
     {
       "variantName": "Sun-Dried Tomato and Olive",
@@ -1932,8 +1931,8 @@
         { "name": "Sun-dried tomatoes chopped", "amount": "7 or 8" },
         { "name": "Sun-dried tomato oil", "amount": "A splash for flavor" }
       ],
-      "ingredientModifications": "Reduce the water content and add some of the oil from the sun-dried tomatoes[cite: 12].",
-      "instructionModifications": "Add flavourings during the 4th stretch and fold[cite: 12]."
+      "ingredientModifications": "Reduce the water content and add some of the oil from the sun-dried tomatoes.",
+      "instructionModifications": "Add flavourings during the 4th stretch and fold."
     },
     {
       "variantName": "Cheese and Black Pepper",
@@ -1941,7 +1940,7 @@
         { "name": "Cheddar or other cheese", "amount": "75 - 100g" },
         { "name": "Black pepper", "amount": "7g (or to taste)" }
       ],
-      "instructionModifications": "Add flavourings during the 4th stretch and fold[cite: 12]."
+      "instructionModifications": "Add flavourings during the 4th stretch and fold."
     },
     {
       "variantName": "Cheese and Jalapeño",
@@ -1949,7 +1948,7 @@
         { "name": "Cheese", "amount": "100g" },
         { "name": "Jalapeños", "amount": "50g" }
       ],
-      "instructionModifications": "Add flavourings during the 4th stretch and fold[cite: 12]."
+      "instructionModifications": "Add flavourings during the 4th stretch and fold."
     },
     {
       "variantName": "Honey and Oat Bread",
@@ -1957,8 +1956,8 @@
         { "name": "Runny honey", "amount": "90g" },
         { "name": "Rolled oats", "amount": "120g" }
       ],
-      "ingredientModifications": "Increase the water in the base recipe to 400ml[cite: 12].",
-      "instructionModifications": "Add the runny honey and rolled oats at the mixing phase rather than during stretch and folds[cite: 12]."
+      "ingredientModifications": "Increase the water in the base recipe to 400ml.",
+      "instructionModifications": "Add the runny honey and rolled oats at the mixing phase rather than during stretch and folds."
     }
    ]
   },
@@ -1987,14 +1986,14 @@
       "50ml water & 1.5 tsp mixed spice (for glaze)"
     ],
     "instructions": [
-      "Mix bread flour, spices, sugar, and salt in a bowl[cite: 63]. Rub in butter with fingertips, then stir in sultanas and mixed peel[cite: 63].",
-      "Make a well in center, add egg, sourdough starter, and warm water[cite: 63]. Mix into a soft dough and knead until smooth and elastic[cite: 63].",
-      "Place in oiled bowl, cover, and rise in a warm place for 12 hours[cite: 63].",
-      "Knead gently, divide into 12 balls, place 2cm apart on greased tray, cover, and rise for 10-12 hours until doubled[cite: 63].",
-      "Preheat oven to 190°C / 180°C fan[cite: 63]. Mix plain flour with cold water to a soft paste and pipe crosses over buns[cite: 63].",
-      "Bake for 20-25 minutes until golden[cite: 63]. Heat glaze ingredients (sugar, water, spice) until dissolved and brush over warm buns[cite: 63]."
+      "Mix bread flour, spices, sugar, and salt in a bowl. Rub in butter with fingertips, then stir in sultanas and mixed peel.",
+      "Make a well in center, add egg, sourdough starter, and warm water. Mix into a soft dough and knead until smooth and elastic.",
+      "Place in oiled bowl, cover, and rise in a warm place for 12 hours.",
+      "Knead gently, divide into 12 balls, place 2cm apart on greased tray, cover, and rise for 10-12 hours until doubled.",
+      "Preheat oven to 190°C / 180°C fan. Mix plain flour with cold water to a soft paste and pipe crosses over buns.",
+      "Bake for 20-25 minutes until golden. Heat glaze ingredients (sugar, water, spice) until dissolved and brush over warm buns."
     ],
-    "notes": "Requires starting about 24 hours in advance to allow proper sourdough rising time[cite: 63]."
+    "notes": "Requires starting about 24 hours in advance to allow proper sourdough rising time."
   },
   {
     "id": "sourdough_pancakes",
@@ -2017,14 +2016,14 @@
       "1 tsp salt"
     ],
     "instructions": [
-      "Melt butter in a large bowl and allow to cool slightly[cite: 64]. Whisk in eggs, milk, and vanilla extract[cite: 64].",
-      "Stir in sourdough starter until incorporated[cite: 64].",
-      "Add flour, baking soda, baking powder, and salt; stir well[cite: 64]. Let batter rest for 30 minutes[cite: 64].",
-      "Preheat griddle or skillet[cite: 64].",
-      "Ladle 1/3 cup of batter onto hot griddle per pancake[cite: 64]. Cook 2-3 minutes until bubbles form on top and edges set, then flip and cook 1-2 minutes more[cite: 64].",
-      "Serve hot with butter and pure maple syrup[cite: 64]."
+      "Melt butter in a large bowl and allow to cool slightly. Whisk in eggs, milk, and vanilla extract.",
+      "Stir in sourdough starter until incorporated.",
+      "Add flour, baking soda, baking powder, and salt; stir well. Let batter rest for 30 minutes.",
+      "Preheat griddle or skillet.",
+      "Ladle 1/3 cup of batter onto hot griddle per pancake. Cook 2-3 minutes until bubbles form on top and edges set, then flip and cook 1-2 minutes more.",
+      "Serve hot with butter and pure maple syrup."
     ],
-    "notes": "Excellent recipe for utilizing leftover sourdough starter discard[cite: 64]."
+    "notes": "Excellent recipe for utilizing leftover sourdough starter discard."
   },
   {
     "id": "sourdough_pizzas",
@@ -2044,15 +2043,15 @@
       "Olive oil (for coating container)"
     ],
     "instructions": [
-      "Build Levain: Mix 50g starter, 50g 00 flour, 50g whole grain flour, and 100g warm water in a jar[cite: 65]. Cover and let double (3-4 hours)[cite: 65].",
-      "Final Mix: Dissolve 10g salt in 310g warm water in a bowl[cite: 65]. Stir in 200g levain mix[cite: 65]. Slowly mix in 425g 00 flour and 75g whole grain flour by hand[cite: 65]. Rest 10 minutes[cite: 65].",
-      "Knead 10-15 minutes by hand until smooth, bouncy, and elastic[cite: 65]. Tighten into a round[cite: 65].",
-      "Bulk Ferment: Place dough in an oiled container, cover, and let double at room temperature for 3 hours[cite: 65].",
-      "Divide & Ball: Divide into 3-4 equal pieces, ball up tightly, place on floured tray, cover, and cold prove in fridge for 24 hours[cite: 65].",
-      "Bring dough balls to room temperature for 2 hours before stretching[cite: 65].",
-      "Stretch dough to 12 inches on a floured peel, top as desired, and bake in a high-temperature pizza oven (500°C / 932°F) until charred and crisp[cite: 65]."
+      "Build Levain: Mix 50g starter, 50g 00 flour, 50g whole grain flour, and 100g warm water in a jar. Cover and let double (3-4 hours).",
+      "Final Mix: Dissolve 10g salt in 310g warm water in a bowl. Stir in 200g levain mix. Slowly mix in 425g 00 flour and 75g whole grain flour by hand. Rest 10 minutes.",
+      "Knead 10-15 minutes by hand until smooth, bouncy, and elastic. Tighten into a round.",
+      "Bulk Ferment: Place dough in an oiled container, cover, and let double at room temperature for 3 hours.",
+      "Divide & Ball: Divide into 3-4 equal pieces, ball up tightly, place on floured tray, cover, and cold prove in fridge for 24 hours.",
+      "Bring dough balls to room temperature for 2 hours before stretching.",
+      "Stretch dough to 12 inches on a floured peel, top as desired, and bake in a high-temperature pizza oven (500°C / 932°F) until charred and crisp."
     ],
-    "notes": "Requires starting the levain processing the morning of the day before cooking[cite: 65]."
+    "notes": "Requires starting the levain processing the morning of the day before cooking."
   },
   {
     "id": "spanish_stuffed_marrow",
@@ -2080,15 +2079,15 @@
       "100g Manchego cheese, grated"
     ],
     "instructions": [
-      "Preheat oven to 200°C / 180°C fan / gas mark 6[cite: 66].",
-      "Cut the marrow in half lengthways, scoop out the central seeds/pith, place cut-side up in a large roasting tin, and season[cite: 66].",
-      "Heat olive oil in a saucepan and sweat diced onion over low heat for 10 minutes until soft[cite: 66].",
-      "Add garlic, chopped chorizo, smoked paprika, cayenne pepper, oregano, and thyme; cook for a few minutes[cite: 66].",
-      "Add chopped tomatoes and sliced roasted red peppers, lower heat to a simmer, and cook for 10 minutes before stirring through chopped parsley[cite: 66].",
-      "Spoon tomato and chorizo mixture into marrow halves, cover with foil, and bake for 30 minutes[cite: 66].",
-      "Remove foil, sprinkle over breadcrumbs and grated Manchego, and bake uncovered for a further 10 minutes until golden and marrow is tender[cite: 66]."
+      "Preheat oven to 200°C / 180°C fan / gas mark 6.",
+      "Cut the marrow in half lengthways, scoop out the central seeds/pith, place cut-side up in a large roasting tin, and season.",
+      "Heat olive oil in a saucepan and sweat diced onion over low heat for 10 minutes until soft.",
+      "Add garlic, chopped chorizo, smoked paprika, cayenne pepper, oregano, and thyme; cook for a few minutes.",
+      "Add chopped tomatoes and sliced roasted red peppers, lower heat to a simmer, and cook for 10 minutes before stirring through chopped parsley.",
+      "Spoon tomato and chorizo mixture into marrow halves, cover with foil, and bake for 30 minutes.",
+      "Remove foil, sprinkle over breadcrumbs and grated Manchego, and bake uncovered for a further 10 minutes until golden and marrow is tender."
     ],
-    "notes": "A great way to use up large seasonal garden marrows[cite: 66]."
+    "notes": "A great way to use up large seasonal garden marrows."
   },
   {
     "id": "sprouts_with_caramelised_red_onions",
@@ -2108,52 +2107,52 @@
       "Salt and pepper"
     ],
     "instructions": [
-      "Melt butter in a large heavy-based frying pan over medium heat, add red onion wedges, and cook for 6-8 minutes until golden and caramelised[cite: 67].",
-      "Meanwhile, cook Brussels sprouts in a pan of boiling salted water for 3-4 minutes until just tender[cite: 67].",
-      "Stir demerara sugar and sherry vinegar into the onions and allow to bubble for a few seconds[cite: 67].",
-      "Remove onions from heat, drain sprouts thoroughly, and toss sprouts through the caramelised onion mixture[cite: 67]."
+      "Melt butter in a large heavy-based frying pan over medium heat, add red onion wedges, and cook for 6-8 minutes until golden and caramelised.",
+      "Meanwhile, cook Brussels sprouts in a pan of boiling salted water for 3-4 minutes until just tender.",
+      "Stir demerara sugar and sherry vinegar into the onions and allow to bubble for a few seconds.",
+      "Remove onions from heat, drain sprouts thoroughly, and toss sprouts through the caramelised onion mixture."
     ],
-    "notes": "Excellent vibrant festive accompaniment for Christmas or Sunday roasts[cite: 67]."
+    "notes": "Excellent vibrant festive accompaniment for Christmas or Sunday roasts."
   },
   {
     "id": "10_steak_sauces",
     "title": "10 Quick & Easy Steak Sauces",
-    "category": "Sides",
+    "category": "Sauces",
     "keywords": "steak sauces, salsa verde, peppercorn sauce, bearnaise, chimichurri, black bean, red wine jus, teriyaki, blue cheese, mushroom sauce",
     "prepTime": "5 mins",
     "cookTime": "5-25 mins",
     "servings": "2 servings per sauce",
     "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=150&auto=format&fit=crop&q=80",
     "ingredients": [
-      "Salsa Verde: Parsley, chives, mint, 1 tsp capers, 2-3 anchovies, 1 garlic clove, 1 lemon, 3 tbsp olive oil[cite: 68].",
-      "Smart Peppercorn: 2 tbsp white wine vinegar, 150ml chicken stock, 2 tsp green peppercorns, 4 tbsp double cream[cite: 68].",
-      "Cheat's Béarnaise: 25g butter, 1 shallot, 1 tsp white wine vinegar, 100g crème fraîche, 1 tsp Dijon mustard, 1/2 tsp capers, chopped tarragon[cite: 68].",
-      "Spicy Chimichurri: 1 garlic clove, 1 red chilli, coriander, parsley, 3 tbsp red wine vinegar, 2 tbsp olive oil[cite: 68].",
-      "Black Bean & Sesame: 1/2 can black beans, 1 tsp dark brown sugar, 2 tsp honey, 1 tsp five-spice, 1/2 tsp ginger, 1 red chilli, 2 tsp tahini, 2 tbsp cider vinegar, 2 tsp soy sauce, 5 tbsp water[cite: 68].",
-      "Quick Red Wine: 250ml beef stock, 125ml red wine, 2 tsp dark brown sugar, 1 tsp balsamic vinegar[cite: 68].",
-      "Teriyaki: 5 tbsp soy sauce, 3 tbsp sake, 2 tbsp mirin, 1/2 tsp ginger, 1 tsp honey, 1 spring onion[cite: 68].",
-      "Mustard: 2 tbsp Dijon mustard, 100g crème fraîche[cite: 68].",
-      "Blue Cheese: 25g butter, 1 tbsp flour, 150ml milk, 50g Stilton[cite: 68].",
-      "Mushroom: 1 tbsp olive oil, 6 chestnut mushrooms, 1 garlic clove, 2 tbsp brandy, 4 tbsp double cream, 1 tsp wholegrain mustard[cite: 68]."
+      "Salsa Verde: Parsley, chives, mint, 1 tsp capers, 2-3 anchovies, 1 garlic clove, 1 lemon, 3 tbsp olive oil.",
+      "Smart Peppercorn: 2 tbsp white wine vinegar, 150ml chicken stock, 2 tsp green peppercorns, 4 tbsp double cream.",
+      "Cheat's Béarnaise: 25g butter, 1 shallot, 1 tsp white wine vinegar, 100g crème fraîche, 1 tsp Dijon mustard, 1/2 tsp capers, chopped tarragon.",
+      "Spicy Chimichurri: 1 garlic clove, 1 red chilli, coriander, parsley, 3 tbsp red wine vinegar, 2 tbsp olive oil.",
+      "Black Bean & Sesame: 1/2 can black beans, 1 tsp dark brown sugar, 2 tsp honey, 1 tsp five-spice, 1/2 tsp ginger, 1 red chilli, 2 tsp tahini, 2 tbsp cider vinegar, 2 tsp soy sauce, 5 tbsp water.",
+      "Quick Red Wine: 250ml beef stock, 125ml red wine, 2 tsp dark brown sugar, 1 tsp balsamic vinegar.",
+      "Teriyaki: 5 tbsp soy sauce, 3 tbsp sake, 2 tbsp mirin, 1/2 tsp ginger, 1 tsp honey, 1 spring onion.",
+      "Mustard: 2 tbsp Dijon mustard, 100g crème fraîche.",
+      "Blue Cheese: 25g butter, 1 tbsp flour, 150ml milk, 50g Stilton.",
+      "Mushroom: 1 tbsp olive oil, 6 chestnut mushrooms, 1 garlic clove, 2 tbsp brandy, 4 tbsp double cream, 1 tsp wholegrain mustard."
     ],
     "instructions": [
-      "Salsa Verde (15m): Chop herbs, capers, anchovies, garlic; whisk with lemon juice and olive oil[cite: 68].",
-      "Smart Peppercorn (20m): Simmer vinegar, reduce chicken stock by half, crush in green peppercorns, and thicken with double cream[cite: 68].",
-      "Cheat's Béarnaise (25m): Fry shallot in butter, add vinegar, stir in crème fraîche, Dijon, capers, and tarragon[cite: 68].",
-      "Spicy Chimichurri (5m): Blitz garlic, chilli, herbs, red wine vinegar, and olive oil in a food processor[cite: 68].",
-      "Black Bean & Sesame (20m): Blend black beans, spices, tahini, vinegar, soy sauce, and water; simmer for 5 mins[cite: 68].",
-      "Quick Red Wine (25m): Reduce beef stock by half, add red wine, sugar, and balsamic vinegar; reduce again until glossy[cite: 68].",
-      "Teriyaki (20m): Simmer soy sauce, sake, mirin, ginger, and honey for 5 mins; stir in sliced spring onions[cite: 68].",
-      "Mustard (10m): Gently warm Dijon mustard and crème fraîche together in a pan[cite: 68].",
-      "Blue Cheese (20m): Make a roux with butter, flour, and milk; stir in Stilton until melted and smooth[cite: 68].",
-      "Mushroom (15m): Fry sliced mushrooms in oil, add garlic and brandy (evaporate), then stir in double cream and wholegrain mustard[cite: 68]."
+      "Salsa Verde (15m): Chop herbs, capers, anchovies, garlic; whisk with lemon juice and olive oil.",
+      "Smart Peppercorn (20m): Simmer vinegar, reduce chicken stock by half, crush in green peppercorns, and thicken with double cream.",
+      "Cheat's Béarnaise (25m): Fry shallot in butter, add vinegar, stir in crème fraîche, Dijon, capers, and tarragon.",
+      "Spicy Chimichurri (5m): Blitz garlic, chilli, herbs, red wine vinegar, and olive oil in a food processor.",
+      "Black Bean & Sesame (20m): Blend black beans, spices, tahini, vinegar, soy sauce, and water; simmer for 5 mins.",
+      "Quick Red Wine (25m): Reduce beef stock by half, add red wine, sugar, and balsamic vinegar; reduce again until glossy.",
+      "Teriyaki (20m): Simmer soy sauce, sake, mirin, ginger, and honey for 5 mins; stir in sliced spring onions.",
+      "Mustard (10m): Gently warm Dijon mustard and crème fraîche together in a pan.",
+      "Blue Cheese (20m): Make a roux with butter, flour, and milk; stir in Stilton until melted and smooth.",
+      "Mushroom (15m): Fry sliced mushrooms in oil, add garlic and brandy (evaporate), then stir in double cream and wholegrain mustard."
     ],
-    "notes": "Includes 10 speedy steak sauce choices created by the BBC Good Food cookery team[cite: 68]."
+    "notes": "Includes 10 speedy steak sauce choices created by the BBC Good Food cookery team."
   },
   {
     "id": "tandoori_dry_rub",
     "title": "Tandoori Dry Rub",
-    "category": "Sides",
+    "category": "Ingredients / Seasoning",
     "keywords": "tandoori, spice blend, dry rub, indian, barbecue, chicken rub, seasoning",
     "prepTime": "5 mins",
     "cookTime": "0 mins",
@@ -2173,11 +2172,11 @@
       "2 tsp garlic powder"
     ],
     "instructions": [
-      "Measure all ground spices, salt, and garlic powder into a bowl or jar[cite: 69].",
-      "Whisk or shake thoroughly to blend evenly[cite: 69].",
-      "Store in an airtight spice container and use as a dry rub for chicken, meats, or grilled vegetables[cite: 69]."
+      "Measure all ground spices, salt, and garlic powder into a bowl or jar.",
+      "Whisk or shake thoroughly to blend evenly.",
+      "Store in an airtight spice container and use as a dry rub for chicken, meats, or grilled vegetables."
     ],
-    "notes": "Yields approximately 1/3 cup of aromatic spice blend[cite: 69]."
+    "notes": "Yields approximately 1/3 cup of aromatic spice blend."
   },
   {
     "id": "thai_butternut_squash_soup",
@@ -2189,17 +2188,17 @@
     "servings": "4 servings",
     "image": "https://images.unsplash.com/photo-1547592180-85f173990554?w=150&auto=format&fit=crop&q=80",
     "ingredients": [
-      "Curry Paste: 1 shallot, 1 stalk lemongrass, 1-2 red chillies, 4 garlic cloves, 1 thumb galangal/ginger, 2 tbsp tomato ketchup, 1 tsp cumin, 3/4 tsp coriander, 1/4 tsp white pepper, 2 tbsp fish sauce (or soy), 1 tsp shrimp paste, 1 tsp sugar, 1.5-2 tbsp chilli powder, 3 tbsp coconut milk, 2 tbsp lime juice[cite: 70].",
-      "Soup Base: 1 tbsp olive oil, 1 onion (chopped), 2 tsp minced fresh ginger, 1 tbsp Thai red curry paste, 2 lb butternut squash (cubed), 450ml vegetable stock, 1 can (13.5 oz) light coconut milk, salt and pepper[cite: 70]."
+      "Curry Paste: 1 shallot, 1 stalk lemongrass, 1-2 red chillies, 4 garlic cloves, 1 thumb galangal/ginger, 2 tbsp tomato ketchup, 1 tsp cumin, 3/4 tsp coriander, 1/4 tsp white pepper, 2 tbsp fish sauce (or soy), 1 tsp shrimp paste, 1 tsp sugar, 1.5-2 tbsp chilli powder, 3 tbsp coconut milk, 2 tbsp lime juice.",
+      "Soup Base: 1 tbsp olive oil, 1 onion (chopped), 2 tsp minced fresh ginger, 1 tbsp Thai red curry paste, 2 lb butternut squash (cubed), 450ml vegetable stock, 1 can (13.5 oz) light coconut milk, salt and pepper."
     ],
     "instructions": [
-      "Blitz all homemade Thai curry paste ingredients in a blender until smooth[cite: 70].",
-      "Heat 1 tbsp olive oil in a large pot over medium heat[cite: 70]. Add chopped onion and stir for 1 minute, then add ginger and 1 tbsp curry paste; stir 1 minute more[cite: 70].",
-      "Add cubed butternut squash and vegetable stock[cite: 70].",
-      "Bring to a boil, then simmer over low heat for 15-20 minutes until squash is tender[cite: 70].",
-      "Cool slightly, purée with an immersion blender until smooth, return to heat, stir in light coconut milk, season, and warm through[cite: 70]."
+      "Blitz all homemade Thai curry paste ingredients in a blender until smooth.",
+      "Heat 1 tbsp olive oil in a large pot over medium heat. Add chopped onion and stir for 1 minute, then add ginger and 1 tbsp curry paste; stir 1 minute more.",
+      "Add cubed butternut squash and vegetable stock.",
+      "Bring to a boil, then simmer over low heat for 15-20 minutes until squash is tender.",
+      "Cool slightly, purée with an immersion blender until smooth, return to heat, stir in light coconut milk, season, and warm through."
     ],
-    "notes": "Paste can be made vegetarian by swapping fish sauce for soy sauce and shrimp paste for Thai golden mountain sauce[cite: 70]."
+    "notes": "Paste can be made vegetarian by swapping fish sauce for soy sauce and shrimp paste for Thai golden mountain sauce."
   },
   {
     "id": "the_best_spaghetti_bolognese",
@@ -2233,15 +2232,15 @@
       "Crusty bread (to serve)"
     ],
     "instructions": [
-      "Heat olive oil in a large saucepan, add chopped bacon, and fry for 10 minutes until golden[cite: 71].",
-      "Reduce heat, add onions, carrots, celery, garlic, and chopped rosemary leaves; fry for 10 minutes until softened[cite: 71].",
-      "Increase heat, add beef mince, and cook for 3-4 minutes until browned[cite: 71].",
-      "Add plum tomatoes, chopped basil, oregano, bay leaves, tomato purée, beef stock cube, red chilli, red wine, and halved cherry tomatoes; break up plum tomatoes with a spoon[cite: 71].",
-      "Bring to a boil, reduce to a gentle simmer, cover, and cook for 1 hour 15 minutes[cite: 71].",
-      "Stir in grated parmesan and check seasoning[cite: 71].",
-      "Cook spaghetti according to pack instructions, drain, and serve tossed with sauce, fresh basil leaves, extra parmesan, and crusty bread[cite: 71]."
+      "Heat olive oil in a large saucepan, add chopped bacon, and fry for 10 minutes until golden.",
+      "Reduce heat, add onions, carrots, celery, garlic, and chopped rosemary leaves; fry for 10 minutes until softened.",
+      "Increase heat, add beef mince, and cook for 3-4 minutes until browned.",
+      "Add plum tomatoes, chopped basil, oregano, bay leaves, tomato purée, beef stock cube, red chilli, red wine, and halved cherry tomatoes; break up plum tomatoes with a spoon.",
+      "Bring to a boil, reduce to a gentle simmer, cover, and cook for 1 hour 15 minutes.",
+      "Stir in grated parmesan and check seasoning.",
+      "Cook spaghetti according to pack instructions, drain, and serve tossed with sauce, fresh basil leaves, extra parmesan, and crusty bread."
     ],
-    "notes": "Simmering gently for over an hour creates a rich, thick, deeply flavored meat sauce[cite: 71]."
+    "notes": "Simmering gently for over an hour creates a rich, thick, deeply flavored meat sauce."
   },
   {
     "id": "tita_ems_chicken_wings_adobo",
@@ -2264,13 +2263,13 @@
       "1 1/4 cups water"
     ],
     "instructions": [
-      "Combine rice vinegar, soy sauce, crushed garlic, peppercorns, bay leaves, and 1 1/4 cups water in a large saucepan[cite: 72]. Add chicken wings and marinate at room temperature for 30 minutes[cite: 72].",
-      "Cover saucepan, bring to a boil over high heat, reduce heat to low, and simmer covered for 30-40 minutes until tender[cite: 72].",
-      "Remove chicken wings from liquid and drain on a wire rack[cite: 72].",
-      "Heat vegetable oil in a skillet and fry wings until golden brown[cite: 72].",
-      "Boil braising liquid, stir in coconut milk, and bring to a simmer[cite: 72]. Toss fried wings back into sauce to coat and serve[cite: 72]."
+      "Combine rice vinegar, soy sauce, crushed garlic, peppercorns, bay leaves, and 1 1/4 cups water in a large saucepan. Add chicken wings and marinate at room temperature for 30 minutes.",
+      "Cover saucepan, bring to a boil over high heat, reduce heat to low, and simmer covered for 30-40 minutes until tender.",
+      "Remove chicken wings from liquid and drain on a wire rack.",
+      "Heat vegetable oil in a skillet and fry wings until golden brown.",
+      "Boil braising liquid, stir in coconut milk, and bring to a simmer. Toss fried wings back into sauce to coat and serve."
     ],
-    "notes": "Signature recipe from Kuma Inn NYC inspired by Filipino adobo[cite: 72]."
+    "notes": "Signature recipe from Kuma Inn NYC inspired by Filipino adobo."
   },
   {
     "id": "weeknight_porchetta",
@@ -2292,19 +2291,19 @@
       "4 slices bacon"
     ],
     "instructions": [
-      "Preheat oven to 425°F (220°C)[cite: 73].",
-      "Mix chopped garlic, chopped rosemary, fennel seeds, salt, 1 tbsp olive oil, and black pepper in a bowl[cite: 73]. Rub mixture all over pork tenderloin[cite: 73].",
-      "Scatter rosemary sprigs in a baking dish and place tenderloin on top[cite: 73].",
-      "Wrap bacon slices around tenderloin, tucking ends underneath to hold in place[cite: 73].",
-      "Nestle halved heads of garlic around tenderloin and drizzle remaining 1 tbsp olive oil over garlic and meat[cite: 73].",
-      "Roast for 30-40 minutes until meat thermometer registers 145°F (63°C)[cite: 73]. Rest 10 minutes before slicing[cite: 73]."
+      "Preheat oven to 425°F (220°C).",
+      "Mix chopped garlic, chopped rosemary, fennel seeds, salt, 1 tbsp olive oil, and black pepper in a bowl. Rub mixture all over pork tenderloin.",
+      "Scatter rosemary sprigs in a baking dish and place tenderloin on top.",
+      "Wrap bacon slices around tenderloin, tucking ends underneath to hold in place.",
+      "Nestle halved heads of garlic around tenderloin and drizzle remaining 1 tbsp olive oil over garlic and meat.",
+      "Roast for 30-40 minutes until meat thermometer registers 145°F (63°C). Rest 10 minutes before slicing."
     ],
-    "notes": "A fast weeknight version of classic Italian porchetta using pork tenderloin and bacon[cite: 73]."
+    "notes": "A fast weeknight version of classic Italian porchetta using pork tenderloin and bacon."
   },
   {
     "id": "white_chocolate_ginger_cheesecake",
     "title": "White Chocolate & Ginger Cheesecake with Ginger Butterscotch Sauce",
-    "category": "Desserts",
+    "category": "Dessert",
     "keywords": "cheesecake, white chocolate, ginger, gingernut biscuits, butterscotch sauce, mascarpone, dessert",
     "prepTime": "30 mins (plus chilling)",
     "cookTime": "10 mins",
@@ -2324,13 +2323,13 @@
       "1 tbsp stem ginger syrup"
     ],
     "instructions": [
-      "Line a 20cm cake tin with greaseproof paper strip and a double layer of cling film[cite: 74].",
-      "Crush gingernut biscuits to fine crumbs and mix with 100g melted butter[cite: 74]. Press firmly into tin and chill in fridge for 30 minutes[cite: 74].",
-      "Mix cream cheese, mascarpone, and 150ml double cream until smooth[cite: 74]. Whisk in 400g melted white chocolate[cite: 74]. Pour over base and chill for several hours or overnight[cite: 74].",
-      "To make sauce: heat sugar in a pan until golden caramel forms[cite: 74]. Off heat, swirl in butter, whisk in 120ml double cream, then stir in chopped stem ginger and ginger syrup[cite: 74].",
-      "Drizzle warm or cooled ginger butterscotch sauce over sliced cheesecake before serving[cite: 74]."
+      "Line a 20cm cake tin with greaseproof paper strip and a double layer of cling film.",
+      "Crush gingernut biscuits to fine crumbs and mix with 100g melted butter. Press firmly into tin and chill in fridge for 30 minutes.",
+      "Mix cream cheese, mascarpone, and 150ml double cream until smooth. Whisk in 400g melted white chocolate. Pour over base and chill for several hours or overnight.",
+      "To make sauce: heat sugar in a pan until golden caramel forms. Off heat, swirl in butter, whisk in 120ml double cream, then stir in chopped stem ginger and ginger syrup.",
+      "Drizzle warm or cooled ginger butterscotch sauce over sliced cheesecake before serving."
     ],
-    "notes": "Incredible flavor pairing inspired by Wagamama's white chocolate ginger dessert[cite: 74]."
+    "notes": "Incredible flavor pairing inspired by Wagamama's white chocolate ginger dessert."
   },
   {
     "id": "best_yorkshire_puddings",
@@ -2349,13 +2348,13 @@
       "Pinch of salt and black pepper"
     ],
     "instructions": [
-      "Preheat oven to 230°C / 210°C fan / gas mark 8[cite: 75]. Drizzle sunflower oil evenly into a 12-hole muffin tin or 2 x 4-hole Yorkshire pudding tins and place in oven to get smoking hot[cite: 75].",
-      "Whisk flour and eggs in a bowl until smooth[cite: 75].",
-      "Gradually add milk, beating continuously until batter is lump-free[cite: 75]. Season with salt and pepper and transfer into a pouring jug[cite: 75].",
-      "Carefully pour batter into hot tins and return immediately to oven[cite: 75].",
-      "Bake undisturbed for 20-25 minutes until puffed and golden brown[cite: 75]."
+      "Preheat oven to 230°C / 210°C fan / gas mark 8. Drizzle sunflower oil evenly into a 12-hole muffin tin or 2 x 4-hole Yorkshire pudding tins and place in oven to get smoking hot.",
+      "Whisk flour and eggs in a bowl until smooth.",
+      "Gradually add milk, beating continuously until batter is lump-free. Season with salt and pepper and transfer into a pouring jug.",
+      "Carefully pour batter into hot tins and return immediately to oven.",
+      "Bake undisturbed for 20-25 minutes until puffed and golden brown."
     ],
-    "notes": "Do not open oven door while baking to ensure maximum rise[cite: 75]."
+    "notes": "Do not open oven door while baking to ensure maximum rise."
   },
   {
     "id": "honey_garlic_pork_tenderloin",
@@ -2379,19 +2378,19 @@
       "1 tsp (5ml) Dijon mustard"
     ],
     "instructions": [
-      "Whisk honey, minced garlic, soy sauce, apple cider vinegar, and Dijon mustard together; divide in half (one for raw meat, one for serving)[cite: 76].",
-      "Trim silver skin from pork, pat dry, tuck thin tail ends under by 2 inches, tie with butcher's twine, rub with oil, and season with salt, pepper, and garlic powder[cite: 76].",
-      "Grill method: Sear on direct heat at 400°F (200°C) for 2-3 mins per side, move to indirect heat, brush with glaze, and cook lid-closed for 12-15 mins until internal temp reaches 145°F (63°C)[cite: 76].",
-      "Oven method: Sear in a hot skillet for 2 mins per side, brush with glaze, transfer to a 400°F (200°C) oven, and roast for 13-15 mins until 145°F (63°C)[cite: 76].",
-      "Rest pork 5-10 minutes under foil, snip twine, slice into 1-inch medallions, and drizzle with reserved clean glaze[cite: 76]."
+      "Whisk honey, minced garlic, soy sauce, apple cider vinegar, and Dijon mustard together; divide in half (one for raw meat, one for serving).",
+      "Trim silver skin from pork, pat dry, tuck thin tail ends under by 2 inches, tie with butcher's twine, rub with oil, and season with salt, pepper, and garlic powder.",
+      "Grill method: Sear on direct heat at 400°F (200°C) for 2-3 mins per side, move to indirect heat, brush with glaze, and cook lid-closed for 12-15 mins until internal temp reaches 145°F (63°C).",
+      "Oven method: Sear in a hot skillet for 2 mins per side, brush with glaze, transfer to a 400°F (200°C) oven, and roast for 13-15 mins until 145°F (63°C).",
+      "Rest pork 5-10 minutes under foil, snip twine, slice into 1-inch medallions, and drizzle with reserved clean glaze."
     ],
-    "notes": "Tucking and tying the thin tail end ensures even cooking throughout the tenderloin[cite: 76]."
+    "notes": "Tucking and tying the thin tail end ensures even cooking throughout the tenderloin."
   },
   {
     "id": "serious_eats_sous_vide_steak_guide",
     "type": "reference_guide",
     "title": "Sous Vide Steak",
-    "category": "Reference Guide",
+    "category": "Technique & Preparation",
     "keywords": "sous vide, steak, temperature chart, ribeye, strip steak, tenderloin, searing",
     "prepTime": "10 mins",
     "cookTime": "45 mins - 4 hrs",
@@ -2514,7 +2513,7 @@
 },
   {
     "title": "Beer Gravy",
-    "category": "Sides",
+    "category": "Sauces",
     "source_url": "https://brooklynbrewshop.com/blogs/themash/recipe-beer-gravy",
     "prep_time": null,
     "cook_time": null,
@@ -2692,7 +2691,7 @@
   {
     "id": "traditional_south_african_biltong",
     "title": "Traditional South African Biltong",
-    "category": "Snacks & Cured Meats",
+    "category": "Snacks",
     "keywords": "biltong, cured beef, South African, jerky, coriander, vinegar, dried meat",
     "prepTime": "30 mins (plus 12-24 hrs marinating)",
     "cookTime": "3 to 5 days (curing/drying)",
@@ -2767,7 +2766,7 @@
   {
     "id": "kerala_egg_puffs",
     "title": "Kerala Egg Puffs",
-    "category": "Snacks & Bakery",
+    "category": "Snacks",
     "keywords": "egg puffs, Kerala style, bakery style, puff pastry, spiced egg, Indian snack",
     "prepTime": "15 mins",
     "cookTime": "25 mins",
@@ -3073,7 +3072,7 @@
   {
     "id": "french_puy_lentil_ragout",
     "title": "French Puy Lentil Ragout",
-    "category": "Side Dish",
+    "category": "Sides",
     "keywords": "puy lentils, french lentils, side dish, ragout, RecipeTin Eats, vegetarian",
     "prepTime": "10 mins",
     "cookTime": "35 mins",
