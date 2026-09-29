@@ -1107,7 +1107,7 @@
   {
     "id": "homemade_christmas_mincemeat",
     "title": "Mincemeat",
-    "category": "Baking",
+    "category": "Christmas",
     "keywords": "mincemeat, christmas, apples, raisins, sultanas, brandy, spice, delia smith",
     "prepTime": "20 mins (plus 12 hrs standing)",
     "cookTime": "3 hours",
@@ -1622,7 +1622,7 @@
   {
     "id": "sausage_sage_and_onion_stuffing",
     "title": "Sausage, sage & onion stuffing",
-    "category": "Sides",
+    "category": "Christmas",
     "keywords": "stuffing, cumberland sausages, sage, onion, bramley apple, granary breadcrumbs, christmas",
     "prepTime": "15 mins",
     "cookTime": "30-40 mins",
@@ -3561,7 +3561,7 @@
   "id": "kitchn_turkey_wet_brine_guide",
   "type": "reference_guide",
   "title": "How to Wet Brine a Turkey",
-  "category": "Technique & Preparation",
+  "category": "Christmas",
   "keywords": "turkey, wet brine, Thanksgiving, ratio, poultry, salt water",
   "prepTime": "20 mins",
   "cookTime": "15 mins (stovetop brine preparation)",
@@ -3603,5 +3603,79 @@
     "Allow the turkey to sit at room temperature for 30 to 60 minutes before roasting as desired."
   ],
   "notes": "Food Safety Note: Never leave poultry in wet brine past 24 hours to prevent texturing issues, and ensure liquid temperature stays under 40°F (4°C) throughout."
-}
+},
+{
+    "id": "turkey_in_parts_white_dark",
+    "title": "Braised Turkey Legs and Roasted Breast",
+    "category": "Christmas",
+    "keywords": "turkey, roast turkey, braised turkey, split turkey, turkey parts, gravy, serious eats, thanksgiving, christmas",
+    "prepTime": "45 mins",
+    "cookTime": "3 hours",
+    "servings": "8 to 10 servings",
+    "image": "https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?w=150&auto=format&fit=crop&q=80",
+    "ingredients": [
+      "1 whole turkey (12 to 15 pounds), butchered into 2 breast halves (on the bone), 2 whole leg quarters, and wings/back/neck reserved for stock",
+      "Kosher salt and freshly ground black pepper",
+      "2 tablespoons vegetable oil",
+      "2 medium yellow onions, chopped",
+      "2 medium carrots, chopped",
+      "2 ribs celery, chopped",
+      "4 cloves garlic, minced",
+      "1 cup dry white wine",
+      "4 cups homemade or low-sodium chicken stock",
+      "4 sprigs fresh thyme",
+      "2 sprigs fresh rosemary",
+      "1 bay leaf",
+      "4 tablespoons unsalted butter",
+      "1/4 cup all-purpose flour"
+    ],
+    "instructions": [
+      "Season all turkey parts generously with salt and black pepper.",
+      "Preheat oven to 300°F (150°C). Heat vegetable oil in a large roasting pan or Dutch oven over medium-high heat. Add turkey leg quarters skin side down and cook until well browned, about 8 minutes. Flip and brown the other side, about 5 minutes longer. Remove legs and set aside.",
+      "Add onions, carrots, celery, and garlic to the pan. Cook, stirring, until vegetables are softened and lightly browned, about 6 minutes.",
+      "Pour in the white wine, scraping up any browned bits from the bottom of the pan, and simmer until reduced by half.",
+      "Add chicken stock, thyme, rosemary, and bay leaf. Return the dark meat legs to the pan skin side up, ensuring the liquid reaches roughly halfway up the sides of the legs.",
+      "Transfer the pan to the oven and braise uncovered for 1 hour.",
+      "Place the turkey breast halves on a wire rack set over a rimmed baking sheet. Rub lightly with oil and season.",
+      "Increase oven temperature to 400°F (200°C). Place the baking sheet with breasts into the oven while the legs continue braising.",
+      "Roast until an instant-read thermometer inserted into the thickest part of the breast registers 150°F (66°C), about 45 to 60 minutes. Remove breasts and rest 15 minutes before carving.",
+      "Check dark meat; it should be tender and register at least 175°F (80°C). Remove legs from the braising liquid and rest.",
+      "Strain braising liquid into a saucepan, discarding solids, and skim off excess fat.",
+      "In a separate saucepan, melt butter over medium heat, whisk in flour, and cook for 2 minutes to make a roux. Slowly whisk in the strained braising liquid.",
+      "Simmer until gravy is thickened, season to taste with salt and pepper, and serve alongside the carved turkey."
+    ],
+    "notes": "Separating the white and dark meat allows the breasts to be roasted at high heat to ideal temperature (150°F) while the legs braise low-and-slow to break down tough connective tissue."
+  },
+  {
+    "id": "sous_vide_turkey_breast_crispy_skin",
+    "title": "Sous Vide Turkey Breast With Crispy Skin",
+    "category": "Christmas",
+    "keywords": "sous vide, turkey breast, turkey, juicy turkey, crispy skin, serious eats, thanksgiving, christmas",
+    "prepTime": "30 mins",
+    "cookTime": "3 to 4 hours",
+    "servings": "4 to 6 servings",
+    "image": "https://images.unsplash.com/photo-1514944288352-fffac99f0bdf?w=150&auto=format&fit=crop&q=80",
+    "ingredients": [
+      "1 boneless, skin-on turkey breast half or whole turkey breast (4 to 6 pounds), butterflied or rolled",
+      "1 1/2 tablespoons kosher salt",
+      "1/2 teaspoon freshly ground black pepper",
+      "4 sprigs fresh thyme",
+      "2 sprigs fresh sage",
+      "2 tablespoons unsalted butter or duck fat",
+      "Vegetable or neutral oil for searing"
+    ],
+    "instructions": [
+      "Set a water bath with an immersion circulator to 145°F (63°C) for traditional juicy turkey breast, or 135°F (57°C) for extra-tender/rose-pink meat.",
+      "Season turkey breast thoroughly with kosher salt and black pepper.",
+      "If desired, roll and tie the turkey breast using butcher's twine into a uniform cylinder for even cooking.",
+      "Place turkey breast into a vacuum bag or heavy-duty gallon Ziploc bag along with butter/duck fat, thyme, and sage.",
+      "Seal the bag using a vacuum sealer or the water displacement method.",
+      "Submerge the bag in the water bath and cook for 2.5 to 3 hours (up to 4 hours maximum).",
+      "Remove turkey from the bag, discarding herbs, and pat the skin completely dry with paper towels.",
+      "Heat neutral oil in a large skillet or cast iron pan over high heat until smoking, or preheat an oven to 500°F (260°C).",
+      "Place turkey skin side down in the hot pan (or in the oven) and sear until the skin is deep golden brown and crisp, about 2 to 3 minutes.",
+      "Transfer to a cutting board, carefully remove butcher's twine, slice, and serve immediately."
+    ],
+    "notes": "Cooking at 145°F yields classic tender, juicy turkey breast. Cooking at 135°F yields a remarkably tender, slightly pink result."
+  }
 ]
