@@ -2,7 +2,7 @@
   {
     "id": "alcoholic_ginger_beer",
     "title": "Alcoholic Ginger Beer",
-    "category": "Sauces & Condiments",
+    "category": "Drinks",
     "keywords": "ginger, beer, alcoholic, homemade, beverage, fermented",
     "prepTime": "20 mins",
     "cookTime": "3 weeks (fermenting)",
@@ -35,7 +35,7 @@
   {
     "id": "american_pancakes",
     "title": "Fluffy American pancakes",
-    "category": "Breakfast",
+    "category": "Baking",
     "keywords": "pancakes, american, fluffy, breakfast, brunch",
     "prepTime": "<30 mins",
     "cookTime": "<10 mins",
@@ -64,7 +64,7 @@
   {
     "id": "apple_cranberry_sauce",
     "title": "Apple & cranberry sauce",
-    "category": "Sauces & Condiments",
+    "category": "Sauces",
     "keywords": "apple, cranberry, sauce, christmas, jamie oliver",
     "prepTime": "10 mins",
     "cookTime": "30 mins",
@@ -168,7 +168,7 @@
   {
     "id": "beef_jerky",
     "title": "Homemade Beef Jerky",
-    "category": "Snack / Pastry",
+    "category": "Snack",
     "keywords": "beef, jerky, snack, high protein, chef john",
     "prepTime": "15 mins",
     "cookTime": "3 hours",
@@ -1340,7 +1340,7 @@
   {
     "id": "peppercorn_sauce",
     "title": "Peppercorn Sauce",
-    "category": "Sauces / Sides",
+    "category": "Sauces",
     "keywords": "peppercorn sauce, steak sauce, peppercorns, brandy, roux, creamy sauce without cream",
     "prepTime": "10 mins",
     "cookTime": "5 mins",
@@ -2118,7 +2118,7 @@
   {
     "id": "10_steak_sauces",
     "title": "10 Quick & Easy Steak Sauces",
-    "category": "Sides",
+    "category": "Sauces",
     "keywords": "steak sauces, salsa verde, peppercorn sauce, bearnaise, chimichurri, black bean, red wine jus, teriyaki, blue cheese, mushroom sauce",
     "prepTime": "5 mins",
     "cookTime": "5-25 mins",
@@ -2153,7 +2153,7 @@
   {
     "id": "tandoori_dry_rub",
     "title": "Tandoori Dry Rub",
-    "category": "Sides",
+    "category": "Ingredients / Seasoning",
     "keywords": "tandoori, spice blend, dry rub, indian, barbecue, chicken rub, seasoning",
     "prepTime": "5 mins",
     "cookTime": "0 mins",
@@ -2304,7 +2304,7 @@
   {
     "id": "white_chocolate_ginger_cheesecake",
     "title": "White Chocolate & Ginger Cheesecake with Ginger Butterscotch Sauce",
-    "category": "Desserts",
+    "category": "Dessert",
     "keywords": "cheesecake, white chocolate, ginger, gingernut biscuits, butterscotch sauce, mascarpone, dessert",
     "prepTime": "30 mins (plus chilling)",
     "cookTime": "10 mins",
@@ -2391,7 +2391,7 @@
     "id": "serious_eats_sous_vide_steak_guide",
     "type": "reference_guide",
     "title": "Sous Vide Steak",
-    "category": "Reference Guide",
+    "category": "Technique & Preparation",
     "keywords": "sous vide, steak, temperature chart, ribeye, strip steak, tenderloin, searing",
     "prepTime": "10 mins",
     "cookTime": "45 mins - 4 hrs",
@@ -2514,7 +2514,7 @@
 },
   {
     "title": "Beer Gravy",
-    "category": "Sides",
+    "category": "Sauces",
     "source_url": "https://brooklynbrewshop.com/blogs/themash/recipe-beer-gravy",
     "prep_time": null,
     "cook_time": null,
@@ -2692,7 +2692,7 @@
   {
     "id": "traditional_south_african_biltong",
     "title": "Traditional South African Biltong",
-    "category": "Snacks & Cured Meats",
+    "category": "Snacks",
     "keywords": "biltong, cured beef, South African, jerky, coriander, vinegar, dried meat",
     "prepTime": "30 mins (plus 12-24 hrs marinating)",
     "cookTime": "3 to 5 days (curing/drying)",
@@ -2767,7 +2767,7 @@
   {
     "id": "kerala_egg_puffs",
     "title": "Kerala Egg Puffs",
-    "category": "Snacks & Bakery",
+    "category": "Snacks",
     "keywords": "egg puffs, Kerala style, bakery style, puff pastry, spiced egg, Indian snack",
     "prepTime": "15 mins",
     "cookTime": "25 mins",
@@ -3073,7 +3073,7 @@
   {
     "id": "french_puy_lentil_ragout",
     "title": "French Puy Lentil Ragout",
-    "category": "Side Dish",
+    "category": "Sides",
     "keywords": "puy lentils, french lentils, side dish, ragout, RecipeTin Eats, vegetarian",
     "prepTime": "10 mins",
     "cookTime": "35 mins",
