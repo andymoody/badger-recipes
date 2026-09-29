@@ -608,3 +608,17 @@ li {
   font-size: 0.85rem;
   color: var(--text-muted);
 }
+
+/* Hide category accordion on portrait mobile screens */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+  .nav-list {
+    display: none !important;
+  }
+}
+
+/* Show category accordion on landscape screens or larger devices */
+@media screen and (min-width: 769px), screen and (orientation: landscape) {
+  .nav-list {
+    display: block;
+  }
+}
