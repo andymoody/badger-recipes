@@ -162,7 +162,10 @@ function renderCards(recipes) {
       </div>
       <div class="card-body">
         ${tempChartHtml}${variantsHtml}
-        <h3>Ingredients</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h3 style="margin: 0;">Ingredients</h3>
+          <button onclick="copyIngredientsToClipboard('${r.id}')" title="Copy ingredients for AnyList" style="background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 2px 6px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">📋</button>
+        </div>
         <ul id="ingredients-list-${r.id}">
           ${baseIngrList.map(i => `<li>${i.amount ? `<strong>${i.amount}</strong> — ` : ''}${i.name}</li>`).join('')}
         </ul>
@@ -303,6 +306,28 @@ function addNewRecipe() {
 
   window.open(githubIssueUrl, '_blank');
   closeModal();
+}
+
+function copyIngredientsToClipboard(recipeId) {
+  const recipe = masterRecipes.find(r => r.id === recipeId);
+  if (!recipe) return;
+
+  // Grab base ingredients or standard ingredients list
+  const ingredients = recipe.baseIngredients || recipe.ingredients || [];
+  
+  // Format each ingredient into a clean line (e.g., "2 cups flour")
+  const textLines = ingredients.map(i => {
+    const amountStr = i.amount ? `${i.amount} ` : '';
+    const nameStr = i.name || i;
+    return `${amountStr}${nameStr}`;
+  }).join('\n');
+
+  navigator.clipboard.writeText(textLines).then(() => {
+    alert(`Ingredients for "${recipe.title}" copied to clipboard!\n\nOpen AnyList, tap the 'Add Item' field, and select Paste to add them automatically.`);
+  }).catch(err => {
+    console.error('Failed to copy ingredients: ', err);
+    alert('Could not copy ingredients.');
+  });
 }
 
 window.onload = loadRecipes;
