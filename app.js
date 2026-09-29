@@ -115,13 +115,12 @@ function renderCards(recipes) {
     const baseInstList = Array.isArray(r.baseInstructions) ? r.baseInstructions : (Array.isArray(r.instructions) ? r.instructions : []);
 
     // Restricted to title, category, and explicit keywords to eliminate false positives
-    card.setAttribute(
-      'data-keywords',
-      `${r.title} ${r.category \vert{}\vert{} ''}${r.keywords || ''}`
-    );
+    card.setAttribute('data-keywords',`${r.title} ${r.category || ''} ${r.keywords || ''}`);
 
+    let prepDisplay = r.prepTime || (r.prepTimeMinutes ? r.prepTimeMinutes + 'm' : 'N/A');
+    let bakeDisplay = r.bakeTimeMinutes ? r.bakeTimeMinutes + 'm' : (r.cookTime || 'N/A');
     let metaHtml = (r.prepTime || r.cookTime || r.servings || r.bakeTimeMinutes) ? 
-      `⏱️ Prep: ${r.prepTime \vert{}\vert{} (r.prepTimeMinutes ? r.prepTimeMinutes + 'm' : 'N/A')} \vert{} Bake: ${r.bakeTimeMinutes ? r.bakeTimeMinutes + 'm' : (r.cookTime || 'N/A')}` : '';
+      `Prep: ${prepDisplay} | Bake: ${bakeDisplay}` : '';
     let notesHtml = r.notes ? `<div class="notes-box"><strong>Notes:</strong><br>${r.notes}</div>` : '';
     let thumbImg = r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-thumb">` : '';
 
@@ -267,7 +266,6 @@ function closeModal() {
   document.getElementById('addModal').classList.remove('open');
 }
 
-// Generates a GitHub Issue link containing the JSON payload and opens it
 function addNewRecipe() {
   const title = document.getElementById('addTitle').value.trim();
   const category = document.getElementById('addCategory').value;
@@ -280,8 +278,9 @@ function addNewRecipe() {
     return;
   }
 
-  // Helper to generate slug ID
   const recipeId = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  
+  const imageUrl = document.getElementById('addImage').value.trim();
 
   const newRecipeObj = {
     id: recipeId,
@@ -292,7 +291,7 @@ function addNewRecipe() {
     ingredients: ingredients,
     instructions: instructions,
     notes: '',
-    image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=150&auto=format&fit=crop&q=80'
+    image: imageUrl || 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=150&auto=format&fit=crop&q=80'
   };
 
   const issueTitle = encodeURIComponent(`[New Recipe]: ${title}`);
@@ -302,9 +301,7 @@ function addNewRecipe() {
 
   const githubIssueUrl = `https://github.com/andymoody/badger-recipes/issues/new?title=${issueTitle}&body=${issueBody}&labels=new-recipe`;
 
-  // Open the GitHub issue pre-filled in a new tab
   window.open(githubIssueUrl, '_blank');
-
   closeModal();
 }
 
