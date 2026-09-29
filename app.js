@@ -116,8 +116,8 @@ function renderCards(recipes) {
     const baseInstList = Array.isArray(r.baseInstructions) ? r.baseInstructions : (Array.isArray(r.instructions) ? r.instructions : []);
 
     card.setAttribute(
-      'data-keywords',
-      `${r.title} ${r.category} ${r.keywords || ''} ${baseIngrList.map(i => i.name).join(' ')}`
+     'data-keywords',
+     `${r.title} ${r.category || ''} ${r.keywords || ''}`
     );
 
     let metaHtml = (r.prepTime || r.cookTime || r.servings || r.bakeTimeMinutes) ? 
@@ -256,11 +256,12 @@ function scrollToAndOpenRecipe(id) {
 }
 
 function filterRecipes() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
   const cards = document.querySelectorAll('.recipe-card');
+  
   cards.forEach(card => {
-    const text = card.getAttribute('data-keywords').toLowerCase() + card.innerText.toLowerCase();
-    card.style.display = text.includes(q) ? 'block' : 'none';
+    const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+    card.style.display = keywords.includes(q) ? 'block' : 'none';
   });
 }
 
