@@ -1,9 +1,18 @@
 let masterRecipes = [];
 
+// Helper function to sort array of recipe objects alphabetically by title
+function sortRecipesAlphabetically(recipes) {
+  return recipes.sort((a, b) => a.title.localeCompare(b.title));
+}
+
 async function loadRecipes() {
   try {
     const response = await fetch('./recipes.json');
     masterRecipes = await response.json();
+    
+    // Sort overall list alphabetically
+    masterRecipes = sortRecipesAlphabetically(masterRecipes);
+
     renderSidebar();
     renderCards(masterRecipes);
   } catch (err) {
@@ -25,6 +34,7 @@ function renderSidebar() {
 
   document.getElementById('sidebarCount').innerText = `${masterRecipes.length} Total Recipes`;
 
+  // Sort category names alphabetically A-Z
   Object.keys(categories).sort().forEach(cat => {
     const group = document.createElement('div');
     group.className = 'category-group';
@@ -41,7 +51,10 @@ function renderSidebar() {
     const list = document.createElement('ul');
     list.className = 'category-recipes';
 
-    categories[cat].forEach(r => {
+    // Sort recipes within this specific category alphabetically A-Z
+    const sortedCatRecipes = sortRecipesAlphabetically(categories[cat]);
+
+    sortedCatRecipes.forEach(r => {
       const li = document.createElement('li');
       li.innerText = r.title;
       li.onclick = () => scrollToAndOpenRecipe(r.id);
@@ -58,7 +71,10 @@ function renderCards(recipes) {
   const container = document.getElementById('recipeContainer');
   container.innerHTML = '';
 
-  recipes.forEach(r => {
+  // Ensure main card view stays strictly alphabetical A-Z
+  const sortedRecipes = sortRecipesAlphabetically([...recipes]);
+
+  sortedRecipes.forEach(r => {
     const card = document.createElement('article');
     card.className = 'recipe-card';
     card.id = `card-${r.id}`;
@@ -145,7 +161,9 @@ function addNewRecipe() {
     image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=150&auto=format&fit=crop&q=80'
   };
 
-  masterRecipes.unshift(newRecipe);
+  masterRecipes.push(newRecipe);
+  masterRecipes = sortRecipesAlphabetically(masterRecipes);
+
   renderSidebar();
   renderCards(masterRecipes);
   closeModal();
