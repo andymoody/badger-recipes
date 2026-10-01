@@ -589,7 +589,7 @@ li {
   background: rgba(44, 107, 116, 0.1);
 }
 
-.variant-chip input[type="checkbox"] {
+.variant-chip input[type="radio"] {
   accent-color: var(--canton-teal);
   cursor: pointer;
 }

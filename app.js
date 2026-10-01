@@ -126,24 +126,25 @@ function renderCards(recipes) {
 
     let variantsHtml = '';
     if (Array.isArray(r.variants) && r.variants.length > 0) {
+      const groupName = `variant-group-${r.id}`;
       const optionsHtml = r.variants.map((v, idx) => `
-        <label class="variant-chip">
-          <input type="checkbox" class="variant-checkbox" data-recipe-id="${r.id}" data-variant-index="${idx}" onchange="updateRecipeView('${r.id}')">
-          <span>${v.variantName}</span>
-        </label>
+      <label class="variant-chip">
+        <input type="radio" name="${groupName}" class="variant-radio" data-recipe-id="${r.id}" data-variant-index="${idx}" onchange="updateRecipeView('${r.id}')">
+        <span>${v.variantName}</span>
+      </label>
       `).join('');
 
       variantsHtml = `
         <div class="variants-container" id="variants-container-${r.id}">
-          <h3>Flavor Variants & Add-ins</h3>
+          <h3>Flavor Variants & Methods</h3>
           <div class="variants-chips-group">
-            <label class="variant-chip base-chip">
-              <input type="checkbox" checked disabled>
-              <span>Base Recipe</span>
-            </label>
-            ${optionsHtml}
-          </div>
-          <div class="variant-modifications-notes" id="variant-notes-${r.id}"></div>
+          <label class="variant-chip base-chip">
+            <input type="radio" name="${groupName}" class="variant-radio" data-recipe-id="${r.id}" data-variant-index="-1" checked onchange="updateRecipeView('${r.id}')">
+            <span>Base Recipe</span>
+          </label>
+          ${optionsHtml}
+        </div>
+        <div class="variant-modifications-notes" id="variant-notes-${r.id}" style="display: none;"></div>
         </div>
       `;
     }
@@ -185,50 +186,59 @@ function updateRecipeView(recipeId) {
   if (!recipe) return;
 
   const container = document.getElementById(`card-${recipeId}`);
-  const checkboxes = container.querySelectorAll(`.variant-checkbox[data-recipe-id="${recipeId}"]`);
+  const selectedRadio = container.querySelector(`.variant-radio[data-recipe-id="${recipeId}"]:checked`);
   
-  const selectedVariants = [];
-  checkboxes.forEach(cb => {
-    if (cb.checked) {
-      const idx = parseInt(cb.getAttribute('data-variant-index'));
-      selectedVariants.push(recipe.variants[idx]);
-    }
-  });
-
   let currentIngredients = [...(recipe.baseIngredients || [])];
   let currentInstructions = [...(recipe.baseInstructions || [])];
   let modNotes = [];
 
-  selectedVariants.forEach(v => {
-    if (v.ingredientSubstitutions) {
-      v.ingredientSubstitutions.forEach(sub => {
-        currentIngredients = currentIngredients.map(ing => {
-          if (ing.name.toLowerCase().includes(sub.target.toLowerCase())) {
-            return { name: `${sub.replacementName} (replacing${sub.target})`, amount: sub.replacementAmount || ing.amount };
-          }
-          return ing;
-        });
-      });
-    }
-    if (v.additionalIngredients) {
-      v.additionalIngredients.forEach(add => {
-        currentIngredients.push({ name: add.name, amount: add.amount });
-      });
-    }
-    if (v.ingredientModifications) {
-      modNotes.push(`<strong>${v.variantName} Note:</strong>${v.ingredientModifications}`);
-    }
-    if (v.instructionModifications) {
-      currentInstructions.push(`(${v.variantName})${v.instructionModifications}`);
-    }
-  });
+  // If a specific variant index is selected (index >= 0)
+  if (selectedRadio) {
+    const idx = parseInt(selectedRadio.getAttribute('data-variant-index'));
+    
+    if (idx >= 0 && recipe.variants && recipe.variants[idx]) {
+      const v = recipe.variants[idx];
 
+      if (v.ingredientSubstitutions) {
+        v.ingredientSubstitutions.forEach(sub => {
+          currentIngredients = currentIngredients.map(ing => {
+            if (ing.name.toLowerCase().includes(sub.target.toLowerCase())) {
+              return { name: `${sub.replacementName} (replacing ${sub.target})`, amount: sub.replacementAmount || ing.amount };
+            }
+            return ing;
+          });
+        });
+      }
+
+      if (v.additionalIngredients) {
+        v.additionalIngredients.forEach(add => {
+          currentIngredients.push({ name: add.name, amount: add.amount });
+        });
+      }
+
+      if (v.ingredientModifications) {
+        modNotes.push(`<strong>${v.variantName} Note:</strong> ${v.ingredientModifications}`);
+      }
+
+      if (v.instructionModifications) {
+        if (Array.isArray(v.instructionModifications)) {
+          currentInstructions = [...v.instructionModifications]; // Replaces base instructions entirely if variant specifies whole steps, or append depending on preference
+        } else {
+          currentInstructions.push(`(${v.variantName}) ${v.instructionModifications}`);
+        }
+      }
+    }
+  }
+
+  // Update ingredient list DOM
   const ingrUl = document.getElementById(`ingredients-list-${recipeId}`);
   ingrUl.innerHTML = currentIngredients.map(i => `<li>${i.amount ? `<strong>${i.amount}</strong> — ` : ''}${i.name}</li>`).join('');
 
+  // Update instruction list DOM
   const instOl = document.getElementById(`instructions-list-${recipeId}`);
   instOl.innerHTML = currentInstructions.map(i => `<li>${i}</li>`).join('');
 
+  // Update variant notes DOM
   const notesDiv = document.getElementById(`variant-notes-${recipeId}`);
   if (notesDiv) {
     notesDiv.innerHTML = modNotes.join('<br>');

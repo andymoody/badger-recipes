@@ -270,37 +270,55 @@
     "notes": "Use medium ground beef for moistness & flavour; leaner varieties produce drier burgers."
   },
   {
-    "id": "black_pudding_scotch_eggs",
-    "title": "Black pudding / chorizo scotch eggs",
-    "category": "Main Course",
-    "keywords": "scotch eggs, black pudding, chorizo, pork, eggs, deep fry",
-    "prepTime": "20 mins",
-    "cookTime": "20 mins",
-    "servings": "6 servings",
-    "image": "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=150&auto=format&fit=crop&q=80",
-    "ingredients": [
-      "400g homemade or good-quality shop-bought black pudding (for chorizo use 300g each)",
-      "200g fatty minced pork",
-      "50g fresh white breadcrumbs",
-      "1 tbsp chopped parsley",
-      "6 medium eggs, at room temperature",
-      "Sunflower oil, for deep-frying",
-      "Sea salt and freshly ground black pepper",
-      "100g plain flour (for coating)",
-      "1–2 medium eggs (for coating)",
-      "200g coarse fresh white breadcrumbs (for coating)"
-    ],
-    "instructions": [
-      "Preheat the oven to 180 degrees.",
-      "Put the black pudding, minced pork, breadcrumbs and parsley into a large bowl and mix until evenly combined, seasoning well with salt and pepper. Divide the mixture into 12 even-sized balls.",
-      "Bring a pan of water to the boil, add the 6 eggs and cook for 6 minutes, which should give you a soft-set yolk. Drain the eggs and run them under the cold tap until cool enough to handle. Carefully shell them.",
-      "For the coating, set out three bowls. Put the flour into one bowl and season it with salt and pepper. Break an egg into the next and beat it lightly. Tip the coarse breadcrumbs into the third bowl.",
-      "Take two of the black pudding balls and flatten them out to rough discs, about 6cm in diameter. Place one disc in the palm of your hand, set a boiled egg in the middle, then top with the second disc. Mould the black pudding around the egg, sealing the joins well. Repeat with the remaining black pudding and eggs.",
-      "Coat each Scotch egg with seasoned flour. Next, dip it in the beaten egg (lightly beat in another egg if you need to) and finally roll it in the breadcrumbs. Chill the eggs until you’re ready to cook them.",
-      "Heat a 5–7cm depth of oil in a deep pan to 175°C, or until hot enough to turn a few breadcrumbs golden in 30–40 seconds. Cook 2 or 3 eggs at a time. Lower them into the oil and fry for 2 minutes, turning regularly until golden and crisp. Transfer to the oven and cook for 10 minutes. Drain on kitchen paper and leave to stand for 5–10 minutes before tucking in."
-    ],
-    "notes": "For chorizo variation, use 300g chorizo and 300g minced pork."
-  },
+  "id": "black_pudding_scotch_eggs",
+  "title": "Black Pudding or Chorizo Scotch Eggs",
+  "category": "Main Course",
+  "keywords": "scotch eggs, black pudding, chorizo, pork, eggs, deep fry",
+  "prepTime": "20 mins",
+  "cookTime": "20 mins",
+  "servings": "6 servings",
+  "image": "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=150&auto=format&fit=crop&q=80",
+  "baseIngredients": [
+    { "name": "Fresh white breadcrumbs", "amount": "50g" },
+    { "name": "Chopped parsley", "amount": "1 tbsp" },
+    { "name": "Medium eggs, at room temperature", "amount": "6" },
+    { "name": "Sunflower oil, for deep-frying", "amount": "As needed" },
+    { "name": "Sea salt and freshly ground black pepper", "amount": "To taste" },
+    { "name": "Plain flour (for coating)", "amount": "100g" },
+    { "name": "Medium eggs (for coating)", "amount": "1–2" },
+    { "name": "Coarse fresh white breadcrumbs (for coating)", "amount": "200g" }
+  ],
+  "baseInstructions": [
+    "Preheat the oven to 180°C.",
+    "Bring a pan of water to the boil, add the 6 eggs and cook for 6 minutes for a soft-set yolk. Drain, run under cold water, and carefully shell them.",
+    "Set out three coating bowls: flour seasoned with salt and pepper, beaten egg, and coarse breadcrumbs.",
+    "Take two portions of the prepared meat mixture, flatten into 6cm discs, enclose a boiled egg, seal joins well, and coat in flour, egg, and breadcrumbs. Chill until ready to cook.",
+    "Heat oil to 175°C, fry 2-3 eggs at a time for 2 minutes until golden, then transfer to the oven for 10 minutes. Drain and rest for 5-10 minutes."
+  ],
+  "variants": [
+    {
+      "variantName": "Black Pudding",
+      "additionalIngredients": [
+        { "name": "Fatty minced pork", "amount": "200g" },
+        { "name": "Homemade or good-quality shop-bought black pudding", "amount": "400g" }
+      ],
+      "instructionModifications": [
+        "Put the black pudding, 200g minced pork, breadcrumbs, and parsley into a large bowl and mix until evenly combined before dividing into 12 even-sized balls."
+      ]
+    },
+    {
+      "variantName": "Chorizo",
+      "additionalIngredients": [
+        { "name": "Fatty minced pork", "amount": "500g" },
+        { "name": "Chorizo sausage", "amount": "300g" }
+      ],
+      "instructionModifications": [
+        "Put the chorizo (processed finely beforehand) and 500g minced pork, breadcrumbs, and parsley into a large bowl and mix until evenly combined before dividing into 12 even-sized balls."
+      ]
+    }
+  ],
+  "notes": "Chorizo variation uses a higher total meat ratio (500g pork + 300g chorizo) compared to the black pudding version."
+},
   {
     "id": "botham_burgers_half_recipe",
     "title": "Botham burgers - ½ original recipe",
@@ -748,37 +766,56 @@
     "notes": "Makes 1 x 20cm round cake."
   },
   {
-    "id": "ginger_honey_roasted_pork_tenderloin",
-    "title": "GINGER HONEY ROASTED PORK TENDERLOIN",
-    "category": "Main Course",
-    "keywords": "pork, tenderloin, ginger, honey, soy sauce, garlic, roast",
-    "prepTime": "10 mins",
-    "cookTime": "15 mins",
-    "servings": "4 SERVINGS",
-    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=150&auto=format&fit=crop&q=80",
-    "ingredients": [
-      "1 lb pork tenderloin, excess fat trimmed",
-      "1 1/2 Tbsp fresh ginger, grated",
-      "7 Tbsp honey",
-      "2 Tbsp lemon juice",
-      "2 tsp grated fresh garlic",
-      "2 1/2 Tbsp soy sauce",
-      "kosher salt and black pepper, to taste",
-      "pinch cayenne pepper",
-      "olive oil for cooking",
-      "chopped fresh parsley, for garnish"
-    ],
-    "instructions": [
-      "Combine ginger, honey, lemon juice, garlic, soy sauce, cayenne, salt, and pepper in a small mixing bowl.",
-      "Add half the marinade mixture to a ziplock bag with the pork tenderloin. Seal and marinate for a few hours or overnight. Refrigerate the remaining marinade.",
-      "Preheat oven to 400°F (200°C). Line a baking sheet with a double layer of aluminum foil.",
-      "Heat a large skillet with olive oil over medium-high heat. Remove pork from marinade and sear briefly on all sides until golden brown.",
-      "Transfer tenderloin to prepared baking sheet and roast for 10-15 minutes until internal temperature reaches 133°F.",
-      "Brush with leftover marinade and broil on HIGH for 1-2 minutes until golden.",
-      "Cover with foil and let rest a few minutes until internal temperature reaches 140-145°F. Slice and serve garnished with fresh parsley."
-    ],
-    "notes": "Prep time does not include marinating time."
-  },
+  "id": "ginger_honey_roasted_pork_tenderloin",
+  "title": "GINGER HONEY ROASTED PORK TENDERLOIN",
+  "category": "Main Course",
+  "keywords": "pork, tenderloin, ginger, honey, soy sauce, garlic, roast, grill",
+  "prepTime": "10 mins",
+  "cookTime": "15-20 mins",
+  "servings": "4 SERVINGS",
+  "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=150&auto=format&fit=crop&q=80",
+  "baseIngredients": [
+    { "name": "Pork tenderloin, excess fat trimmed", "amount": "1 lb" },
+    { "name": "Fresh ginger, grated", "amount": "1 1/2 Tbsp" },
+    { "name": "Honey", "amount": "7 Tbsp" },
+    { "name": "Lemon juice", "amount": "2 Tbsp" },
+    { "name": "Grated fresh garlic", "amount": "2 tsp" },
+    { "name": "Soy sauce", "amount": "2 1/2 Tbsp" },
+    { "name": "Kosher salt and black pepper", "amount": "To taste" },
+    { "name": "Pinch cayenne pepper", "amount": "Pinch" },
+    { "name": "Chopped fresh parsley, for garnish", "amount": "For garnish" }
+  ],
+  "baseInstructions": [
+    "Combine ginger, honey, lemon juice, garlic, soy sauce, cayenne, salt, and pepper in a small mixing bowl.",
+    "Add half the marinade mixture to a ziplock bag with the pork tenderloin. Seal and marinate for a few hours or overnight. Refrigerate the remaining marinade."
+  ],
+  "variants": [
+    {
+      "variantName": "Oven & Skillet Roasted",
+      "additionalIngredients": [
+        { "name": "Olive oil for cooking", "amount": "As needed" }
+      ],
+      "instructionModifications": [
+        "Preheat oven to 400°F (200°C) and line a baking sheet with aluminum foil.",
+        "Heat a large skillet with olive oil over medium-high heat, remove pork from marinade, and sear briefly on all sides until golden brown.",
+        "Transfer tenderloin to the baking sheet and roast for 10-15 minutes until internal temperature reaches 133°F.",
+        "Brush with leftover marinade and broil on HIGH for 1-2 minutes until golden, then rest until 140-145°F."
+      ]
+    },
+    {
+      "variantName": "Grill Variant",
+      "additionalIngredients": [
+        { "name": "Oil for oiling grill grates", "amount": "As needed" }
+      ],
+      "instructionModifications": [
+        "Preheat grill for indirect medium-high heat (around 400°F).",
+        "Remove pork from marinade and place on the cooler side of the grill (indirect heat) for 15-20 minutes, turning occasionally.",
+        "During the last 3-4 minutes, move directly over the heat and brush generously with reserved marinade, turning until caramelized and internal temperature reaches 140-145°F."
+      ]
+    }
+  ],
+  "notes": "Prep time does not include marinating time."
+},
   {
     "id": "homemade_coleslaw",
     "title": "Homemade Coleslaw",
@@ -907,48 +944,59 @@
     "notes": "Famous classic London fish pie recipe."
   },
   {
-    "id": "jerk_chicken_with_rice_and_peas",
-    "title": "Jerk chicken with rice & peas",
-    "category": "Main Course",
-    "keywords": "jerk chicken, rice and peas, scotch bonnet, coconut milk, kidney beans, caribbean",
-    "prepTime": "30 mins",
-    "cookTime": "45 mins",
-    "servings": "6 servings",
-    "image": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=150&auto=format&fit=crop&q=80",
-    "ingredients": [
-      "12 chicken thighs, bone in",
-      "1 lime, halved",
-      "1 big bunch spring onions, roughly chopped",
-      "Thumb-sized piece ginger, roughly chopped",
-      "3 garlic cloves",
-      "1/2 small onion",
-      "3 scotch bonnet chillies",
-      "1/2 tsp dried thyme (or 1 tbsp thyme leaves)",
-      "Juice of 1 lime",
-      "2 tbsp soy sauce",
-      "2 tbsp vegetable oil",
-      "3 tbsp brown sugar",
-      "1 tbsp ground allspice",
-      "200g basmati rice",
-      "400g can coconut milk",
-      "1 bunch spring onions, sliced (for rice)",
-      "2 large thyme sprigs",
-      "2 garlic cloves, finely chopped (for rice)",
-      "1 tsp ground allspice (for rice)",
-      "2 x 410g cans kidney beans, drained",
-      "Hot sauce, to serve (optional)"
-    ],
-    "instructions": [
-      "Combine marinade ingredients (spring onions, ginger, garlic, onion, scotch bonnets, thyme, lime juice, soy sauce, oil, brown sugar, allspice, 1 tsp salt) in a food processor and blend into a thick paste.",
-      "Slash chicken thighs, rub marinade into crevices, cover and leave to marinate overnight in the fridge.",
-      "To oven roast: preheat oven to 180°C/160°C fan/gas 4. Place chicken in a roasting tin with lime halves and cook for 45 minutes until cooked through.",
-      "To barbecue: cook over slow indirect heat with wood chips for 30 minutes.",
-      "For rice & peas: rinse basmati rice and combine in a pan with coconut milk, sliced spring onions, thyme sprigs, chopped garlic, ground allspice, salt, and 300ml cold water. Bring to boil, reduce to medium, cover, and cook for 10 minutes.",
-      "Add kidney beans to rice, cover, remove from heat, and let sit for 5 minutes until liquid is absorbed.",
-      "Squeeze roasted lime over chicken and serve alongside rice & peas and hot sauce."
-    ],
-    "notes": "Marinate overnight in the fridge for full flavor development."
-  },
+  "id": "jerk_chicken_with_rice_and_peas",
+  "title": "Jerk Chicken with Rice & Peas",
+  "category": "Main Course",
+  "keywords": "chicken, jerk, caribbean, rice and peas, barbecue, oven roasted, spicy",
+  "prepTime": "30 mins",
+  "cookTime": "1 hour",
+  "servings": "4-6 servings",
+  "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=150&auto=format&fit=crop&q=80",
+  "baseIngredients": [
+    { "name": "Chicken pieces (legs, thighs, or bone-in breasts)", "amount": "3-4 lbs" },
+    { "name": "Scallions, chopped", "amount": "4 bunches" },
+    { "name": "Garlic cloves", "amount": "6-8" },
+    { "name": "Fresh thyme leaves", "amount": "1/4 cup" },
+    { "name": "Scotch bonnet or habanero chilies (seeds removed for less heat if desired)", "amount": "2-3" },
+    { "name": "Fresh ginger, grated", "amount": "1 1/2 inch knob" },
+    { "name": "Ground allspice (pimento)", "amount": "2 tbsp" },
+    { "name": "Ground black pepper", "amount": "1 tbsp" },
+    { "name": "Dark brown sugar", "amount": "2 tbsp" },
+    { "name": "Dark soy sauce", "amount": "2 tbsp" },
+    { "name": "Lime juice", "amount": "Juice of 1-2 limes" },
+    { "name": "Salt", "amount": "1 tsp" }
+  ],
+  "baseInstructions": [
+    "Combine the scallions, garlic, thyme, chilies, ginger, allspice, black pepper, brown sugar, soy sauce, lime juice, and salt in a food processor or blender, pulsing until a thick paste forms.",
+    "Make deep slashes into the chicken pieces to allow the flavors to penetrate. Rub the jerk marinade thoroughly into the chicken, making sure to get some under the skin.",
+    "Cover and refrigerate to marinate for at least 6 hours, or ideally overnight."
+  ],
+  "variants": [
+    {
+      "variantName": "Oven Roasted",
+      "additionalIngredients": [],
+      "instructionModifications": [
+        "Preheat your oven to 180°C (350°F) / Mark 4.",
+        "Place the marinated chicken pieces in a roasting tin or a foil-lined baking sheet.",
+        "Cover the tray loosely with aluminum foil and bake for about 45 minutes to 1 hour, until cooked through.",
+        "Remove the foil for the last 15 minutes, or pop under the broiler briefly, to let the skin crisp and caramelize."
+      ]
+    },
+    {
+      "variantName": "Barbecue / Grilled",
+      "additionalIngredients": [
+        { "name": "Wood chips (such as pimento or fruitwood, soaked if using)", "amount": "1 handful" }
+      ],
+      "instructionModifications": [
+        "Prepare an outdoor grill for a two-zone setup, creating a side with indirect heat and a side with direct medium heat (around 325°F to 400°F).",
+        "Place the chicken skin-side down over direct heat for 3 to 4 minutes to achieve a light char and grill marks.",
+        "Move the chicken to the indirect heat side, close the grill lid, and let it smoke-roast for 45 minutes to an hour, turning occasionally.",
+        "Transfer back over direct heat for the final few minutes to crisp up the skin before serving."
+      ]
+    }
+  ],
+  "notes": "Marination time is essential for authentic depth of flavor. Serve alongside traditional Jamaican rice and peas."
+},
   {
     "id": "raan_leg_of_lamb",
     "title": "Lamb Raan", 
@@ -2471,36 +2519,36 @@
     "Stir in the herbs and serve immediately with steamed or coconut rice and lime wedges."
   ]
 },
-  {
-    "title": "Beer Gravy",
-    "category": "Sauces",
-    "source_url": "https://brooklynbrewshop.com/blogs/themash/recipe-beer-gravy",
-    "prep_time": null,
-    "cook_time": null,
-    "servings": null,
-    "difficulty": null,
-    "nutrition": null,
-    "ingredients": {
-      "main": [
-        "Pan drippings (from roasted turkey or chicken)",
-        "3 tbsp butter (or pan fat)",
-        "3 tbsp all-purpose flour",
-        "1 bottle (12 oz) beer (preferably an amber ale, brown ale, or porter)",
-        "1-2 cups turkey or chicken stock",
-        "Salt and freshly cracked black pepper, to taste"
-      ]
-    },
-    "instructions": [
-      "Pour pan drippings into a fat separator or glass measuring cup, letting the fat rise to the top. Reserve both the fat and the rich liquid underneath.",
-      "In a saucepan over medium heat, melt 3 tablespoons of fat (or butter).",
-      "Whisk in the flour and cook for 1 to 2 minutes until bubbly and light brown to form a roux.",
-      "Slowly pour in the beer while whisking continuously to prevent lumps.",
-      "Gradually whisk in the reserved pan drippings and stock until desired consistency is reached.",
-      "Simmer for 5 to 10 minutes, stirring occasionally, until thickened.",
-      "Season with salt and black pepper to taste and serve warm."
+{
+  "title": "Beer Gravy",
+  "category": "Sauces",
+  "source_url": "https://brooklynbrewshop.com/blogs/themash/recipe-beer-gravy",
+  "prep_time": "10 minutes",
+  "cook_time": "15 minutes",
+  "servings": "4-6 servings",
+  "difficulty": "Easy",
+  "nutrition": null,
+  "ingredients": {
+    "main": [
+      "4 tablespoons unsalted butter",
+      "1/4 cup all-purpose flour",
+      "1 yellow onion, chopped",
+      "2 garlic cloves, minced",
+      "2 cups stock",
+      "2 cups beer",
+      "Salt to taste"
     ]
   },
-  {
+  "instructions": [
+    "Melt the butter in a saucepan over medium-high heat.",
+    "Add the flour and whisk until smooth.",
+    "Add the onion and garlic and cook until soft, about 5 minutes.",
+    "Add the stock and beer and bring to a boil, stirring constantly until thickened, about 6 minutes.",
+    "Remove from the heat, add salt to taste, and serve warm."
+  ],
+  "image": "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=150&auto=format&fit=crop&q=80"
+},  
+{
     "id": "sams_toad_in_the_hole",
     "title": "Sam's Toad in the Hole",
     "category": "Main Course",
