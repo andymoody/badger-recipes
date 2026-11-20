@@ -1,6 +1,6 @@
 // Turns a recipe plus the page's state (scaling, choices, full-batch toggles) into a tree of
 // resolved nodes: each part with its factor, scaled ingredient lines and filtered steps.
-import { convert, exponent } from './quantity.js';
+import { convert, exponent, shownAmount, formatAmount, displayAmount, itemName } from './quantity.js';
 
 const near = (a, b) => Math.abs(a - b) < 1e-9;
 
@@ -24,6 +24,23 @@ export function resolveLine(line, k, catalogue) {
     out.proportional = { qty: line.qty * k, qtyMax: line.qtyMax != null ? line.qtyMax * k : undefined };
   }
   return out;
+}
+
+/**
+ * What the page shows for an ingredient line: { amount, name, proportional }. proportional is the
+ * in-proportion figure, given only when it would display differently from the amount shown
+ * (1 tsp salt doubled is 1.87 tsp, which still shows as 2 tsp, so it isn't marked).
+ */
+export function lineDisplay(l) {
+  if (l.qty == null) return { amount: '', name: l.entry.name, proportional: null };
+  const s = shownAmount(l.qty, l.qtyMax, l.unit, l.scaled);
+  const amount = formatAmount(s.qty, s.qtyMax, s.unit);
+  let proportional = null;
+  if (l.proportional) {
+    const p = displayAmount(l.proportional.qty, l.proportional.qtyMax, l.unit, true);
+    if (p !== amount) proportional = p;
+  }
+  return { amount, name: itemName(l.entry, s.qty, s.qtyMax, s.unit), proportional };
 }
 
 /** How many of a part's yield (or servings) the parent needs, before the page's scaling. */
@@ -122,6 +139,37 @@ function resolveNode(data, recipe, info, st) {
     : [];
   if (!(recipe.steps || []).length) for (const c of node.children) node.steps.push({ part: c });
   return node;
+}
+
+/** The heading for a part: "Protein: Chicken" for a choice, else its label or title. */
+export function partTitle(node) {
+  if (node.choice) return node.choice.label + ': ' + node.title;
+  return node.label || node.title;
+}
+
+/**
+ * The ingredients tab, as groups: { node, title, lines }.
+ * - Parts come first, in the order the method uses them (the paste, then the rice), each
+ *   followed by its own parts.
+ * - The recipe's own ingredients come last, under its title. Choice options used through
+ *   conditional steps rather than embedded (the curry's protein) belong to the recipe's own
+ *   method, so their lines join the end of this group.
+ * - With no parts, there is one group and no title.
+ */
+export function ingredientGroups(root) {
+  const groups = [];
+  const order = [];
+  for (const s of root.steps) if (s.part && !order.includes(s.part)) order.push(s.part);
+  for (const c of root.children) if (!order.includes(c) && !root.loose.includes(c)) order.push(c);
+  for (const c of order) walk(c, (n) => groups.push({ node: n, title: partTitle(n), lines: n.lines }));
+  const own = [...root.lines];
+  const after = [];
+  for (const c of root.loose) {
+    own.push(...c.lines);
+    for (const cc of c.children) walk(cc, (n) => after.push({ node: n, title: partTitle(n), lines: n.lines }));
+  }
+  if (own.length) groups.push({ node: root, title: groups.length ? root.title : null, lines: own });
+  return groups.concat(after);
 }
 
 /** Every node in the tree, depth first, parents before children. */

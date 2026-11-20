@@ -1,6 +1,6 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { resolve, resolveLine, partRatio, choices, walk } from '../js/resolve.js';
+import { resolve, resolveLine, partRatio, choices, walk, lineDisplay, ingredientGroups, partTitle } from '../js/resolve.js';
 import { loadData, CATALOGUE, near } from './helpers.mjs';
 
 const data = loadData();
@@ -135,6 +135,62 @@ describe('American pancakes (headings, optional and fixed lines)', () => {
   test('optional "to serve" lines are flagged', () => {
     const root = resolve(data, 'american_pancakes');
     assert.equal(line(root, 'maple_syrup').optional, true);
+  });
+});
+
+describe('ingredientGroups: parts in method order, the recipe\'s own ingredients last', () => {
+  const titles = (root) => ingredientGroups(root).map((g) => g.title);
+  test('curry: paste, rice, then the curry itself with the chosen protein', () => {
+    const groups = ingredientGroups(resolve(data, 'thai_red_curry'));
+    assert.deepEqual(groups.map((g) => g.title), ['Thai red curry paste', 'Steamed jasmine rice', 'Thai red curry']);
+    const own = groups[2].lines;
+    assert.equal(own[0].item, 'vegetable_oil');
+    assert.equal(own.at(-1).item, 'chicken_thigh');
+    assert.ok(!own.some((l) => l.heading), 'no subheading: the radios already say which protein');
+  });
+  test('switching to tofu changes the protein lines in the curry group', () => {
+    const own = ingredientGroups(resolve(data, 'thai_red_curry', { choices: { protein: 'tofu' } })).at(-1).lines;
+    assert.equal(own.at(-1).item, 'firm_tofu');
+    assert.ok(!own.some((l) => l.item === 'chicken_thigh'));
+  });
+  test('Scotch eggs: the filling first, then the eggs, coating and oil', () => {
+    assert.deepEqual(titles(resolve(data, 'scotch_eggs')), ['Filling: Black pudding and pork', 'Scotch eggs']);
+  });
+  test('a recipe without parts has one untitled group', () => {
+    assert.deepEqual(titles(resolve(data, 'american_pancakes')), [null]);
+  });
+  test('partTitle', () => {
+    const root = resolve(data, 'thai_red_curry');
+    assert.deepEqual(root.children.map(partTitle), ['Thai red curry paste', 'Steamed jasmine rice', 'Protein: Chicken']);
+  });
+});
+
+describe('lineDisplay: the ≈ marker only when it would tell the cook something', () => {
+  const pancakes = (k) => resolve(data, 'american_pancakes', { k });
+  test('doubled pancakes: baking powder (1.93 tsp) and salt (0.93 tsp) show as 2 tsp and 1 tsp, unmarked', () => {
+    const bp = lineDisplay(line(pancakes(2), 'baking_powder'));
+    assert.deepEqual([bp.amount, bp.proportional], ['2 tsp', null]);
+    const salt = lineDisplay(line(pancakes(2), 'salt'));
+    assert.deepEqual([salt.amount, salt.proportional], ['1 tsp', null]);
+  });
+  test('pancakes × 4: salt is 1¾ tsp rather than 2 tsp, so it is marked', () => {
+    const salt = lineDisplay(line(pancakes(4), 'salt'));
+    assert.deepEqual([salt.amount, salt.proportional], ['1¾ tsp', '2 tsp']);
+  });
+  test('8 chillies for a triple batch of paste: 19 rather than 24', () => {
+    const chilli = lineDisplay(line(resolve(data, 'thai_red_curry_paste', { k: 3 }), 'red_chilli'));
+    assert.deepEqual([chilli.amount, chilli.proportional], ['19–24', '24–30']);
+  });
+  test('linear and unscaled lines are never marked', () => {
+    assert.equal(lineDisplay(line(pancakes(2), 'plain_flour')).proportional, null);
+    assert.equal(lineDisplay(line(pancakes(1), 'salt')).proportional, null);
+  });
+  test('halved pancakes: 68g flour (whole grams up to 100)', () => {
+    assert.equal(lineDisplay(line(pancakes(0.5), 'plain_flour')).amount, '68g');
+  });
+  test('names follow the figure shown (½ egg is "Egg", 2 eggs "Eggs")', () => {
+    assert.equal(lineDisplay(line(pancakes(0.5), 'egg')).name, 'Egg');
+    assert.equal(lineDisplay(line(pancakes(2), 'egg')).name, 'Eggs');
   });
 });
 

@@ -65,7 +65,7 @@ const closest = (q, options) => options.reduce((best, f) => (Math.abs(f - q) < M
 /**
  * Rounds a scaled amount to something you can measure: whole numbers for counted things (eggs,
  * cloves) and the closest common fraction below 1; the nearest ¼ for tsp and tbsp, and the
- * closest spoon measure below 1 tsp; the nearest 5 for g and ml above 50.
+ * closest spoon measure below 1 tsp; whole g and ml up to 100 and the nearest 5 above.
  */
 export function roundQty(qty, unit) {
   if (qty <= 0) return 0;
@@ -78,7 +78,7 @@ export function roundQty(qty, unit) {
     case 'tbsp':
       return Math.max(0.25, roundTo(qty, 0.25));
     case 'g': case 'ml':
-      return qty > 50 ? roundTo(qty, 5) : qty >= 10 ? Math.round(qty) : Math.max(0.5, roundTo(qty, 0.5));
+      return qty > 100 ? roundTo(qty, 5) : qty >= 10 ? Math.round(qty) : Math.max(0.5, roundTo(qty, 0.5));
     case 'kg': case 'l':
       return Math.round(qty * 100) / 100;
     default: // cm, tin, pack, pinch, handful, bunch

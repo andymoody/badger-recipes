@@ -97,9 +97,10 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
 ## Site (target)
 - Code: vanilla ES modules in `js/`, loaded straight by the browser with no build step. `quantity.js` (scaling, units, rounding, display), `resolve.js` (turns a recipe and the page state into a tree of parts with factors, scaled lines and filtered steps), `shopping.js` (the merged list and AnyList text) and `state.js` (URL state) are pure and unit-tested; `views/` and `main.js` build the DOM with `dom.js`'s `h()`, never `innerHTML` with data.
 - URL state: `#/<id>?serves=6` (or `x=2` for yield-only recipes), `<choice path>=<option>` (e.g. `filling=chorizo`; nested choices use the full path) and `full.<part path>=1|0`. Defaults are left out.
-- A list view with a sidebar by course, search (titles, tags and course only, matching from the start of words; ingredients aren't searched, so "salt cod" doesn't find everything with salt in it) and tag filters. A recipe view at `#/<id>`.
+- A list view with a sidebar by course, search (titles, tags, course and the titles of choice options, so "chicken" finds a curry offering chicken, seafood or tofu; matching is from the start of words; ingredients and shared parts aren't searched, so "salt cod" doesn't find everything with salt in it and "rice" doesn't find every curry served with rice) and tag filters. A recipe view at `#/<id>`.
 - On the recipe view:
   - **Servings control** that scales everything, including parts. Each part has a "make full batch" toggle. Parts that use some of a yield show "Recipe makes 300 g; you need 100 g".
+  - **Ingredients tab**: parts first, in the order the method uses them, then the recipe's own ingredients under its title. Choice options used through conditional steps (the curry's protein) join the end of that last group.
   - **Combined ingredients list**, merged across parts by `item`. Lines merge only when their units convert (g with kg, ml with l, tsp with tbsp); otherwise they're shown together under one item ("Onion: 1 + 200 g").
   - **Checkboxes** so you can untick what you have. Staple and `optional` lines start unticked.
   - **Copy for AnyList** copies the ticked lines as plain text, one item per line, for pasting into AnyList.
@@ -109,9 +110,9 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
   - Use the catalogue `plural` when the quantity isn't 1, and plural units ("3 cloves").
   - Show ranges as "1–2" and fractions as ½, ¼, ¾, ⅓ and ⅔.
   - Tidy units when scaling: 1000 g shows as 1 kg, 3 tsp as 1 tbsp.
-  - Rounding after scaling: whole numbers for things without a unit (eggs) and for cloves, slices, sheets, sprigs and sticks, and below 1 the closest of ¼, ⅓, ½, ⅔ or ¾; the nearest ¼ for tsp and tbsp, and below 1 tsp the closest of ⅛, ¼, ⅓, ½, ⅔ or ¾ (thirds aren't spoon sizes but are easy to judge by eye), with less than ⅛ tsp shown as "1 pinch"; for g and ml, the nearest 5 above 50, whole numbers from 10 and the nearest ½ below; other units to the nearest ½. Unscaled amounts are shown exactly as written.
+  - Rounding after scaling: whole numbers for things without a unit (eggs) and for cloves, slices, sheets, sprigs and sticks, and below 1 the closest of ¼, ⅓, ½, ⅔ or ¾; the nearest ¼ for tsp and tbsp, and below 1 tsp the closest of ⅛, ¼, ⅓, ½, ⅔ or ¾ (thirds aren't spoon sizes but are easy to judge by eye), with less than ⅛ tsp shown as "1 pinch"; for g and ml, whole numbers from 10 to 100, the nearest 5 above 100 and the nearest ½ below 10; other units to the nearest ½. Unscaled amounts are shown exactly as written.
   - tsp becomes tbsp only when it comes out in halves (4½ tsp is 1½ tbsp, but 4 tsp stays as it is).
-  - Amounts that don't scale in proportion get a marker; tapping it shows the proportional figure.
+  - Amounts that don't scale in proportion get a ≈ marker; tapping it shows the proportional figure. The marker only appears when the two would display differently (doubled salt at 1.87 tsp shows as 2 tsp either way, so it isn't marked).
   - When a recipe is scaled, a general reminder says cooking times, pan sizes and raising agents may need adjusting.
 - Later, not now: ticking off steps as you go, and keeping the screen awake while cooking.
 - It should work well on mobile, since it's used in the kitchen. Keep the existing dark, Canton teal look.

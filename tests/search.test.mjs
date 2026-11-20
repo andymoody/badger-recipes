@@ -32,6 +32,28 @@ describe('search by title, tags and course', () => {
   });
 });
 
+describe('choice options are keywords', () => {
+  test('"chicken" finds the Thai red curry through its protein options', () => {
+    assert.deepEqual(ids({ q: 'chicken' }), ['thai_red_curry']);
+    assert.deepEqual(ids({ q: 'tofu curry' }), ['thai_red_curry']);
+    assert.deepEqual(ids({ q: 'prawn' }), ['thai_red_curry']);
+  });
+  test('"chorizo" finds the Scotch eggs through their filling options', () => {
+    assert.deepEqual(ids({ q: 'chorizo' }), ['scotch_eggs']);
+  });
+  test('shared parts are not keywords: "rice" finds the rice, not the curry served with it', () => {
+    assert.deepEqual(ids({ q: 'rice' }), ['jasmine_rice']);
+  });
+  test('an option that references another recipe uses that recipe\'s title', () => {
+    const d = { recipes: {
+      dal: { id: 'dal', title: 'Tarka dal', course: 'main', parts: [{ key: 'bread', default: 'roti', choose: ['roti', 'naan'] }] },
+      roti: { id: 'roti', title: 'Roti', course: 'side' },
+      naan: { id: 'naan', title: 'Garlic naan', course: 'side' },
+    } };
+    assert.deepEqual(filterRecipes(d, { q: 'naan' }).map((r) => r.id), ['naan', 'dal'], 'Garlic naan, Tarka dal (by title)');
+  });
+});
+
 describe('a realistic future collection', () => {
   const r = (title, tags, course = 'main') => ({ title, tags, course });
   const saltCod = r('Salt cod fritters', ['portuguese', 'fish'], 'starter');

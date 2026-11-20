@@ -1,7 +1,7 @@
 import { h } from '../dom.js';
 import { COURSE_SINGULAR, minutes, tagLabel } from '../format.js';
-import { displayAmount, formatAmount, itemName, shownAmount } from '../quantity.js';
-import { resolve, walk, choices } from '../resolve.js';
+import { displayAmount, formatAmount } from '../quantity.js';
+import { resolve, choices, lineDisplay, partTitle, ingredientGroups } from '../resolve.js';
 import { shoppingList, anyListText } from '../shopping.js';
 import { readState, hashWith, MULTIPLIERS } from '../state.js';
 
@@ -122,11 +122,6 @@ function optionsPanel(root, set) {
 
 // ---------- Ingredients ----------
 
-function partTitle(node) {
-  if (node.choice) return node.choice.label + ': ' + node.title;
-  return node.label || node.title;
-}
-
 /** "Recipe makes 12 tbsp; you need 4 tbsp", the full-batch toggle and a link to the part's page. */
 function partInfo(node, set) {
   const r = node.recipe;
@@ -148,12 +143,10 @@ function partInfo(node, set) {
 function lineItem(l) {
   if (l.heading) return h('li', { class: 'line-heading' }, l.heading);
   if (l.text) return h('li', { class: 'line' }, l.text);
-  const shown = l.qty != null ? shownAmount(l.qty, l.qtyMax, l.unit, l.scaled) : null;
-  const amount = shown ? formatAmount(shown.qty, shown.qtyMax, shown.unit) : '';
-  const name = shown ? itemName(l.entry, shown.qty, shown.qtyMax, shown.unit) : l.entry.name;
+  const { amount, name, proportional } = lineDisplay(l);
   return h('li', { class: 'line' },
     amount ? h('span', { class: 'amount' }, amount) : null,
-    l.proportional ? h('button', {
+    proportional ? h('button', {
       class: 'np', 'aria-label': 'Not scaled in proportion: show the proportional amount', 'aria-expanded': 'false',
       onclick: (e) => { const li = e.currentTarget.closest('li'); const on = li.classList.toggle('show-np'); e.currentTarget.setAttribute('aria-expanded', String(on)); },
     }, '≈') : null,
@@ -162,17 +155,16 @@ function lineItem(l) {
     l.prep ? ', ' + l.prep : '',
     l.note ? h('span', { class: 'note' }, ' (' + l.note + ')') : null,
     l.optional ? h('span', { class: 'badge' }, 'optional') : null,
-    l.proportional ? h('span', { class: 'np-detail' }, 'In proportion: ' + displayAmount(l.proportional.qty, l.proportional.qtyMax, l.unit, true)) : null);
+    proportional ? h('span', { class: 'np-detail' }, 'In proportion: ' + proportional) : null);
 }
 
 const linesList = (lines) => (lines.length ? h('ul', { class: 'lines' }, lines.map(lineItem)) : null);
 
 function ingredientsAndShopping(root, set) {
-  const groups = [];
-  walk(root, (n) => {
-    if (n === root) { if (n.lines.length) groups.push(h('div', { class: 'group' }, linesList(n.lines))); return; }
-    groups.push(h('div', { class: 'group' }, h('h3', null, partTitle(n)), partInfo(n, set), linesList(n.lines)));
-  });
+  const groups = ingredientGroups(root).map((g) => h('div', { class: 'group' },
+    g.title ? h('h3', null, g.title) : null,
+    g.node !== root ? partInfo(g.node, set) : null,
+    linesList(g.lines)));
 
   const entries = shoppingList(root);
   const ticked = (e) => (ui.ticks.has(e.key) ? ui.ticks.get(e.key) : e.ticked);

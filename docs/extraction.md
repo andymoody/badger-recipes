@@ -30,6 +30,7 @@ How to turn a source (website, PDF, image, Word doc, pasted text) into recipe fi
 - `title`: sentence case ("Fluffy American pancakes").
 - `course`: `main, side, starter, dessert, baking, breakfast, sauce, drink, snack, basic`. `basic` is for building blocks such as stocks, pastes and doughs.
 - `tags`: lowercase snake_case: cuisine (`thai`), occasion (`christmas`), diet (`vegetarian`), main ingredient or method (`bbq`, `deep_fry`).
+  - Tags are how recipes are found: search covers titles, tags, course and choice option titles, but **not ingredients**. Tag the headline ingredient (`lamb`, `cod`) unless it's already in the title or an option title, and only ingredients someone would search for, never salt, onions and the like.
 - `serves`: a number. For "Serves 6–8", use 6 and mention the range in `notes` if it matters. Use `yield` for things measured by quantity: `{ "qty": 300, "unit": "g" }`, or text such as "12 pancakes".
 - `time`: minutes as integers (`prep`, `cook`, optional `rest` or `total`). Omit it if the source doesn't say; don't guess.
 - `source`, always filled in:
