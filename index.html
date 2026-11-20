@@ -3,61 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Badger recipe collection</title>
+  <meta name="theme-color" content="#121212">
+  <title>Badger recipes</title>
+  <link rel="icon" href="assets/badger.jpg">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- Left Navigation Accordion / Sidebar -->
-  <aside>
-    <div class="sidebar-header">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRQZI4IggFotmYhSMmAl55CSIkO2ac-aXnxtUlkXFDdeOqUmTkIJBl1KY&s=10" alt="Badger Face" class="badger-avatar">
-      <div class="sidebar-title-group">
-        <h2>Badger Recipe Collection</h2>
-        <span class="sidebar-count" id="sidebarCount">Loading recipes...</span>
-        <div class="search-action-bar">
-          <input type="text" id="searchInput" placeholder="Search recipes..." aria-label="Search recipes" oninput="filterRecipes()">
-          <button id="add-recipe-btn" aria-label="Add recipe" onclick="openModal()">+</button>
-        </div>
-      </div>
-    </div>
-    <div class="nav-list" id="navList"></div>
-  </aside>
-
-  <!-- Main Content Workspace -->
-  <main>
-    <div class="content-body">
-      <div class="recipe-list" id="recipeContainer"></div>
-    </div>
-  </main>
-
-  <!-- Add Recipe Modal -->
-  <div class="modal" id="addModal">
-    <div class="modal-content">
-      <h2>➕ Add New Recipe</h2>
-      <input type="text" id="addTitle" placeholder="Recipe Title">
-      <select id="addCategory">
-        <option value="Main Course">Main Course</option>
-        <option value="Bread">Bread</option>
-        <option value="Baking">Baking</option>
-        <option value="Dessert">Dessert</option>
-        <option value="Sauces & Condiments">Sauces & Condiments</option>
-        <option value="Breakfast">Breakfast</option>
-        <option value="Side Dish">Side Dish</option>
-        <option value="Soup">Soup</option>
-        <option value="Snack / Pastry">Snack / Pastry</option>
-      </select>
-      <input type="text" id="addImage" placeholder="Image URL (optional)">
-      <input type="text" id="addKeywords" placeholder="Keywords (e.g. lemon, garlic, pasta)">
-      <textarea id="addIngredients" rows="4" placeholder="Ingredients (one per line)"></textarea>
-      <textarea id="addInstructions" rows="4" placeholder="Instructions (step by step)"></textarea>
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-        <button class="btn-add-primary" onclick="addNewRecipe()">Save Recipe</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="app.js"></script>
+  <header class="topbar">
+    <button id="browseToggle" class="browse-toggle" aria-controls="sidebar">Browse</button>
+    <a href="#/" class="brand"><img class="badger-avatar" src="assets/badger.jpg" alt="">Badger recipes</a>
+  </header>
+  <aside id="sidebar" class="sidebar" aria-label="Browse recipes"></aside>
+  <main id="main" class="main"></main>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

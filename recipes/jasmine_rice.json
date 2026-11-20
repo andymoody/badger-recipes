@@ -1,0 +1,36 @@
+{
+  "$schema": "../schema/recipe.schema.json",
+  "id": "jasmine_rice",
+  "title": "Steamed jasmine rice",
+  "course": "side",
+  "tags": [
+    "rice",
+    "thai"
+  ],
+  "serves": 4,
+  "time": {
+    "cook": 12,
+    "rest": 10
+  },
+  "source": {
+    "type": "own"
+  },
+  "ingredients": [
+    {
+      "item": "jasmine_rice",
+      "qty": 300,
+      "unit": "g"
+    },
+    {
+      "item": "water",
+      "qty": 450,
+      "unit": "ml"
+    }
+  ],
+  "steps": [
+    "Rinse the rice in a sieve under cold water until it runs clear.",
+    "Put the rice and water in a pan with a tight-fitting lid. Bring to the boil, cover, then turn the heat to its lowest setting and cook for 12 minutes.",
+    "Take off the heat and leave to steam, still covered, for 10 minutes. Fluff up with a fork."
+  ],
+  "notes": "Placeholder written during the redesign. Replace it with your own method."
+}

@@ -1,0 +1,181 @@
+{
+  "$schema": "../../../../schema/recipe.schema.json",
+  "id": "lamb_youvetsi",
+  "title": "Lamb youvetsi",
+  "course": "main",
+  "tags": [
+    "greek",
+    "lamb",
+    "sunday_roast",
+    "sous_vide"
+  ],
+  "serves": 4,
+  "time": {
+    "prep": 20,
+    "cook": 200
+  },
+  "source": {
+    "type": "own"
+  },
+  "ingredients": [
+    {
+      "item": "olive_oil",
+      "qty": 2,
+      "unit": "tbsp"
+    },
+    {
+      "item": "onion",
+      "qty": 1,
+      "prep": "chopped"
+    },
+    {
+      "item": "chopped_tomatoes",
+      "qty": 1,
+      "unit": "tin",
+      "note": "400g"
+    },
+    {
+      "item": "orzo",
+      "qty": 300,
+      "unit": "g"
+    },
+    {
+      "item": "salt",
+      "note": "to taste"
+    },
+    {
+      "heading": "To serve"
+    },
+    {
+      "item": "feta",
+      "qty": 100,
+      "unit": "g",
+      "prep": "crumbled",
+      "optional": true
+    }
+  ],
+  "parts": [
+    {
+      "key": "stock",
+      "recipe": "chicken_stock",
+      "use": {
+        "qty": 500,
+        "unit": "ml"
+      }
+    },
+    {
+      "key": "spice",
+      "recipe": "spice_blend",
+      "use": {
+        "qty": 1,
+        "unit": "tbsp"
+      }
+    },
+    {
+      "key": "lamb",
+      "label": "Lamb",
+      "default": "shoulder",
+      "choose": [
+        {
+          "id": "shoulder",
+          "title": "Shoulder, braised",
+          "ingredients": [
+            {
+              "item": "lamb_shoulder",
+              "qty": 1.2,
+              "unit": "kg",
+              "note": "bone in"
+            }
+          ],
+          "steps": [
+            "Brown the shoulder all over, then braise, covered, at 160°C for 3 hours."
+          ]
+        },
+        {
+          "id": "leg",
+          "title": "Leg",
+          "ingredients": [
+            {
+              "item": "lamb_leg",
+              "qty": 1,
+              "unit": "kg"
+            }
+          ],
+          "parts": [
+            {
+              "key": "method",
+              "label": "Method",
+              "default": "oven",
+              "choose": [
+                {
+                  "id": "oven",
+                  "title": "Roasted",
+                  "time": {
+                    "cook": 80
+                  },
+                  "steps": [
+                    "Roast at 180°C for 1 hour 20 minutes, then rest."
+                  ]
+                },
+                {
+                  "id": "sous_vide",
+                  "title": "Sous vide",
+                  "time": {
+                    "cook": 480
+                  },
+                  "ingredients": [
+                    {
+                      "item": "olive_oil",
+                      "qty": 1,
+                      "unit": "tbsp",
+                      "note": "for searing"
+                    }
+                  ],
+                  "steps": [
+                    "Bag the leg and cook at 57°C for 8 hours.",
+                    "Pat dry and sear all over in a very hot pan."
+                  ]
+                }
+              ]
+            }
+          ],
+          "steps": [
+            "Season the leg well.",
+            {
+              "text": "Cook the leg.",
+              "part": "method"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "text": "Make the stock, or use 500ml from the freezer.",
+      "part": "stock"
+    },
+    {
+      "text": "Cook the lamb.",
+      "part": "lamb"
+    },
+    {
+      "text": "Pull the meat off the bone and discard the bone.",
+      "only": {
+        "lamb": [
+          "shoulder"
+        ]
+      }
+    },
+    {
+      "heading": "The orzo"
+    },
+    {
+      "text": "Mix the spice blend.",
+      "part": "spice"
+    },
+    "Soften the onion in the oil, add the spice blend, tomatoes, stock and orzo, and bake at 180°C for 20 minutes.",
+    "Serve the lamb on the orzo, topped with feta."
+  ],
+  "notes": "A made-up test recipe."
+}

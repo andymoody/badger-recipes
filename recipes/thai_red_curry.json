@@ -1,0 +1,178 @@
+{
+  "$schema": "../schema/recipe.schema.json",
+  "id": "thai_red_curry",
+  "title": "Thai red curry",
+  "course": "main",
+  "tags": [
+    "thai",
+    "curry"
+  ],
+  "serves": 4,
+  "time": {
+    "prep": 15,
+    "cook": 25
+  },
+  "ingredients": [
+    {
+      "item": "vegetable_oil",
+      "qty": 1,
+      "unit": "tbsp",
+      "note": "or groundnut oil"
+    },
+    {
+      "item": "coconut_milk",
+      "qty": 2,
+      "unit": "tin",
+      "note": "400ml, full-fat"
+    },
+    {
+      "item": "fish_sauce",
+      "qty": 2,
+      "unit": "tbsp"
+    },
+    {
+      "item": "palm_sugar",
+      "qty": 1,
+      "unit": "tbsp",
+      "note": "or soft brown sugar"
+    },
+    {
+      "item": "red_pepper",
+      "qty": 1,
+      "prep": "sliced"
+    },
+    {
+      "item": "bamboo_shoots",
+      "qty": 1,
+      "unit": "tin",
+      "prep": "drained",
+      "note": "225g"
+    },
+    {
+      "item": "lime_leaf",
+      "qty": 4,
+      "qtyMax": 5,
+      "prep": "torn"
+    },
+    {
+      "item": "thai_basil",
+      "qty": 2,
+      "unit": "handful"
+    }
+  ],
+  "parts": [
+    {
+      "key": "paste",
+      "recipe": "thai_red_curry_paste",
+      "use": {
+        "qty": 4,
+        "unit": "tbsp"
+      }
+    },
+    {
+      "key": "rice",
+      "recipe": "jasmine_rice"
+    },
+    {
+      "key": "protein",
+      "label": "Protein",
+      "default": "chicken",
+      "choose": [
+        {
+          "id": "chicken",
+          "title": "Chicken",
+          "ingredients": [
+            {
+              "item": "chicken_thigh",
+              "qty": 500,
+              "unit": "g",
+              "prep": "sliced",
+              "note": "or breast"
+            }
+          ]
+        },
+        {
+          "id": "seafood",
+          "title": "Seafood and prawn",
+          "ingredients": [
+            {
+              "item": "mixed_seafood",
+              "qty": 400,
+              "unit": "g",
+              "note": "prawns, squid, mussels"
+            }
+          ]
+        },
+        {
+          "id": "tofu",
+          "title": "Tofu (vegetarian)",
+          "ingredients": [
+            {
+              "item": "firm_tofu",
+              "qty": 400,
+              "unit": "g",
+              "prep": "cubed and patted dry"
+            }
+          ],
+          "notes": "For a fully vegetarian curry, use soy sauce instead of fish sauce and leave the shrimp paste out of the curry paste."
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "text": "Make the curry paste, or use 4 tbsp of a batch you made earlier.",
+      "part": "paste"
+    },
+    {
+      "text": "Start the rice so it's ready when the curry is.",
+      "part": "rice"
+    },
+    "Heat the oil in a large wok or saucepan over a medium-high heat.",
+    {
+      "text": "Brown the chicken for 3–4 minutes, then lift out onto a plate.",
+      "only": {
+        "protein": [
+          "chicken"
+        ]
+      }
+    },
+    {
+      "text": "Fry the tofu until golden on all sides, then lift out onto a plate.",
+      "only": {
+        "protein": [
+          "tofu"
+        ]
+      }
+    },
+    "Add the curry paste, with a splash more oil if needed, and fry for 1–2 minutes until fragrant and the oil starts to separate.",
+    "Pour in half the coconut milk, stir well and simmer for 3–4 minutes.",
+    "Add the rest of the coconut milk, the fish sauce and the sugar. Bring to a gentle boil, then add the pepper and bamboo shoots.",
+    {
+      "text": "Return the chicken and simmer for 10–15 minutes until it's cooked through and the vegetables are tender.",
+      "only": {
+        "protein": [
+          "chicken"
+        ]
+      }
+    },
+    {
+      "text": "Return the tofu and simmer for 10–15 minutes until the vegetables are tender.",
+      "only": {
+        "protein": [
+          "tofu"
+        ]
+      }
+    },
+    {
+      "text": "Simmer for 5 minutes, then add the seafood and simmer gently for 5–8 minutes until just cooked.",
+      "only": {
+        "protein": [
+          "seafood"
+        ]
+      }
+    },
+    "Stir in the torn lime leaves and Thai basil just before taking off the heat. Serve with the rice."
+  ],
+  "notes": "The curry paste can be made up to a week ahead. Browning the chicken and frying the tofu first are changes from the original method, which added them straight to the coconut milk."
+}

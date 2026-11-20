@@ -1,0 +1,39 @@
+{
+  "$schema": "../../../schema/tags.schema.json",
+  "greek": {
+    "name": "Greek",
+    "group": "cuisine"
+  },
+  "middle_eastern": {
+    "name": "Middle Eastern",
+    "group": "cuisine"
+  },
+  "bread": {
+    "name": "Bread",
+    "group": "dish"
+  },
+  "stock": {
+    "name": "Stock",
+    "group": "dish"
+  },
+  "lamb": {
+    "name": "Lamb",
+    "group": "ingredient"
+  },
+  "chicken": {
+    "name": "Chicken",
+    "group": "ingredient"
+  },
+  "sunday_roast": {
+    "name": "Sunday roast",
+    "group": "occasion"
+  },
+  "vegetarian": {
+    "name": "Vegetarian",
+    "group": "diet"
+  },
+  "sous_vide": {
+    "name": "Sous vide",
+    "group": "method"
+  }
+}

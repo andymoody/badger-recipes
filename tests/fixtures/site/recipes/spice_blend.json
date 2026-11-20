@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../../schema/recipe.schema.json",
+  "id": "spice_blend",
+  "title": "Spice blend",
+  "course": "basic",
+  "listed": false,
+  "yield": {
+    "qty": 4,
+    "unit": "tbsp"
+  },
+  "ingredients": [
+    {
+      "item": "paprika",
+      "qty": 2,
+      "unit": "tbsp"
+    },
+    {
+      "item": "cumin",
+      "qty": 1,
+      "unit": "tbsp"
+    },
+    {
+      "item": "chilli_flakes",
+      "qty": 1,
+      "unit": "tsp"
+    }
+  ],
+  "steps": [
+    "Mix together."
+  ]
+}

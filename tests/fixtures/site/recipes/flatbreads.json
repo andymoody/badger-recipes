@@ -1,0 +1,64 @@
+{
+  "$schema": "../../../../schema/recipe.schema.json",
+  "id": "flatbreads",
+  "title": "Yoghurt flatbreads",
+  "course": "baking",
+  "tags": [
+    "bread",
+    "middle_eastern",
+    "vegetarian"
+  ],
+  "yield": "8 flatbreads",
+  "ingredients": [
+    {
+      "heading": "For the dough"
+    },
+    {
+      "item": "strong_flour",
+      "qty": 250,
+      "unit": "g"
+    },
+    {
+      "item": "dried_yeast",
+      "qty": 1,
+      "unit": "tsp"
+    },
+    {
+      "item": "salt",
+      "qty": 1,
+      "unit": "tsp"
+    },
+    {
+      "item": "yoghurt",
+      "qty": 150,
+      "unit": "g"
+    },
+    {
+      "item": "water",
+      "qty": 50,
+      "qtyMax": 75,
+      "unit": "ml",
+      "note": "warm"
+    },
+    {
+      "heading": "To finish"
+    },
+    {
+      "item": "nigella_seeds",
+      "qty": 1,
+      "unit": "tsp",
+      "optional": true
+    }
+  ],
+  "steps": [
+    {
+      "heading": "Dough"
+    },
+    "Mix everything into a soft dough and knead for 5 minutes.",
+    "Leave to rise for 1 hour.",
+    {
+      "heading": "Cooking"
+    },
+    "Divide into 8, roll thin and cook in a dry pan for 2 minutes a side."
+  ]
+}

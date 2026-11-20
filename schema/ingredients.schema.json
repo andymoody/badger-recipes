@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ingredients.schema.json",
+  "title": "Ingredients catalogue",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "propertyNames": {
+    "pattern": "^(\\$schema|[a-z0-9]+(_[a-z0-9]+)*)$"
+  },
+  "additionalProperties": {
+    "$ref": "#/$defs/ingredient"
+  },
+  "$defs": {
+    "scaling": {
+      "enum": [
+        "linear",
+        "seasoning",
+        "strong_spice",
+        "leavening",
+        "fixed"
+      ]
+    },
+    "ingredient": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "plural": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "staple": {
+          "type": "boolean"
+        },
+        "scaling": {
+          "$ref": "#/$defs/scaling"
+        }
+      }
+    }
+  }
+}

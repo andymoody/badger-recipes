@@ -1,0 +1,495 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "recipe.schema.json",
+  "title": "Recipe",
+  "description": "One recipe file: recipes/<id>.json. See CLAUDE.md for the model.",
+  "allOf": [
+    {
+      "$ref": "#/$defs/recipeFields"
+    }
+  ],
+  "required": [
+    "id",
+    "title",
+    "course"
+  ],
+  "anyOf": [
+    {
+      "required": [
+        "serves"
+      ]
+    },
+    {
+      "required": [
+        "yield"
+      ]
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "qty": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "unit": {
+      "enum": [
+        "g",
+        "kg",
+        "ml",
+        "l",
+        "tsp",
+        "tbsp",
+        "cm",
+        "clove",
+        "tin",
+        "pack",
+        "pinch",
+        "handful",
+        "sprig",
+        "bunch",
+        "slice",
+        "stick",
+        "sheet"
+      ]
+    },
+    "amount": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "qty",
+        "unit"
+      ],
+      "properties": {
+        "qty": {
+          "$ref": "#/$defs/qty"
+        },
+        "unit": {
+          "$ref": "#/$defs/unit"
+        }
+      }
+    },
+    "heading": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "heading"
+      ],
+      "properties": {
+        "heading": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "ingredientLine": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/heading"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "text"
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "optional": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "item"
+          ],
+          "properties": {
+            "item": {
+              "$ref": "#/$defs/id"
+            },
+            "qty": {
+              "$ref": "#/$defs/qty"
+            },
+            "qtyMax": {
+              "$ref": "#/$defs/qty"
+            },
+            "unit": {
+              "$ref": "#/$defs/unit"
+            },
+            "prep": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            },
+            "optional": {
+              "type": "boolean"
+            },
+            "scaling": {
+              "$ref": "ingredients.schema.json#/$defs/scaling"
+            }
+          }
+        }
+      ]
+    },
+    "step": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "$ref": "#/$defs/heading"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "anyOf": [
+            {
+              "required": [
+                "text"
+              ]
+            },
+            {
+              "required": [
+                "part"
+              ]
+            }
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "part": {
+              "$ref": "#/$defs/id"
+            },
+            "only": {
+              "description": "Show this step only when the named choice part(s) have one of the listed options selected, e.g. { \"protein\": [\"chicken\"] }.",
+              "type": "object",
+              "minProperties": 1,
+              "propertyNames": {
+                "$ref": "#/$defs/id"
+              },
+              "additionalProperties": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "source": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "url"
+          ],
+          "properties": {
+            "type": {
+              "const": "web"
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "title": {
+              "type": "string"
+            },
+            "adapted": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "title"
+          ],
+          "properties": {
+            "type": {
+              "const": "book"
+            },
+            "title": {
+              "type": "string"
+            },
+            "author": {
+              "type": "string"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "adapted": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name"
+          ],
+          "properties": {
+            "type": {
+              "const": "file"
+            },
+            "name": {
+              "type": "string"
+            },
+            "drive": {
+              "type": "string",
+              "pattern": "^https://"
+            },
+            "adapted": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "own"
+            }
+          }
+        }
+      ]
+    },
+    "recipeFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "course": {
+          "enum": [
+            "main",
+            "side",
+            "starter",
+            "dessert",
+            "baking",
+            "breakfast",
+            "sauce",
+            "drink",
+            "snack",
+            "basic"
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "serves": {
+          "$ref": "#/$defs/qty"
+        },
+        "yield": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/amount"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "batch": {
+          "type": "boolean"
+        },
+        "time": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "prep": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "cook": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rest": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "image": {
+          "type": "string",
+          "pattern": "^images/[a-z0-9_]+\\.(jpg|jpeg|png|webp)$"
+        },
+        "listed": {
+          "type": "boolean"
+        },
+        "ingredients": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ingredientLine"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/step"
+          }
+        },
+        "parts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/part"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "inlineRecipe": {
+      "description": "A part defined inside its parent. Same shape as a recipe, but never listed on its own.",
+      "allOf": [
+        {
+          "$ref": "#/$defs/recipeFields"
+        }
+      ],
+      "required": [
+        "title"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "course"
+            ]
+          },
+          {
+            "required": [
+              "listed"
+            ]
+          },
+          {
+            "required": [
+              "tags"
+            ]
+          },
+          {
+            "required": [
+              "$schema"
+            ]
+          }
+        ]
+      }
+    },
+    "option": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/id"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/inlineRecipe"
+            }
+          ],
+          "required": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "part": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string"
+        },
+        "recipe": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "$ref": "#/$defs/inlineRecipe"
+            }
+          ]
+        },
+        "choose": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/option"
+          }
+        },
+        "default": {
+          "$ref": "#/$defs/id"
+        },
+        "use": {
+          "$ref": "#/$defs/amount"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "recipe"
+          ]
+        },
+        {
+          "required": [
+            "choose",
+            "default"
+          ]
+        }
+      ]
+    }
+  }
+}
