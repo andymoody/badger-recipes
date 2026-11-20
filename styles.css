@@ -609,6 +609,29 @@ li {
   color: var(--text-muted);
 }
 
+/* Component Sections */
+.component-section {
+  margin: 1.25rem 0;
+  padding: 14px 16px;
+  background: #181818;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.component-title {
+  margin: 0 0 4px 0 !important;
+  color: var(--canton-light) !important;
+  font-size: 1.05rem !important;
+  border-bottom: none !important;
+}
+
+.component-description {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0 0 12px 0;
+  font-style: italic;
+}
+
 /* Hide category accordion on portrait mobile screens */
 @media screen and (max-width: 768px) and (orientation: portrait) {
   .nav-list {

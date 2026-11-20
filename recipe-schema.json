@@ -3,90 +3,94 @@
   "title": "Recipe Dataset Schema",
   "type": "array",
   "items": {
-    "type": "object",
-    "required": ["id", "title", "category", "image"],
-    "properties": {
-      "id": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "category": {
-        "type": "string"
-      },
-      "keywords": {
-        "type": "string"
-      },
-      "prepTime": {
-        "type": "string"
-      },
-      "cookTime": {
-        "type": "string"
-      },
-      "servings": {
-        "type": "string"
-      },
-      "image": {
-        "type": "string",
-        "format": "uri"
-      },
-      "ingredients": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      },
-      "instructions": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      },
-      "baseIngredients": {
-        "type": "array",
-        "items": {
+    "$ref": "#/definitions/recipe"
+  },
+  "definitions": {
+    "ingredient": {
+      "oneOf": [
+        { "type": "string" },
+        {
           "type": "object",
           "required": ["name", "amount"],
           "properties": {
             "name": { "type": "string" },
-            "amount": { "type": "string" }
+            "amount": { "type": "string" },
+            "unit": { "type": "string" }
           }
         }
-      },
-      "baseInstructions": {
-        "type": "array",
-        "items": {
-          "type": "string"
+      ]
+    },
+    "variant": {
+      "type": "object",
+      "required": ["name"],
+      "anyOf": [
+        { "required": ["ingredients"] },
+        { "required": ["instructions"] }
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "ingredients": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ingredient" }
+        },
+        "instructions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "component": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "ingredients": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ingredient" }
+        },
+        "instructions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "variants": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/variant" }
         }
-      },
-      "variants": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "required": ["variantName", "additionalIngredients", "instructionModifications"],
-          "properties": {
-            "variantName": { "type": "string" },
-            "additionalIngredients": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "required": ["name", "amount"],
-                "properties": {
-                  "name": { "type": "string" },
-                  "amount": { "type": "string" }
-                }
-              }
-            },
-            "instructionModifications": {
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
-        }
-      },
-      "notes": {
-        "type": "string"
+      }
+    },
+    "recipe": {
+      "type": "object",
+      "required": ["id", "title", "category", "image"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "keywords": { "type": "string" },
+        "prepTime": { "type": "string" },
+        "cookTime": { "type": "string" },
+        "servings": { "type": "string" },
+        "image": { "type": "string", "format": "uri" },
+        "ingredients": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ingredient" }
+        },
+        "instructions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "variants": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/variant" }
+        },
+        "components": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/component" }
+        },
+        "notes": { "type": "string" }
       }
     }
   }

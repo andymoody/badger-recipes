@@ -17,7 +17,6 @@
         <span class="sidebar-count" id="sidebarCount">Loading recipes...</span>
         <div class="search-action-bar">
           <input type="text" id="searchInput" placeholder="Search recipes..." aria-label="Search recipes" oninput="filterRecipes()">
-          <button id="add-recipe-btn" aria-label="Add recipe" onclick="openModal()">+</button>
         </div>
       </div>
     </div>
@@ -30,33 +29,6 @@
       <div class="recipe-list" id="recipeContainer"></div>
     </div>
   </main>
-
-  <!-- Add Recipe Modal -->
-  <div class="modal" id="addModal">
-    <div class="modal-content">
-      <h2>➕ Add New Recipe</h2>
-      <input type="text" id="addTitle" placeholder="Recipe Title">
-      <select id="addCategory">
-        <option value="Main Course">Main Course</option>
-        <option value="Bread">Bread</option>
-        <option value="Baking">Baking</option>
-        <option value="Dessert">Dessert</option>
-        <option value="Sauces & Condiments">Sauces & Condiments</option>
-        <option value="Breakfast">Breakfast</option>
-        <option value="Side Dish">Side Dish</option>
-        <option value="Soup">Soup</option>
-        <option value="Snack / Pastry">Snack / Pastry</option>
-      </select>
-      <input type="text" id="addImage" placeholder="Image URL (optional)">
-      <input type="text" id="addKeywords" placeholder="Keywords (e.g. lemon, garlic, pasta)">
-      <textarea id="addIngredients" rows="4" placeholder="Ingredients (one per line)"></textarea>
-      <textarea id="addInstructions" rows="4" placeholder="Instructions (step by step)"></textarea>
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-        <button class="btn-add-primary" onclick="addNewRecipe()">Save Recipe</button>
-      </div>
-    </div>
-  </div>
 
   <script src="app.js"></script>
 </body>

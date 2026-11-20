@@ -1,4 +1,9 @@
 let masterRecipes = [];
+// State tracking for active variants
+// recipeId -> variantIndex (-1 for base)
+const activeRecipeVariants = {};
+// recipeId -> { [componentIndex]: variantIndex }
+const activeComponentVariants = {};
 
 // Helper function to sort array of recipe objects alphabetically by title
 function sortRecipesAlphabetically(recipes) {
@@ -17,10 +22,10 @@ async function loadRecipes() {
   try {
     const response = await fetch('./recipes.json');
     const rawData = await response.json();
-    
-    // Normalize data to ensure 'type' is set for all items
+
+    // Normalize data
     masterRecipes = normalizeRecipeData(rawData);
-    
+
     // Sort overall list alphabetically
     masterRecipes = sortRecipesAlphabetically(masterRecipes);
 
@@ -78,6 +83,50 @@ function renderSidebar() {
   });
 }
 
+function formatIngredient(i) {
+  if (typeof i === 'string') return i;
+  if (typeof i === 'object' && i !== null) {
+    const unitStr = i.unit ? ` ${i.unit}` : '';
+    const amountStr = i.amount ? `<strong>${i.amount}${unitStr}</strong> — ` : '';
+    return `${amountStr}${i.name || ''}`;
+  }
+  return '';
+}
+
+function renderIngredientsList(ingredients) {
+  if (!Array.isArray(ingredients) || ingredients.length === 0) return '';
+  return ingredients.map(i => `<li>${formatIngredient(i)}</li>`).join('');
+}
+
+function renderInstructionsList(instructions) {
+  if (!Array.isArray(instructions) || instructions.length === 0) return '';
+  return instructions.map(i => `<li>${i}</li>`).join('');
+}
+
+function renderVariantChips(variants, groupName, activeIndex, onChangeFnCall) {
+  if (!Array.isArray(variants) || variants.length === 0) return '';
+
+  const optionsHtml = variants.map((v, idx) => `
+    <label class="variant-chip ${activeIndex === idx ? 'base-chip' : ''}">
+      <input type="radio" name="${groupName}" class="variant-radio" value="${idx}" ${activeIndex === idx ? 'checked' : ''} onchange="${onChangeFnCall}">
+      <span>${v.name}</span>
+    </label>
+  `).join('');
+
+  return `
+    <div class="variants-container">
+      <h3>Variants & Options</h3>
+      <div class="variants-chips-group">
+        <label class="variant-chip ${activeIndex === -1 ? 'base-chip' : ''}">
+          <input type="radio" name="${groupName}" class="variant-radio" value="-1" ${activeIndex === -1 ? 'checked' : ''} onchange="${onChangeFnCall}">
+          <span>Base Recipe</span>
+        </label>
+        ${optionsHtml}
+      </div>
+    </div>
+  `;
+}
+
 function renderCards(recipes) {
   const container = document.getElementById('recipeContainer');
   container.innerHTML = '';
@@ -85,67 +134,132 @@ function renderCards(recipes) {
   const sortedRecipes = sortRecipesAlphabetically([...recipes]);
 
   sortedRecipes.forEach(r => {
+    // Initialize variant state if not set
+    if (activeRecipeVariants[r.id] === undefined) {
+      activeRecipeVariants[r.id] = -1;
+    }
+    if (!activeComponentVariants[r.id]) {
+      activeComponentVariants[r.id] = {};
+    }
+
     const itemType = r.type || 'recipe';
     const card = document.createElement('article');
     card.className = `recipe-card type-${itemType}`;
     card.id = `card-${r.id}`;
 
-    let tempChartHtml = '';
-    if (itemType === 'reference_guide' && Array.isArray(r.temperatureChart) && r.temperatureChart.length > 0) {
-      const rowsHtml = r.temperatureChart.map(row => `
-        <tr>
-          <td><strong>${row.doneness || ''}</strong></td>
-          <td>${row.tempRange || ''}</td>
-          <td>${row.timeRange || ''}</td>
-          <td>${row.description || ''}</td>
-        </tr>
-      `).join('');
-      tempChartHtml = `
-        <div class="temperature-chart-container">
-          <h3>Temperature & Timing Guide</h3>
-          <table class="temp-table">
-            <thead><tr><th>Doneness</th><th>Temperature</th><th>Time Range</th><th>Description</th></tr></thead>
-            <tbody>${rowsHtml}</tbody>
-          </table>
+    // Collect keywords from title, category, keywords, components, and variants
+    const componentKeywords = Array.isArray(r.components) 
+      ? r.components.map(c => `${c.name} ${c.description || ''}`).join(' ') 
+      : '';
+    const variantKeywords = Array.isArray(r.variants) 
+      ? r.variants.map(v => v.name).join(' ') 
+      : '';
+    card.setAttribute('data-keywords', `${r.title} ${r.category || ''} ${r.keywords || ''} ${componentKeywords} ${variantKeywords}`.toLowerCase());
+
+    const prepDisplay = r.prepTime || 'N/A';
+    const cookDisplay = r.cookTime || 'N/A';
+    const servingsDisplay = r.servings ? ` | Serves: ${r.servings}` : '';
+    const metaHtml = (r.prepTime || r.cookTime || r.servings) ? 
+      `Prep: ${prepDisplay} | Cook: ${cookDisplay}${servingsDisplay}` : '';
+    const notesHtml = r.notes ? `<div class="notes-box"><strong>Notes:</strong><br>${r.notes}</div>` : '';
+    const thumbImg = r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-thumb">` : '';
+
+    // Check if recipe has components
+    const hasComponents = Array.isArray(r.components) && r.components.length > 0;
+    const hasVariants = Array.isArray(r.variants) && r.variants.length > 0;
+
+    let bodyContentHtml = '';
+
+    if (hasComponents) {
+      // Render components
+      const componentsHtml = r.components.map((c, cIdx) => {
+        if (activeComponentVariants[r.id][cIdx] === undefined) {
+          activeComponentVariants[r.id][cIdx] = -1;
+        }
+        const activeVarIdx = activeComponentVariants[r.id][cIdx];
+        
+        let cIngredients = c.ingredients || [];
+        let cInstructions = c.instructions || [];
+        let cVariantNotes = '';
+
+        if (activeVarIdx >= 0 && c.variants && c.variants[activeVarIdx]) {
+          const v = c.variants[activeVarIdx];
+          if (v.ingredients) cIngredients = v.ingredients;
+          if (v.instructions) cInstructions = v.instructions;
+          if (v.notes) cVariantNotes = `<div class="variant-modifications-notes"><strong>${v.name}:</strong> ${v.notes}</div>`;
+        }
+
+        const variantChips = renderVariantChips(
+          c.variants,
+          `variant-group-${r.id}-comp-${cIdx}`,
+          activeVarIdx,
+          `updateComponentVariant('${r.id}', ${cIdx}, this.value)`
+        );
+
+        return `
+          <div class="component-section" id="component-${r.id}-${cIdx}">
+            <h4 class="component-title">${c.name}</h4>
+            ${c.description ? `<p class="component-description">${c.description}</p>` : ''}
+            ${variantChips}
+            <div style="margin-top: 10px;">
+              <strong>Ingredients:</strong>
+              <ul id="ingredients-list-${r.id}-comp-${cIdx}">
+                ${renderIngredientsList(cIngredients)}
+              </ul>
+              <strong>Instructions:</strong>
+              <ol id="instructions-list-${r.id}-comp-${cIdx}">
+                ${renderInstructionsList(cInstructions)}
+              </ol>
+              ${cVariantNotes}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      bodyContentHtml = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h3 style="margin: 0;">Recipe Components</h3>
+          <button onclick="copyIngredientsToClipboard('${r.id}')" title="Copy all ingredients for AnyList" style="background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 2px 6px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">📋</button>
         </div>
+        ${componentsHtml}
+        ${notesHtml}
       `;
-    }
+    } else {
+      // Standard recipe (simple or recipe-level variants)
+      const activeVarIdx = activeRecipeVariants[r.id];
+      let currentIngredients = r.ingredients || [];
+      let currentInstructions = r.instructions || [];
+      let variantNotesHtml = '';
 
-    const baseIngrList = Array.isArray(r.baseIngredients) ? r.baseIngredients : (Array.isArray(r.ingredients) ? r.ingredients.map(i => ({ name: i, amount: '' })) : []);
-    const baseInstList = Array.isArray(r.baseInstructions) ? r.baseInstructions : (Array.isArray(r.instructions) ? r.instructions : []);
+      if (activeVarIdx >= 0 && r.variants && r.variants[activeVarIdx]) {
+        const v = r.variants[activeVarIdx];
+        if (v.ingredients) currentIngredients = v.ingredients;
+        if (v.instructions) currentInstructions = v.instructions;
+        if (v.notes) variantNotesHtml = `<div class="variant-modifications-notes" id="variant-notes-${r.id}"><strong>${v.name}:</strong> ${v.notes}</div>`;
+      }
 
-    // Restricted to title, category, and explicit keywords to eliminate false positives
-    card.setAttribute('data-keywords',`${r.title} ${r.category || ''} ${r.keywords || ''}`);
+      const variantChipsHtml = hasVariants ? renderVariantChips(
+        r.variants,
+        `variant-group-${r.id}`,
+        activeVarIdx,
+        `updateRecipeVariant('${r.id}', this.value)`
+      ) : '';
 
-    let prepDisplay = r.prepTime || (r.prepTimeMinutes ? r.prepTimeMinutes + 'm' : 'N/A');
-    let bakeDisplay = r.bakeTimeMinutes ? r.bakeTimeMinutes + 'm' : (r.cookTime || 'N/A');
-    let metaHtml = (r.prepTime || r.cookTime || r.servings || r.bakeTimeMinutes) ? 
-      `Prep: ${prepDisplay} | Bake: ${bakeDisplay}` : '';
-    let notesHtml = r.notes ? `<div class="notes-box"><strong>Notes:</strong><br>${r.notes}</div>` : '';
-    let thumbImg = r.image ? `<img src="${r.image}" alt="${r.title}" class="recipe-thumb">` : '';
-
-    let variantsHtml = '';
-    if (Array.isArray(r.variants) && r.variants.length > 0) {
-      const groupName = `variant-group-${r.id}`;
-      const optionsHtml = r.variants.map((v, idx) => `
-      <label class="variant-chip">
-        <input type="radio" name="${groupName}" class="variant-radio" data-recipe-id="${r.id}" data-variant-index="${idx}" onchange="updateRecipeView('${r.id}')">
-        <span>${v.variantName}</span>
-      </label>
-      `).join('');
-
-      variantsHtml = `
-        <div class="variants-container" id="variants-container-${r.id}">
-          <h3>Flavor Variants & Methods</h3>
-          <div class="variants-chips-group">
-          <label class="variant-chip base-chip">
-            <input type="radio" name="${groupName}" class="variant-radio" data-recipe-id="${r.id}" data-variant-index="-1" checked onchange="updateRecipeView('${r.id}')">
-            <span>Base Recipe</span>
-          </label>
-          ${optionsHtml}
+      bodyContentHtml = `
+        ${variantChipsHtml}
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h3 style="margin: 0;">Ingredients</h3>
+          <button onclick="copyIngredientsToClipboard('${r.id}')" title="Copy ingredients for AnyList" style="background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 2px 6px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">📋</button>
         </div>
-        <div class="variant-modifications-notes" id="variant-notes-${r.id}" style="display: none;"></div>
-        </div>
+        <ul id="ingredients-list-${r.id}">
+          ${renderIngredientsList(currentIngredients)}
+        </ul>
+        <h3>Instructions</h3>
+        <ol id="instructions-list-${r.id}">
+          ${renderInstructionsList(currentInstructions)}
+        </ol>
+        ${variantNotesHtml}
+        ${notesHtml}
       `;
     }
 
@@ -154,7 +268,7 @@ function renderCards(recipes) {
         <div class="header-left">
           ${thumbImg}
           <div class="title-group">
-            <span class="tag-badge tag-${itemType}">${r.category || 'Breads'}</span>
+            <span class="tag-badge tag-${itemType}">${r.category || 'Main Course'}</span>
             <h2 class="recipe-title">${r.title}</h2>
             <div class="card-meta">${metaHtml}</div>
           </div>
@@ -162,87 +276,101 @@ function renderCards(recipes) {
         <span class="expand-icon">▼</span>
       </div>
       <div class="card-body">
-        ${tempChartHtml}${variantsHtml}
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <h3 style="margin: 0;">Ingredients</h3>
-          <button onclick="copyIngredientsToClipboard('${r.id}')" title="Copy ingredients for AnyList" style="background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 2px 6px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">📋</button>
-        </div>
-        <ul id="ingredients-list-${r.id}">
-          ${baseIngrList.map(i => `<li>${i.amount ? `<strong>${i.amount}</strong> — ` : ''}${i.name}</li>`).join('')}
-        </ul>
-        <h3>Instructions</h3>
-        <ol id="instructions-list-${r.id}">
-          ${baseInstList.map(i => `<li>${i}</li>`).join('')}
-        </ol>
-        ${notesHtml}
+        ${bodyContentHtml}
       </div>
     `;
+
     container.appendChild(card);
   });
 }
 
-function updateRecipeView(recipeId) {
-  const recipe = masterRecipes.find(r => r.recipeId === recipeId || r.id === recipeId);
+function updateRecipeVariant(recipeId, variantIndexStr) {
+  const recipe = masterRecipes.find(r => r.id === recipeId);
   if (!recipe) return;
 
-  const container = document.getElementById(`card-${recipeId}`);
-  const selectedRadio = container.querySelector(`.variant-radio[data-recipe-id="${recipeId}"]:checked`);
-  
-  let currentIngredients = [...(recipe.baseIngredients || [])];
-  let currentInstructions = [...(recipe.baseInstructions || [])];
-  let modNotes = [];
+  const varIdx = parseInt(variantIndexStr, 10);
+  activeRecipeVariants[recipeId] = varIdx;
 
-  // If a specific variant index is selected (index >= 0)
-  if (selectedRadio) {
-    const idx = parseInt(selectedRadio.getAttribute('data-variant-index'));
-    
-    if (idx >= 0 && recipe.variants && recipe.variants[idx]) {
-      const v = recipe.variants[idx];
+  let currentIngredients = recipe.ingredients || [];
+  let currentInstructions = recipe.instructions || [];
+  let noteText = '';
 
-      if (v.ingredientSubstitutions) {
-        v.ingredientSubstitutions.forEach(sub => {
-          currentIngredients = currentIngredients.map(ing => {
-            if (ing.name.toLowerCase().includes(sub.target.toLowerCase())) {
-              return { name: `${sub.replacementName} (replacing ${sub.target})`, amount: sub.replacementAmount || ing.amount };
-            }
-            return ing;
-          });
-        });
-      }
-
-      if (v.additionalIngredients) {
-        v.additionalIngredients.forEach(add => {
-          currentIngredients.push({ name: add.name, amount: add.amount });
-        });
-      }
-
-      if (v.ingredientModifications) {
-        modNotes.push(`<strong>${v.variantName} Note:</strong> ${v.ingredientModifications}`);
-      }
-
-      if (v.instructionModifications) {
-        if (Array.isArray(v.instructionModifications)) {
-          currentInstructions = [...v.instructionModifications]; // Replaces base instructions entirely if variant specifies whole steps, or append depending on preference
-        } else {
-          currentInstructions.push(`(${v.variantName}) ${v.instructionModifications}`);
-        }
-      }
-    }
+  if (varIdx >= 0 && recipe.variants && recipe.variants[varIdx]) {
+    const v = recipe.variants[varIdx];
+    if (v.ingredients) currentIngredients = v.ingredients;
+    if (v.instructions) currentInstructions = v.instructions;
+    if (v.notes) noteText = `<strong>${v.name}:</strong> ${v.notes}`;
   }
 
-  // Update ingredient list DOM
+  // Update DOM
   const ingrUl = document.getElementById(`ingredients-list-${recipeId}`);
-  ingrUl.innerHTML = currentIngredients.map(i => `<li>${i.amount ? `<strong>${i.amount}</strong> — ` : ''}${i.name}</li>`).join('');
+  if (ingrUl) ingrUl.innerHTML = renderIngredientsList(currentIngredients);
 
-  // Update instruction list DOM
   const instOl = document.getElementById(`instructions-list-${recipeId}`);
-  instOl.innerHTML = currentInstructions.map(i => `<li>${i}</li>`).join('');
+  if (instOl) instOl.innerHTML = renderInstructionsList(currentInstructions);
 
-  // Update variant notes DOM
   const notesDiv = document.getElementById(`variant-notes-${recipeId}`);
   if (notesDiv) {
-    notesDiv.innerHTML = modNotes.join('<br>');
-    notesDiv.style.display = modNotes.length > 0 ? 'block' : 'none';
+    notesDiv.innerHTML = noteText;
+    notesDiv.style.display = noteText ? 'block' : 'none';
+  }
+
+  // Update active chip classes
+  const container = document.getElementById(`card-${recipeId}`);
+  if (container) {
+    const chips = container.querySelectorAll('.variant-chip');
+    chips.forEach(chip => {
+      const radio = chip.querySelector('input[type="radio"]');
+      if (radio) {
+        if (parseInt(radio.value, 10) === varIdx) {
+          chip.classList.add('base-chip');
+        } else {
+          chip.classList.remove('base-chip');
+        }
+      }
+    });
+  }
+}
+
+function updateComponentVariant(recipeId, componentIndex, variantIndexStr) {
+  const recipe = masterRecipes.find(r => r.id === recipeId);
+  if (!recipe || !recipe.components || !recipe.components[componentIndex]) return;
+
+  const varIdx = parseInt(variantIndexStr, 10);
+  if (!activeComponentVariants[recipeId]) activeComponentVariants[recipeId] = {};
+  activeComponentVariants[recipeId][componentIndex] = varIdx;
+
+  const comp = recipe.components[componentIndex];
+  let currentIngredients = comp.ingredients || [];
+  let currentInstructions = comp.instructions || [];
+
+  if (varIdx >= 0 && comp.variants && comp.variants[varIdx]) {
+    const v = comp.variants[varIdx];
+    if (v.ingredients) currentIngredients = v.ingredients;
+    if (v.instructions) currentInstructions = v.instructions;
+  }
+
+  // Update DOM
+  const ingrUl = document.getElementById(`ingredients-list-${recipeId}-comp-${componentIndex}`);
+  if (ingrUl) ingrUl.innerHTML = renderIngredientsList(currentIngredients);
+
+  const instOl = document.getElementById(`instructions-list-${recipeId}-comp-${componentIndex}`);
+  if (instOl) instOl.innerHTML = renderInstructionsList(currentInstructions);
+
+  // Update chip styling
+  const compSection = document.getElementById(`component-${recipeId}-${componentIndex}`);
+  if (compSection) {
+    const chips = compSection.querySelectorAll('.variant-chip');
+    chips.forEach(chip => {
+      const radio = chip.querySelector('input[type="radio"]');
+      if (radio) {
+        if (parseInt(radio.value, 10) === varIdx) {
+          chip.classList.add('base-chip');
+        } else {
+          chip.classList.remove('base-chip');
+        }
+      }
+    });
   }
 }
 
@@ -264,73 +392,49 @@ function scrollToAndOpenRecipe(id) {
 function filterRecipes() {
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
   const cards = document.querySelectorAll('.recipe-card');
-  
+
   cards.forEach(card => {
     const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
     card.style.display = keywords.includes(q) ? 'block' : 'none';
   });
 }
 
-function openModal() {
-  document.getElementById('addModal').classList.add('open');
-}
-
-function closeModal() {
-  document.getElementById('addModal').classList.remove('open');
-}
-
-function addNewRecipe() {
-  const title = document.getElementById('addTitle').value.trim();
-  const category = document.getElementById('addCategory').value;
-  const keywords = document.getElementById('addKeywords').value.trim();
-  const ingredients = document.getElementById('addIngredients').value.split('\n').filter(i => i.trim());
-  const instructions = document.getElementById('addInstructions').value.split('\n').filter(i => i.trim());
-
-  if (!title) {
-    alert('Please enter a recipe title.');
-    return;
-  }
-
-  const recipeId = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
-  
-  const imageUrl = document.getElementById('addImage').value.trim();
-
-  const newRecipeObj = {
-    id: recipeId,
-    type: 'recipe',
-    title: title,
-    category: category,
-    keywords: keywords,
-    ingredients: ingredients,
-    instructions: instructions,
-    notes: '',
-    image: imageUrl || 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=150&auto=format&fit=crop&q=80'
-  };
-
-  const issueTitle = encodeURIComponent(`[New Recipe]: ${title}`);
-  const issueBody = encodeURIComponent(
-    `Please add this new recipe to \`recipes.json\`:\n\n\`\`\`json\n${JSON.stringify(newRecipeObj, null, 2)}\n\`\`\``
-  );
-
-  const githubIssueUrl = `https://github.com/andymoody/badger-recipes/issues/new?title=${issueTitle}&body=${issueBody}&labels=new-recipe`;
-
-  window.open(githubIssueUrl, '_blank');
-  closeModal();
-}
-
 function copyIngredientsToClipboard(recipeId) {
   const recipe = masterRecipes.find(r => r.id === recipeId);
   if (!recipe) return;
 
-  // Grab base ingredients or standard ingredients list
-  const ingredients = recipe.baseIngredients || recipe.ingredients || [];
-  
-  // Format each ingredient into a clean line (e.g., "2 cups flour")
-  const textLines = ingredients.map(i => {
-    const amountStr = i.amount ? `${i.amount} ` : '';
-    const nameStr = i.name || i;
-    return `${amountStr}${nameStr}`;
-  }).join('\n');
+  const allIngredients = [];
+
+  if (Array.isArray(recipe.components) && recipe.components.length > 0) {
+    recipe.components.forEach((c, cIdx) => {
+      const activeVarIdx = (activeComponentVariants[recipeId] && activeComponentVariants[recipeId][cIdx] !== undefined)
+        ? activeComponentVariants[recipeId][cIdx] 
+        : -1;
+      let ingList = c.ingredients || [];
+      if (activeVarIdx >= 0 && c.variants && c.variants[activeVarIdx] && c.variants[activeVarIdx].ingredients) {
+        ingList = c.variants[activeVarIdx].ingredients;
+      }
+      allIngredients.push(...ingList);
+    });
+  } else {
+    const activeVarIdx = activeRecipeVariants[recipeId] !== undefined ? activeRecipeVariants[recipeId] : -1;
+    let ingList = recipe.ingredients || [];
+    if (activeVarIdx >= 0 && recipe.variants && recipe.variants[activeVarIdx] && recipe.variants[activeVarIdx].ingredients) {
+      ingList = recipe.variants[activeVarIdx].ingredients;
+    }
+    allIngredients.push(...ingList);
+  }
+
+  // Format lines for AnyList
+  const textLines = allIngredients.map(i => {
+    if (typeof i === 'string') return i;
+    if (typeof i === 'object' && i !== null) {
+      const unitStr = i.unit ? ` ${i.unit}` : '';
+      const amountStr = i.amount ? `${i.amount}${unitStr} ` : '';
+      return `${amountStr}${i.name || ''}`;
+    }
+    return '';
+  }).filter(Boolean).join('\n');
 
   navigator.clipboard.writeText(textLines).then(() => {
     alert(`Ingredients for "${recipe.title}" copied to clipboard!\n\nOpen AnyList, tap the 'Add Item' field, and select Paste to add them automatically.`);
