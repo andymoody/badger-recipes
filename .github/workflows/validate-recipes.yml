@@ -1,45 +1,16 @@
-name: Validate Recipes JSON
+name: Validate recipes
 
 on:
   pull_request:
-    paths:
-      - 'recipes.json'
-      - 'recipe-schema.json'
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          python-version: '3.11'
-
-      - name: Install JSON schema validator
-        run: pip install jsonschema
-
-      - name: Validate JSON against Schema
-        run: |
-          python -c "
-          import json
-          import sys
-          from jsonschema import validate, ValidationError
-
-          try:
-              with open('recipe-schema.json', 'r') as f:
-                  schema = json.load(f)
-              with open('recipes.json', 'r') as f:
-                  data = json.load(f)
-              validate(instance=data, schema=schema)
-              print('Validation successful! recipes.json conforms to recipe-schema.json.')
-          except ValidationError as e:
-              print(f'❌ Validation Error: {e.message}')
-              print(f'📍 Path to error: {list(e.path)}')
-              sys.exit(1)
-          "
+          node-version: lts/*
+      - run: node build.js --check

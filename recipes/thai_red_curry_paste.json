@@ -1,0 +1,86 @@
+{
+  "$schema": "../schema/recipe.schema.json",
+  "id": "thai_red_curry_paste",
+  "title": "Thai red curry paste",
+  "course": "basic",
+  "tags": [
+    "thai",
+    "paste"
+  ],
+  "yield": {
+    "qty": 12,
+    "unit": "tbsp"
+  },
+  "batch": true,
+  "time": {
+    "prep": 20
+  },
+  "ingredients": [
+    {
+      "item": "cumin_seeds",
+      "qty": 1.5,
+      "unit": "tsp"
+    },
+    {
+      "item": "coriander_seeds",
+      "qty": 1.5,
+      "unit": "tsp"
+    },
+    {
+      "item": "red_chilli",
+      "qty": 8,
+      "qtyMax": 10,
+      "note": "long"
+    },
+    {
+      "item": "dried_red_chilli",
+      "qty": 2,
+      "prep": "soaked in hot water for 10 mins"
+    },
+    {
+      "item": "white_pepper",
+      "qty": 0.5,
+      "unit": "tsp",
+      "note": "ground"
+    },
+    {
+      "item": "garlic",
+      "qty": 3,
+      "unit": "clove",
+      "note": "fat"
+    },
+    {
+      "item": "lemongrass",
+      "qty": 3,
+      "prep": "outer skin removed, finely sliced"
+    },
+    {
+      "item": "coriander_root",
+      "qty": 4,
+      "prep": "roughly chopped"
+    },
+    {
+      "item": "lime_leaf",
+      "qty": 6,
+      "note": "or finely grated zest of 1 lime"
+    },
+    {
+      "item": "galangal",
+      "qty": 5,
+      "unit": "cm",
+      "prep": "finely grated",
+      "note": "or ginger"
+    },
+    {
+      "item": "shrimp_paste",
+      "qty": 2,
+      "unit": "tsp"
+    }
+  ],
+  "steps": [
+    "Toast the cumin and coriander seeds in a dry pan until fragrant, then grind finely.",
+    "In a pestle and mortar or food processor, work the aromatics in turn: the ground spices, then garlic, lemongrass, coriander roots, lime leaves and galangal.",
+    "Finally add the soaked chillies and shrimp paste, and pound or blend to a thick, smooth paste."
+  ],
+  "notes": "Keeps for up to a week in the fridge. The yield of 12 tbsp is an estimate: check it next time you make it."
+}

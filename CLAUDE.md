@@ -1,63 +1,118 @@
 # Badger Recipes
 
-A personal recipe collection. It's a static site (vanilla HTML/CSS/JS) served by GitHub Pages, with the recipe data stored as JSON in this repo. There is no backend, no framework and no npm dependencies.
+A personal recipe collection. It's a static site (vanilla HTML/CSS/JS), moving from GitHub Pages to Cloudflare, with the recipe data stored as JSON in this repo. There is no backend, no framework and no npm dependencies.
 
 ## Current state
 
-The repo is **mid-redesign**. `app.js`, `recipe-schema.json` and `recipes.json` still use the **old** model: flat recipes, inline `components`, and full-copy `variants`. Don't extend the old model; new work targets the model below. `main` still serves 109 old-format recipes; the redesign happens on a branch and is merged only when it's complete.
+The repo is **mid-redesign**. The data side is done: `recipes/`, `ingredients.json`, `schema/` and `build.js` implement the model below. `app.js` still renders the **old** model, so the site on this branch is broken until step 3. Don't extend the old model. If the new model fits a recipe or feature awkwardly, **propose a model change to the user** rather than quietly working around it. `main` still serves 109 old-format recipes; the redesign happens on a branch and is merged only when it's complete.
 
 Plan, in order:
 1. Housekeeping: remove the add-recipe form and the issue workflow, write the docs. **(done)**
-2. Model and tooling: schemas, `ingredients.json`, `build.js`, an Action that validates, builds and deploys to Pages, and hand-converted examples (pancakes, Scotch eggs, Thai curry).
+2. Model and tooling: schemas, `ingredients.json`, `build.js`, a CI check, and hand-converted examples (pancakes, Scotch eggs, Thai curry with its paste and rice). **(done)**
 3. Site rewrite to the new model.
 4. Extraction tooling: a skill and scripts that turn a source (website, PDF, image, Word doc, text) into recipe files.
-5. Re-extract all 109 recipes from their **original sources**. The old `recipes.json` isn't reliable enough to convert; treat it only as a checklist of what to collect.
-6. Merge to `main` and switch Pages to "deploy via GitHub Actions".
+5. Re-extract all 109 recipes from their **original sources**. The old `recipes.json` isn't reliable enough to convert; treat it only as a checklist of what to collect. **When this step starts, create `docs/migration.md`** from the old titles (in git history at `4623299`). Give each recipe its source location and a status (not found / extracted / approved / skipped), add to it and update it as each recipe is done, so work can continue across sessions.
+6. Merge to `main`. Make the GitHub repo private and move hosting from GitHub Pages to Cloudflare (Pages or Workers static assets, connected to the private repo; the site is public to start with, and Cloudflare Access can be added later).
 
 ## Data model (target)
 
-**There is only one kind of thing: a recipe.** A "meal" is just a recipe built from other recipes.
+**There is only one kind of thing: a recipe.** A "meal" is just a recipe built from other recipes (its parts).
 
 ### Recipe: `recipes/<id>.json` (one file per recipe)
-- `id`: snake_case, the same as the filename.
-- `title`, `course` (one of `main, side, starter, dessert, baking, breakfast, sauce, drink, snack, basic`), `tags` (free list, e.g. `christmas`, `vegetarian`, `thai`).
-- `serves`: a **number** (needed for scaling); optional `yield` text, e.g. "12 pancakes".
-- `listed`: defaults to true. Set it to `false` for parts that only make sense inside another recipe, e.g. a Scotch egg filling. Unlisted recipes don't appear in the list or search; they're shown only inside their parents.
-- `ingredients`: `{ item, qty, unit, prep, note }`. `item` is a catalogue ID and `qty` is a number (`0.5`, not `"1/2"`). For lines that won't fit this shape, use a `{ text }` fallback ("salt and pepper to taste").
-- `parts`: other recipes this one is built from, referenced by ID. A part can be a **choice** between several recipes (e.g. a filling: black pudding *or* chorizo).
-- `steps`: the parent's own steps **set the order across parts**. A step can embed a whole part, which the page shows as a section you can expand in place. If the parent has no steps, its parts are shown one after another.
-- `notes`: free text, used for small tweaks.
+- `id`: snake_case, the same as the filename. Recipe files are the only global namespace.
+- `title`, `course` (one of `main, side, starter, dessert, baking, breakfast, sauce, drink, snack, basic`), `tags` (free list).
+- `serves` (a **number**) and/or `yield`: every recipe needs at least one. `yield` is `{ qty, unit }` (e.g. 300 g of paste) or text ("12 pancakes"); a paste or stock can have `yield` alone.
+- `time`: minutes as numbers, `{ prep, cook, rest?, total? }`.
+- `source`: `{ type: "web", url, title }`, `{ type: "book", title, page }`, `{ type: "file", drive, name }` (a Google Drive link), or `{ type: "own" }`, plus optional `adapted: true`.
+- `image`: an optional local file, `images/<id>.jpg`, extracted from the source (with your approval). No stock photos.
+- `listed`: defaults to true. Use `false` only for a shared recipe file that isn't interesting on its own (e.g. a spice blend).
+- `ingredients`, `steps`, `notes`, `parts`: see below.
 
-How to handle variation:
-- **Choose a part** when the difference fits within one block of steps.
-- **Write separate recipes that share parts** when the methods interleave (e.g. beef vs fish green curry, both using `green_curry_paste`).
+### Ingredient lines
+`{ item, qty?, qtyMax?, unit?, prep?, note?, optional?, scaling? }`
+- `item` is a catalogue ID. `qty` and `qtyMax` are numbers (`qtyMax` is for ranges such as "1–2").
+- For lines like "to taste", leave out `qty` and use `note`. These never scale.
+- `optional: true` lines start unticked in the shopping list.
+- `scaling` overrides the catalogue's category for this line (e.g. `fixed` for oil used for frying).
+- Fallback for lines that won't fit: `{ text }`.
+- Units are **metric only**, from a fixed list: `g kg ml l tsp tbsp cm clove tin pack pinch handful sprig bunch slice stick sheet` (`cm` is for things like "5cm galangal"), or no unit for countable things. Convert cups and imperial units during extraction. The page tidies units for display (1000 g shows as 1 kg).
+- `{ heading: "For the icing" }` entries divide `ingredients` and `steps` into groups. They're display only.
+
+### Parts
+`parts: [{ key, label?, recipe | <inline recipe> | choose + default, use? }]`
+- `key` is local to the file; steps refer to parts by key.
+- **Shared** part: `"recipe": "<id>"`, referencing another recipe file.
+- **Single-use** part (or a choice option): defined **inline**, with the same shape as a recipe. Its `id` only needs to be unique in its own file. Its full path, e.g. `scotch_eggs/filling/black_pudding`, is worked out by the build and used for the page's state and URLs (`#/scotch_eggs?filling=chorizo`). Inline parts are never listed on their own. To share one later, move it into its own file and reference it.
+- `choose: [...]` with a `default`: options can be inline or references, and the page shows them as radio buttons.
+- **How much of a part is used** (its factor, multiplied by the scaling chosen on the page):
+  - `use: { qty, unit }` gives how much of the part's `yield` the parent needs, so the factor is use ÷ yield. The yield must be a quantity and unit, and the build checks the units match. An explicit `use` always wins.
+  - With no `use`, if both parent and part have `serves`, the part **follows the parent's servings**: the factor is parent serves ÷ part serves (a curry for 6 using rice for 4 gets rice × 1.5).
+  - With no `use` on a **shared** part where either side lacks `serves` (e.g. a paste with only a `yield`), the **build fails** and asks for a `use`. So the cook never sees a part that can't be scaled.
+  - **Inline** parts with no `serves` are sized for their parent (factor 1). If they do have `serves`, the same ratio applies.
+  - A part recipe with `batch: true` is normally made in full: the page has a "make full batch" toggle (factor 1, ignoring scaling), and `batch` turns it on by default.
+
+### Steps
+- A plain string, or `{ text?, part?, only? }`. The parent's steps **set the order across parts**: a step with `part` shows that part as a section you can expand in place.
+- `only: { "<choice key>": ["<option id>", …] }` shows a step only when one of those options is selected. Use it when alternatives differ at a few points in the method (e.g. brown the chicken first, add seafood at the end); the options then just carry their ingredients.
+- Every part must be referenced by some step (through `part`, or through `only` for a choice), unless the parent has no steps (then its parts are shown one after another).
+- Steps reference whole parts, never individual steps inside a part.
+
+### How to handle variation
+- Use a **choice** between parts when the difference fits in one block of steps, and a choice plus **conditional steps** (`only`) when it affects a few points in the method.
+- Write **separate recipes that share parts** when the methods interleave (e.g. beef vs fish green curry).
 - Use **notes** for small tweaks.
-- **No change lists or patch-style variants** (replace ingredient X, edit step N). They're fragile and were rejected on purpose.
-- Steps reference whole parts, never individual steps of a part.
-
-The build must reject any part reference that doesn't exist and any recipe that includes itself, directly or through other parts.
+- **No change lists or patch-style variants.** They were rejected on purpose.
+- **How to extract and structure recipes (sources, the structure decision guide, the catalogue, units, images): see `docs/extraction.md`. Follow it for every recipe you add or re-extract.**
 
 ### Ingredients catalogue: `ingredients.json`
 Keyed by a canonical snake_case ID:
-`"onion": { "name": "Onion", "plural": "Onions", "aliases": [], "staple": false }`
-- `name` is the display text, written in sentence case exactly as it should be shown ("Gruyère", "Thai basil").
-- `staple: true` items (salt, olive oil…) start **unticked** in the shopping list.
-- Every `item` used in a recipe must exist in the catalogue. When adding recipes, map onto existing IDs and their aliases before creating new entries.
-- There is no aisle or category field: AnyList categorises pasted items itself.
+`"onion": { "name": "Onion", "plural": "Onions", "aliases": [], "staple": false, "scaling": "linear" }`
+- `name` is the display text, in sentence case exactly as shown ("Gruyère").
+- `staple: true` items start **unticked** in the shopping list.
+- `scaling` sets how the item scales: `linear` (the default), `seasoning`, `strong_spice`, `leavening` or `fixed`. A scaled amount is the original × k^e, with e = 1, 0.9, 0.8, 0.95 or 0 respectively. The page marks amounts that aren't proportional and shows the proportional figure alongside. Cooking times aren't adjusted; the page shows a general reminder when a recipe is scaled.
+- Every `item` must exist in the catalogue. Map onto existing IDs and aliases before adding new entries.
+- There's no aisle field; AnyList categorises pasted items itself.
+
+### Build checks
+The build fails on: an unknown part reference or catalogue item; an `only` naming something that isn't a choice part, or an option that doesn't exist; a recipe that includes itself (directly or through parts); duplicate part keys, or duplicate option IDs within a `choose`; a `default` that isn't one of its options; a part that no step references when the parent has steps; `use` units that don't match the part's `yield`; a shared part with no `use` where the parent or the part lacks `serves`.
 
 ### Reference guides
-Non-recipe content, such as the temperature charts in the old data, is set aside for now. It will become a separate content type later.
+Non-recipe content, such as the old temperature charts, is set aside for now. It will become a separate content type later.
 
 ## Build and deploy (target)
-- `node build.js` validates every recipe and the catalogue, then writes the combined `recipes.json` that the site loads. That file is generated and is **not committed**.
-- The GitHub Action runs the same build on push and deploys to Pages.
-- Serve locally with any static server, e.g. `python3 -m http.server`.
+- `node build.js` validates every recipe and the catalogue, then writes the combined `recipes.json` (`{ recipes: {id: recipe}, ingredients }`) that the site loads. That file is generated and gitignored. `node build.js --check` validates without writing it.
+- `schema/recipe.schema.json` and `schema/ingredients.schema.json` are the single source of truth for the shape of the data. `build.js` contains a small JSON Schema checker with no dependencies, plus the cross-file checks. Recipe files set `$schema` so editors can autocomplete them.
+- `.github/workflows/validate-recipes.yml` runs `node build.js --check` on PRs and on pushes to `main`.
+- After step 6, Cloudflare runs `node build.js` on every push, and each branch gets a preview URL.
+- Needs Node 22 or later; there's nothing to `npm install`.
+- Source files (PDFs, Word docs, images) stay in **Google Drive**, not in the repo. Recipes record a Drive link.
+- Run locally: `node build.js && python3 -m http.server`.
 
 ## Site (target)
 - A list view with a sidebar by course, search and tag filters. A recipe view at `#/<id>`.
-- On the recipe view: a servings control that scales everything, including parts. A combined ingredients list merged across parts, with checkboxes so you can untick what you have; staples start unticked. A **copy for AnyList** button that copies a plain-text list, one item per line, to paste into AnyList. Choices between parts show as radio buttons.
+- On the recipe view:
+  - **Servings control** that scales everything, including parts. Each part has a "make full batch" toggle. Parts that use some of a yield show "Recipe makes 300 g; you need 100 g".
+  - **Combined ingredients list**, merged across parts by `item`. Lines merge only when their units convert (g with kg, ml with l, tsp with tbsp); otherwise they're shown together under one item ("Onion: 1 + 200 g").
+  - **Checkboxes** so you can untick what you have. Staple and `optional` lines start unticked.
+  - **Copy for AnyList** copies the ticked lines as plain text, one item per line, for pasting into AnyList.
+  - **Choices** between parts show as radio buttons, and the selection is kept in the URL (`#/scotch_eggs?filling=chorizo`). Steps with `only` show only for the selected option.
+  - **Embedded parts** in steps expand in place. Shared parts that are listed also link to their own page. A parent with no steps shows its parts one after another, as collapsible sections.
+- Display rules for amounts:
+  - Use the catalogue `plural` when the quantity isn't 1, and plural units ("3 cloves").
+  - Show ranges as "1–2" and fractions as ½, ¼, ¾, ⅓ and ⅔.
+  - Tidy units when scaling: 1000 g shows as 1 kg, 3 tsp as 1 tbsp.
+  - Rounding after scaling: whole numbers for things without a unit (eggs), the nearest ¼ for tsp and tbsp, the nearest 5 for g and ml above 50.
+  - Amounts that don't scale in proportion get a marker; tapping it shows the proportional figure.
+  - When a recipe is scaled, a general reminder says cooking times, pan sizes and raising agents may need adjusting.
+- Later, not now: ticking off steps as you go, and keeping the screen awake while cooking.
 - It should work well on mobile, since it's used in the kitchen. Keep the existing dark, Canton teal look.
 - Use proper CSS classes and event listeners, not inline styles or `onclick` strings.
+
+## Open questions
+- **AnyList line format.** Check whether AnyList reads quantities from a pasted line like "2 Onions".
+- **Extraction batching:** one recipe at a time or in batches. Decide in step 4.
+- **Cloudflare Pages or Workers static assets.** Check which Cloudflare recommends in step 6.
+- **Reference guides** (the old temperature charts): a separate content type, later.
 
 ## Out of scope (for now)
 Adding or editing recipes from the site; databases; AI built into the site; any AnyList API, since there's no public one and the unofficial one needs credentials. Possible later: static per-recipe pages with schema.org JSON-LD so AnyList can import whole recipes.

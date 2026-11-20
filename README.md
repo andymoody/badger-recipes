@@ -10,13 +10,16 @@ A personal recipe collection, published as a static site on GitHub Pages.
 - The site is plain HTML, CSS and JavaScript (`index.html`, `app.js`, `styles.css`), with no framework or build dependencies.
 
 ## Running locally
-Serve the repo root with any static server:
+Build the data, then serve the repo root with any static server:
 
 ```sh
+node build.js
 python3 -m http.server
 ```
+
+`node build.js` checks every recipe in `recipes/` against `schema/` and the ingredients catalogue, then writes `recipes.json` (generated and not committed).
 
 then open http://localhost:8000.
 
 ## Adding recipes
-For now, recipes are added by committing JSON files that conform to the schema. Tooling to extract recipes from websites, PDFs, images and documents is planned.
+For now, recipes are added by committing JSON files to `recipes/` that conform to `schema/recipe.schema.json`. Run `node build.js --check` before committing. Tooling to extract recipes from websites, PDFs, images and documents is planned.

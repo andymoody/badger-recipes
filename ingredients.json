@@ -1,0 +1,155 @@
+{
+  "$schema": "schema/ingredients.schema.json",
+  "baking_powder": {
+    "name": "Baking powder",
+    "scaling": "leavening"
+  },
+  "bamboo_shoots": {
+    "name": "Bamboo shoots"
+  },
+  "black_pepper": {
+    "name": "Black pepper",
+    "staple": true,
+    "scaling": "strong_spice"
+  },
+  "black_pudding": {
+    "name": "Black pudding"
+  },
+  "breadcrumbs": {
+    "name": "Breadcrumbs"
+  },
+  "butter": {
+    "name": "Butter"
+  },
+  "caster_sugar": {
+    "name": "Caster sugar"
+  },
+  "chicken_thigh": {
+    "name": "Chicken thigh",
+    "plural": "Chicken thighs"
+  },
+  "chorizo": {
+    "name": "Chorizo"
+  },
+  "coconut_milk": {
+    "name": "Coconut milk"
+  },
+  "coriander_root": {
+    "name": "Coriander root",
+    "plural": "Coriander roots"
+  },
+  "coriander_seeds": {
+    "name": "Coriander seeds"
+  },
+  "cumin_seeds": {
+    "name": "Cumin seeds"
+  },
+  "dried_red_chilli": {
+    "name": "Dried red chilli",
+    "plural": "Dried red chillies",
+    "scaling": "strong_spice"
+  },
+  "egg": {
+    "name": "Egg",
+    "plural": "Eggs"
+  },
+  "firm_tofu": {
+    "name": "Firm tofu"
+  },
+  "fish_sauce": {
+    "name": "Fish sauce",
+    "scaling": "seasoning"
+  },
+  "galangal": {
+    "name": "Galangal"
+  },
+  "garlic": {
+    "name": "Garlic"
+  },
+  "jasmine_rice": {
+    "name": "Jasmine rice",
+    "aliases": [
+      "Thai fragrant rice"
+    ]
+  },
+  "lemongrass": {
+    "name": "Lemongrass stalk",
+    "plural": "Lemongrass stalks"
+  },
+  "lime_leaf": {
+    "name": "Lime leaf",
+    "plural": "Lime leaves",
+    "aliases": [
+      "Kaffir lime leaf",
+      "Makrut lime leaf"
+    ]
+  },
+  "maple_syrup": {
+    "name": "Maple syrup"
+  },
+  "milk": {
+    "name": "Milk"
+  },
+  "mixed_seafood": {
+    "name": "Mixed seafood"
+  },
+  "palm_sugar": {
+    "name": "Palm sugar"
+  },
+  "parsley": {
+    "name": "Parsley"
+  },
+  "plain_flour": {
+    "name": "Plain flour",
+    "aliases": [
+      "All-purpose flour"
+    ]
+  },
+  "pork_mince": {
+    "name": "Pork mince",
+    "aliases": [
+      "Minced pork",
+      "Ground pork"
+    ]
+  },
+  "red_chilli": {
+    "name": "Red chilli",
+    "plural": "Red chillies",
+    "scaling": "strong_spice"
+  },
+  "red_pepper": {
+    "name": "Red pepper",
+    "plural": "Red peppers",
+    "aliases": [
+      "Red bell pepper"
+    ]
+  },
+  "salt": {
+    "name": "Salt",
+    "staple": true,
+    "scaling": "seasoning"
+  },
+  "shrimp_paste": {
+    "name": "Shrimp paste",
+    "scaling": "seasoning"
+  },
+  "sunflower_oil": {
+    "name": "Sunflower oil",
+    "staple": true
+  },
+  "thai_basil": {
+    "name": "Thai basil"
+  },
+  "vegetable_oil": {
+    "name": "Vegetable oil",
+    "staple": true
+  },
+  "water": {
+    "name": "Water",
+    "staple": true
+  },
+  "white_pepper": {
+    "name": "White pepper",
+    "scaling": "strong_spice"
+  }
+}

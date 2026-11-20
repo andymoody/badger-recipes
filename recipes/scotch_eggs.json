@@ -1,0 +1,147 @@
+{
+  "$schema": "../schema/recipe.schema.json",
+  "id": "scotch_eggs",
+  "title": "Scotch eggs",
+  "course": "main",
+  "tags": [
+    "eggs",
+    "pork",
+    "deep_fry"
+  ],
+  "serves": 6,
+  "yield": "6 Scotch eggs",
+  "time": {
+    "prep": 20,
+    "cook": 20
+  },
+  "ingredients": [
+    {
+      "heading": "For the eggs"
+    },
+    {
+      "item": "egg",
+      "qty": 6,
+      "note": "medium, at room temperature"
+    },
+    {
+      "heading": "For the coating"
+    },
+    {
+      "item": "plain_flour",
+      "qty": 100,
+      "unit": "g"
+    },
+    {
+      "item": "egg",
+      "qty": 1,
+      "qtyMax": 2,
+      "prep": "beaten"
+    },
+    {
+      "item": "breadcrumbs",
+      "qty": 200,
+      "unit": "g",
+      "note": "coarse, fresh white"
+    },
+    {
+      "item": "salt",
+      "note": "to season"
+    },
+    {
+      "item": "black_pepper",
+      "note": "to season"
+    },
+    {
+      "heading": "To cook"
+    },
+    {
+      "item": "sunflower_oil",
+      "note": "for deep-frying"
+    }
+  ],
+  "parts": [
+    {
+      "key": "filling",
+      "label": "Filling",
+      "default": "black_pudding",
+      "choose": [
+        {
+          "id": "black_pudding",
+          "title": "Black pudding and pork",
+          "ingredients": [
+            {
+              "item": "black_pudding",
+              "qty": 400,
+              "unit": "g"
+            },
+            {
+              "item": "pork_mince",
+              "qty": 200,
+              "unit": "g",
+              "note": "fatty"
+            },
+            {
+              "item": "breadcrumbs",
+              "qty": 50,
+              "unit": "g",
+              "note": "fresh white"
+            },
+            {
+              "item": "parsley",
+              "qty": 1,
+              "unit": "tbsp",
+              "prep": "chopped"
+            }
+          ],
+          "steps": [
+            "Put the black pudding, pork mince, breadcrumbs and parsley in a large bowl. Mix until evenly combined, then divide into 12 even-sized balls."
+          ]
+        },
+        {
+          "id": "chorizo",
+          "title": "Chorizo and pork",
+          "ingredients": [
+            {
+              "item": "chorizo",
+              "qty": 300,
+              "unit": "g",
+              "prep": "finely processed"
+            },
+            {
+              "item": "pork_mince",
+              "qty": 500,
+              "unit": "g",
+              "note": "fatty"
+            },
+            {
+              "item": "breadcrumbs",
+              "qty": 50,
+              "unit": "g",
+              "note": "fresh white"
+            },
+            {
+              "item": "parsley",
+              "qty": 1,
+              "unit": "tbsp",
+              "prep": "chopped"
+            }
+          ],
+          "steps": [
+            "Put the chorizo, pork mince, breadcrumbs and parsley in a large bowl. Mix until evenly combined, then divide into 12 even-sized balls."
+          ]
+        }
+      ]
+    }
+  ],
+  "steps": [
+    "Preheat the oven to 180°C.",
+    "Bring a pan of water to the boil, add the 6 eggs and cook for 6 minutes for a soft-set yolk. Drain, run under cold water and carefully peel.",
+    {
+      "text": "Make the filling.",
+      "part": "filling"
+    },
+    "Set out three coating bowls: flour seasoned with salt and pepper, beaten egg, and the coarse breadcrumbs.",
+    "Flatten the filling into 6cm discs, wrap them around each egg and seal the joins well. Coat in flour, then egg, then breadcrumbs. Chill until ready to cook.",
+    "Heat the oil to 175°C. Fry 2–3 eggs at a time for 2 minutes until golden, then transfer to the oven for 10 minutes. Drain and rest for 5–10 minutes."
+  ]
+}
