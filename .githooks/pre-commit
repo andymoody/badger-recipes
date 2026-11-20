@@ -1,0 +1,11 @@
+#!/bin/sh
+# Validates the recipes and runs the unit tests before each commit.
+# Enable once per clone with: git config core.hooksPath .githooks
+# Skip in an emergency with: git commit --no-verify
+node build.js --check || { echo "Recipe validation failed: commit aborted."; exit 1; }
+out=$(node --test 'tests/*.test.mjs' 2>&1) || {
+  echo "$out"
+  echo "Unit tests failed: commit aborted."
+  exit 1
+}
+echo "Recipes valid, unit tests passed."

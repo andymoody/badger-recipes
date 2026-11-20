@@ -1,0 +1,65 @@
+import { test, describe } from 'node:test';
+import assert from 'node:assert/strict';
+import { matches, filterRecipes } from '../js/search.js';
+import { loadData } from './helpers.mjs';
+
+const data = loadData();
+const ids = (filter) => filterRecipes(data, filter).map((r) => r.id);
+
+describe('search by title, tags and course', () => {
+  test('a tag finds every recipe with it ("thai")', () => {
+    assert.deepEqual(ids({ q: 'thai' }), ['jasmine_rice', 'thai_red_curry', 'thai_red_curry_paste']);
+  });
+  test('every word must match ("curry paste" is just the paste)', () => {
+    assert.deepEqual(ids({ q: 'curry paste' }), ['thai_red_curry_paste']);
+  });
+  test('ingredients are not searched: "salt" finds nothing, though the pancakes contain salt', () => {
+    assert.deepEqual(ids({ q: 'salt' }), []);
+  });
+  test('the course counts as a keyword ("breakfast", "mains")', () => {
+    assert.deepEqual(ids({ q: 'breakfast' }), ['american_pancakes']);
+    assert.deepEqual(ids({ q: 'main' }), ['scotch_eggs', 'thai_red_curry']);
+  });
+  test('words match from their start, so typing part of a word works and the middle of a word does not', () => {
+    assert.deepEqual(ids({ q: 'panc' }), ['american_pancakes']);
+    assert.deepEqual(ids({ q: 'ancake' }), []);
+  });
+  test('tags with underscores match as words ("deep fry")', () => {
+    assert.deepEqual(ids({ q: 'deep fry' }), ['scotch_eggs']);
+  });
+  test('case and punctuation are ignored', () => {
+    assert.deepEqual(ids({ q: '  SCOTCH, eggs ' }), ['scotch_eggs']);
+  });
+});
+
+describe('a realistic future collection', () => {
+  const r = (title, tags, course = 'main') => ({ title, tags, course });
+  const saltCod = r('Salt cod fritters', ['portuguese', 'fish'], 'starter');
+  const lamb = r('Slow-roast lamb shoulder', ['mediterranean', 'lamb', 'sunday_roast']);
+  const pancakes = r('Fluffy American pancakes', ['brunch']);
+  test('"salt cod" finds the fritters only', () => {
+    assert.ok(matches(saltCod, 'salt cod'));
+    assert.ok(!matches(pancakes, 'salt cod'));
+  });
+  test('"lamb" and "mediterranean" find the lamb by title or tag', () => {
+    assert.ok(matches(lamb, 'lamb'));
+    assert.ok(matches(lamb, 'mediterranean'));
+    assert.ok(matches(lamb, 'medit lamb'));
+    assert.ok(!matches(saltCod, 'lamb'));
+  });
+  test('an empty search matches everything', () => {
+    assert.ok(matches(pancakes, ''));
+  });
+});
+
+describe('filters', () => {
+  test('course and tag filters combine with search', () => {
+    assert.deepEqual(ids({ course: 'basic' }), ['thai_red_curry_paste']);
+    assert.deepEqual(ids({ tag: 'thai', course: 'side' }), ['jasmine_rice']);
+    assert.deepEqual(ids({ tag: 'thai', q: 'rice' }), ['jasmine_rice']);
+  });
+  test('unlisted recipes never appear', () => {
+    const d = { recipes: { a: { id: 'a', title: 'Spice blend', course: 'basic', listed: false }, b: { id: 'b', title: 'Spiced nuts', course: 'snack' } } };
+    assert.deepEqual(filterRecipes(d, { q: 'spice' }).map((r) => r.id), ['b']);
+  });
+});

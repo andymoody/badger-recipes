@@ -4,12 +4,12 @@ A personal recipe collection. It's a static site (vanilla HTML/CSS/JS), moving f
 
 ## Current state
 
-The repo is **mid-redesign**. The data side is done: `recipes/`, `ingredients.json`, `schema/` and `build.js` implement the model below. `app.js` still renders the **old** model, so the site on this branch is broken until step 3. Don't extend the old model. If the new model fits a recipe or feature awkwardly, **propose a model change to the user** rather than quietly working around it. `main` still serves 109 old-format recipes; the redesign happens on a branch and is merged only when it's complete.
+The repo is **mid-redesign**. The data side (`recipes/`, `ingredients.json`, `schema/`, `build.js`) and the site (`index.html`, `styles.css`, `js/`) implement the model below, with five hand-converted example recipes. Don't extend the old model. If the new model fits a recipe or feature awkwardly, **propose a model change to the user** rather than quietly working around it. `main` still serves 109 old-format recipes; the redesign happens on a branch and is merged only when it's complete.
 
 Plan, in order:
 1. Housekeeping: remove the add-recipe form and the issue workflow, write the docs. **(done)**
 2. Model and tooling: schemas, `ingredients.json`, `build.js`, a CI check, and hand-converted examples (pancakes, Scotch eggs, Thai curry with its paste and rice). **(done)**
-3. Site rewrite to the new model.
+3. Site rewrite to the new model, with unit tests run in CI and a pre-commit hook. **(done)**
 4. Extraction tooling: a skill and scripts that turn a source (website, PDF, image, Word doc, text) into recipe files.
 5. Re-extract all 109 recipes from their **original sources**. The old `recipes.json` isn't reliable enough to convert; treat it only as a checklist of what to collect. **When this step starts, create `docs/migration.md`** from the old titles (in git history at `4623299`). Give each recipe its source location and a status (not found / extracted / approved / skipped), add to it and update it as each recipe is done, so work can continue across sessions.
 6. Merge to `main`. Make the GitHub repo private and move hosting from GitHub Pages to Cloudflare (Pages or Workers static assets, connected to the private repo; the site is public to start with, and Cloudflare Access can be added later).
@@ -82,14 +82,22 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
 ## Build and deploy (target)
 - `node build.js` validates every recipe and the catalogue, then writes the combined `recipes.json` (`{ recipes: {id: recipe}, ingredients }`) that the site loads. That file is generated and gitignored. `node build.js --check` validates without writing it.
 - `schema/recipe.schema.json` and `schema/ingredients.schema.json` are the single source of truth for the shape of the data. `build.js` contains a small JSON Schema checker with no dependencies, plus the cross-file checks. Recipe files set `$schema` so editors can autocomplete them.
-- `.github/workflows/validate-recipes.yml` runs `node build.js --check` on PRs and on pushes to `main`.
+- `.github/workflows/validate-recipes.yml` runs `node build.js --check` and the unit tests on every push and PR.
+
+## Tests
+- **Every change to `js/` or `build.js` needs unit tests that use realistic recipe examples** (the real files in `recipes/` where possible, small hand-written fixtures for structures they don't cover yet). Tests prove behaviour the cook would see: amounts, merged shopping lines, which steps show.
+- Tests use Node's built-in runner (`node:test` and `node:assert`), so there's nothing to install: `node --test 'tests/*.test.mjs'`. They load `recipes/*.json` directly and don't need a build first.
+- `tests/build.test.mjs` runs `build.js --root <tmp>` against a copy of the data with one deliberate mistake each. Add a case there for every new build check.
+- The pre-commit hook in `.githooks/` runs the validation and the tests. Enable it once per clone: `git config core.hooksPath .githooks`.
 - After step 6, Cloudflare runs `node build.js` on every push, and each branch gets a preview URL.
 - Needs Node 22 or later; there's nothing to `npm install`.
 - Source files (PDFs, Word docs, images) stay in **Google Drive**, not in the repo. Recipes record a Drive link.
 - Run locally: `node build.js && python3 -m http.server`.
 
 ## Site (target)
-- A list view with a sidebar by course, search and tag filters. A recipe view at `#/<id>`.
+- Code: vanilla ES modules in `js/`, loaded straight by the browser with no build step. `quantity.js` (scaling, units, rounding, display), `resolve.js` (turns a recipe and the page state into a tree of parts with factors, scaled lines and filtered steps), `shopping.js` (the merged list and AnyList text) and `state.js` (URL state) are pure and unit-tested; `views/` and `main.js` build the DOM with `dom.js`'s `h()`, never `innerHTML` with data.
+- URL state: `#/<id>?serves=6` (or `x=2` for yield-only recipes), `<choice path>=<option>` (e.g. `filling=chorizo`; nested choices use the full path) and `full.<part path>=1|0`. Defaults are left out.
+- A list view with a sidebar by course, search (titles, tags and course only, matching from the start of words; ingredients aren't searched, so "salt cod" doesn't find everything with salt in it) and tag filters. A recipe view at `#/<id>`.
 - On the recipe view:
   - **Servings control** that scales everything, including parts. Each part has a "make full batch" toggle. Parts that use some of a yield show "Recipe makes 300 g; you need 100 g".
   - **Combined ingredients list**, merged across parts by `item`. Lines merge only when their units convert (g with kg, ml with l, tsp with tbsp); otherwise they're shown together under one item ("Onion: 1 + 200 g").
@@ -101,7 +109,8 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
   - Use the catalogue `plural` when the quantity isn't 1, and plural units ("3 cloves").
   - Show ranges as "1–2" and fractions as ½, ¼, ¾, ⅓ and ⅔.
   - Tidy units when scaling: 1000 g shows as 1 kg, 3 tsp as 1 tbsp.
-  - Rounding after scaling: whole numbers for things without a unit (eggs), the nearest ¼ for tsp and tbsp, the nearest 5 for g and ml above 50.
+  - Rounding after scaling: whole numbers for things without a unit (eggs) and for cloves, slices, sheets, sprigs and sticks, and below 1 the closest of ¼, ⅓, ½, ⅔ or ¾; the nearest ¼ for tsp and tbsp, and below 1 tsp the closest of ⅛, ¼, ⅓, ½, ⅔ or ¾ (thirds aren't spoon sizes but are easy to judge by eye), with less than ⅛ tsp shown as "1 pinch"; for g and ml, the nearest 5 above 50, whole numbers from 10 and the nearest ½ below; other units to the nearest ½. Unscaled amounts are shown exactly as written.
+  - tsp becomes tbsp only when it comes out in halves (4½ tsp is 1½ tbsp, but 4 tsp stays as it is).
   - Amounts that don't scale in proportion get a marker; tapping it shows the proportional figure.
   - When a recipe is scaled, a general reminder says cooking times, pan sizes and raising agents may need adjusting.
 - Later, not now: ticking off steps as you go, and keeping the screen awake while cooking.

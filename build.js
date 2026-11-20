@@ -2,21 +2,23 @@
 // Validates recipes/*.json and ingredients.json, then writes recipes.json for the site.
 // Usage: node build.js          (validate + write recipes.json)
 //        node build.js --check  (validate only)
+//        node build.js --root <dir>  (use another data folder; used by the tests)
 // No dependencies: includes a small JSON Schema checker covering the keywords our schemas use.
 'use strict';
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = __dirname;
-const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+const rootAt = process.argv.indexOf('--root');
+const ROOT = rootAt > 0 ? path.resolve(process.argv[rootAt + 1]) : __dirname;
+const read = (p, base = ROOT) => JSON.parse(fs.readFileSync(path.join(base, p), 'utf8'));
 const errors = [];
 const warnings = [];
 const fail = (where, msg) => errors.push(where + ': ' + msg);
 
 // ---------- Minimal JSON Schema checker ----------
 const schemas = {
-  'recipe.schema.json': read('schema/recipe.schema.json'),
-  'ingredients.schema.json': read('schema/ingredients.schema.json'),
+  'recipe.schema.json': read('schema/recipe.schema.json', __dirname),
+  'ingredients.schema.json': read('schema/ingredients.schema.json', __dirname),
 };
 
 function resolveRef(ref, base) {

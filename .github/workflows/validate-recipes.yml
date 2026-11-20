@@ -1,9 +1,8 @@
-name: Validate recipes
+name: Validate recipes and test
 
 on:
   pull_request:
   push:
-    branches: [main]
 
 jobs:
   validate:
@@ -13,4 +12,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - run: node build.js --check
+      - name: Validate recipes
+        run: node build.js --check
+      - name: Unit tests
+        run: node --test 'tests/*.test.mjs'
