@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../../schema/recipe.schema.json",
+  "id": "chicken_stock",
+  "title": "Chicken stock",
+  "course": "basic",
+  "tags": [
+    "stock",
+    "chicken"
+  ],
+  "yield": {
+    "qty": 1,
+    "unit": "l"
+  },
+  "batch": true,
+  "ingredients": [
+    {
+      "item": "chicken_wing",
+      "qty": 1,
+      "unit": "kg"
+    },
+    {
+      "item": "water",
+      "qty": 1.5,
+      "unit": "l"
+    },
+    {
+      "item": "onion",
+      "qty": 1,
+      "prep": "halved"
+    }
+  ],
+  "steps": [
+    "Simmer everything for 3 hours, then strain."
+  ]
+}

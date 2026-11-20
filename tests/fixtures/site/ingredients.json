@@ -1,0 +1,62 @@
+{
+  "$schema": "../../../schema/ingredients.schema.json",
+  "chicken_wing": {
+    "name": "Chicken wing",
+    "plural": "Chicken wings"
+  },
+  "cumin": {
+    "name": "Ground cumin"
+  },
+  "feta": {
+    "name": "Feta"
+  },
+  "chilli_flakes": {
+    "name": "Chilli flakes",
+    "scaling": "strong_spice"
+  },
+  "dried_yeast": {
+    "name": "Fast-action dried yeast",
+    "scaling": "leavening"
+  },
+  "lamb_leg": {
+    "name": "Lamb leg"
+  },
+  "lamb_shoulder": {
+    "name": "Lamb shoulder"
+  },
+  "nigella_seeds": {
+    "name": "Nigella seeds"
+  },
+  "olive_oil": {
+    "name": "Olive oil",
+    "staple": true
+  },
+  "onion": {
+    "name": "Onion",
+    "plural": "Onions"
+  },
+  "orzo": {
+    "name": "Orzo"
+  },
+  "paprika": {
+    "name": "Smoked paprika"
+  },
+  "chopped_tomatoes": {
+    "name": "Chopped tomatoes"
+  },
+  "salt": {
+    "name": "Salt",
+    "staple": true,
+    "scaling": "seasoning"
+  },
+  "strong_flour": {
+    "name": "Strong white flour"
+  },
+  "water": {
+    "name": "Water",
+    "staple": true
+  },
+  "yoghurt": {
+    "name": "Greek yoghurt"
+  }
+}

@@ -14,5 +14,7 @@ jobs:
           node-version: lts/*
       - name: Validate recipes
         run: node build.js --check
-      - name: Unit tests
+      - name: Unit and browser tests
         run: node --test 'tests/*.test.mjs'
+        env:
+          CHROME_PATH: /usr/bin/google-chrome

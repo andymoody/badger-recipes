@@ -23,7 +23,7 @@ python3 -m http.server
 then open http://localhost:8000.
 
 ## Tests
-Unit tests use Node's built-in test runner, so there's nothing to install:
+Unit tests and browser tests use Node's built-in test runner, so there's nothing to install. The browser tests drive Google Chrome in headless mode against the sample recipes in `tests/fixtures/site/`; they're skipped if Chrome isn't found (set `CHROME_PATH` to point at it).
 
 ```sh
 node --test 'tests/*.test.mjs'
