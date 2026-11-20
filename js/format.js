@@ -16,5 +16,11 @@ export function minutes(n) {
   return hrs + ' hr' + (m ? ' ' + m + ' min' : '');
 }
 
-/** "thai_food" → "thai food" */
-export const tagLabel = (t) => t.replace(/_/g, ' ');
+/** Tag groups in sidebar order (the group of each tag is set in tags.json). */
+export const TAG_GROUPS = [
+  ['cuisine', 'Cuisine'], ['dish', 'Dish'], ['ingredient', 'Main ingredient'],
+  ['occasion', 'Occasion'], ['diet', 'Diet'], ['method', 'Method'],
+];
+
+/** A tag's display name from the catalogue ("deep_fry" → "Deep-fried"), or the id with spaces. */
+export const tagName = (t, data) => ((data && data.tags && data.tags[t]) || {}).name || t.replace(/_/g, ' ');

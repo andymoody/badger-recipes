@@ -6,6 +6,7 @@ A personal recipe collection, published as a static site on GitHub Pages.
 
 ## How it works
 - Each recipe is a JSON file. A recipe can be built from other recipes, e.g. a curry made from a curry paste, the curry itself and basmati rice. Choices between parts are possible, e.g. Scotch eggs with a black pudding or chorizo filling.
+- Tags come from a catalogue (`tags.json`) that puts each one in a group (cuisine, dish, main ingredient, occasion, diet, method) for the sidebar filters.
 - Ingredients reference a shared catalogue (`ingredients.json`), so they can be scaled, merged into one shopping list and copied to AnyList, with staples left out.
 - The site is plain HTML, CSS and JavaScript (`index.html`, `styles.css` and ES modules in `js/`), with no framework or build dependencies.
 

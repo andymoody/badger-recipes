@@ -1,5 +1,5 @@
 import { h } from '../dom.js';
-import { COURSE_SINGULAR, minutes, tagLabel } from '../format.js';
+import { COURSE_SINGULAR, minutes, tagName } from '../format.js';
 import { displayAmount, formatAmount } from '../quantity.js';
 import { resolve, choices, lineDisplay, partTitle, ingredientGroups } from '../resolve.js';
 import { shoppingList, anyListText } from '../shopping.js';
@@ -51,7 +51,7 @@ function header(r, app) {
     h('h1', null, r.title),
     h('p', { class: 'meta' }, meta.join(' · ')),
     r.tags && r.tags.length ? h('div', { class: 'tags' }, r.tags.map((t) =>
-      h('button', { class: 'tag', onclick: () => { app.filter = { q: '', course: null, tag: t }; app.go('#/'); } }, tagLabel(t)))) : null,
+      h('button', { class: 'tag', onclick: () => { app.filter = { q: '', course: null, tags: [t] }; app.go('#/'); } }, tagName(t, app.data)))) : null,
     source(r.source));
 }
 

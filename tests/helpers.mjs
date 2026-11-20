@@ -14,7 +14,8 @@ export function loadData() {
     recipes[r.id] = r;
   }
   const { $schema, ...ingredients } = JSON.parse(fs.readFileSync(path.join(ROOT, 'ingredients.json'), 'utf8'));
-  return { recipes, ingredients };
+  const { $schema: _, ...tags } = JSON.parse(fs.readFileSync(path.join(ROOT, 'tags.json'), 'utf8'));
+  return { recipes, ingredients, tags };
 }
 
 /** A small catalogue for hand-written fixtures. */

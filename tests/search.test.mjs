@@ -1,6 +1,6 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { matches, filterRecipes } from '../js/search.js';
+import { matches, filterRecipes, hasTags } from '../js/search.js';
 import { loadData } from './helpers.mjs';
 
 const data = loadData();
@@ -24,7 +24,8 @@ describe('search by title, tags and course', () => {
     assert.deepEqual(ids({ q: 'panc' }), ['american_pancakes']);
     assert.deepEqual(ids({ q: 'ancake' }), []);
   });
-  test('tags with underscores match as words ("deep fry")', () => {
+  test('tags match by their display name and their id ("deep-fried", "deep fry")', () => {
+    assert.deepEqual(ids({ q: 'deep-fried' }), ['scotch_eggs']);
     assert.deepEqual(ids({ q: 'deep fry' }), ['scotch_eggs']);
   });
   test('case and punctuation are ignored', () => {
@@ -77,11 +78,34 @@ describe('a realistic future collection', () => {
 describe('filters', () => {
   test('course and tag filters combine with search', () => {
     assert.deepEqual(ids({ course: 'basic' }), ['thai_red_curry_paste']);
-    assert.deepEqual(ids({ tag: 'thai', course: 'side' }), ['jasmine_rice']);
-    assert.deepEqual(ids({ tag: 'thai', q: 'rice' }), ['jasmine_rice']);
+    assert.deepEqual(ids({ tags: ['thai'], course: 'side' }), ['jasmine_rice']);
+    assert.deepEqual(ids({ tags: ['thai'], q: 'rice' }), ['jasmine_rice']);
   });
   test('unlisted recipes never appear', () => {
     const d = { recipes: { a: { id: 'a', title: 'Spice blend', course: 'basic', listed: false }, b: { id: 'b', title: 'Spiced nuts', course: 'snack' } } };
     assert.deepEqual(filterRecipes(d, { q: 'spice' }).map((r) => r.id), ['b']);
   });
+});
+
+describe('tag filters: any within a group, all across groups', () => {
+  const d = {
+    tags: {
+      thai: { name: 'Thai', group: 'cuisine' }, indian: { name: 'Indian', group: 'cuisine' },
+      chicken: { name: 'Chicken', group: 'ingredient' }, lamb: { name: 'Lamb', group: 'ingredient' },
+      weeknight: { name: 'Weeknight', group: 'occasion' },
+    },
+    recipes: {
+      green_curry: { id: 'green_curry', title: 'Thai green chicken curry', course: 'main', tags: ['thai', 'chicken', 'weeknight'] },
+      massaman: { id: 'massaman', title: 'Massaman lamb curry', course: 'main', tags: ['thai', 'lamb'] },
+      tikka: { id: 'tikka', title: 'Chicken tikka masala', course: 'main', tags: ['indian', 'chicken'] },
+      rogan_josh: { id: 'rogan_josh', title: 'Rogan josh', course: 'main', tags: ['indian', 'lamb'] },
+    },
+  };
+  const pick = (tags) => filterRecipes(d, { tags }).map((r) => r.id).sort();
+  test('Thai + Chicken: only the green curry', () => assert.deepEqual(pick(['thai', 'chicken']), ['green_curry']));
+  test('Thai or Indian, with Lamb', () => assert.deepEqual(pick(['thai', 'indian', 'lamb']), ['massaman', 'rogan_josh']));
+  test('Thai or Indian on their own: all four', () => assert.deepEqual(pick(['thai', 'indian']), ['green_curry', 'massaman', 'rogan_josh', 'tikka']));
+  test('three groups: Thai, Chicken, Weeknight', () => assert.deepEqual(pick(['thai', 'chicken', 'weeknight']), ['green_curry']));
+  test('no tags selected matches everything', () => assert.ok(hasTags(d.recipes.tikka, [], d)));
+  test('tag display names are searchable', () => assert.deepEqual(filterRecipes(d, { q: 'weeknight' }).map((r) => r.id), ['green_curry']));
 });

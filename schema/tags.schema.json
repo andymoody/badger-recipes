@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tags.schema.json",
+  "title": "Tags catalogue",
+  "description": "Every tag a recipe can use, with its display name and the group it is shown under in the sidebar.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "propertyNames": {
+    "pattern": "^(\\$schema|[a-z0-9]+(_[a-z0-9]+)*)$"
+  },
+  "additionalProperties": {
+    "$ref": "#/$defs/tag"
+  },
+  "$defs": {
+    "group": {
+      "description": "cuisine: region or country. dish: kind of dish (curry, soup, pie). ingredient: headline ingredient. occasion: when it is made (christmas, weeknight). diet: vegetarian, gluten_free. method: equipment or technique (bbq, slow_cooker).",
+      "enum": [
+        "cuisine",
+        "dish",
+        "ingredient",
+        "occasion",
+        "diet",
+        "method"
+      ]
+    },
+    "tag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "group"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "group": {
+          "$ref": "#/$defs/group"
+        }
+      }
+    }
+  }
+}

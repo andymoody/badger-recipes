@@ -1,5 +1,5 @@
 import { h } from '../dom.js';
-import { COURSES, COURSE_SINGULAR, minutes, tagLabel } from '../format.js';
+import { COURSES, COURSE_SINGULAR, TAG_GROUPS, minutes, tagName } from '../format.js';
 import { filterRecipes } from '../search.js';
 
 export const BADGER = 'assets/badger.jpg';
@@ -10,7 +10,7 @@ export const filtered = (app) => filterRecipes(app.data, app.filter);
 
 export function renderSidebar(app, currentId) {
   const all = listed(app.data);
-  const { course, tag, q } = app.filter;
+  const { course, tags: selected, q } = app.filter;
   const setFilter = (f) => { Object.assign(app.filter, f); app.go('#/'); };
 
   const search = h('input', {
@@ -28,9 +28,19 @@ export function renderSidebar(app, currentId) {
       h('button', { class: ['course', course === c && 'active'], onclick: () => setFilter({ course: course === c ? null : c }) },
         label, h('span', { class: 'count' }, all.filter((r) => r.course === c).length))));
 
-  const tags = [...new Set(all.flatMap((r) => r.tags || []))].sort();
-  const tagList = h('div', { class: 'tags', 'aria-label': 'Tags' },
-    tags.map((t) => h('button', { class: ['tag', tag === t && 'active'], 'aria-pressed': String(tag === t), onclick: () => setFilter({ tag: tag === t ? null : t }) }, tagLabel(t))));
+  // Tags in use, grouped as tags.json says. Picking several: any within a group, all across groups.
+  const used = [...new Set(all.flatMap((r) => r.tags || []))];
+  const groupOf = (t) => (app.data.tags[t] || {}).group;
+  const toggle = (t) => setFilter({ tags: selected.includes(t) ? selected.filter((x) => x !== t) : [...selected, t] });
+  const tagGroups = TAG_GROUPS.map(([g, label]) => {
+    const inGroup = used.filter((t) => groupOf(t) === g).sort((a, b) => tagName(a, app.data).localeCompare(tagName(b, app.data)));
+    if (!inGroup.length) return null;
+    return h('section', { class: 'tag-group' },
+      h('h2', { class: 'sidebar-label' }, label),
+      h('div', { class: 'tags' }, inGroup.map((t) => h('button', {
+        class: ['tag', selected.includes(t) && 'active'], 'aria-pressed': String(selected.includes(t)), onclick: () => toggle(t),
+      }, tagName(t, app.data)))));
+  });
 
   const keepFocus = document.activeElement && document.activeElement.classList.contains('search');
   app.sidebar.replaceChildren(
@@ -38,19 +48,18 @@ export function renderSidebar(app, currentId) {
       h('a', { href: '#/', class: 'brand' }, h('img', { class: 'badger-avatar', src: BADGER, alt: '' }), 'Badger recipes'),
       search),
     courses,
-    tags.length ? h('h2', { class: 'sidebar-label' }, 'Tags') : null,
-    tagList);
+    ...tagGroups.filter(Boolean));
   if (keepFocus) { search.focus(); search.setSelectionRange(q.length, q.length); }
 }
 
 export function renderList(app) {
   const items = filtered(app);
-  const { course, tag, q } = app.filter;
-  const bits = [course && COURSES.find(([c]) => c === course)[1], tag && '#' + tagLabel(tag), q && '“' + q + '”'].filter(Boolean);
+  const { course, tags, q } = app.filter;
+  const bits = [course && COURSES.find(([c]) => c === course)[1], ...tags.map((t) => tagName(t, app.data)), q && '“' + q + '”'].filter(Boolean);
   app.main.replaceChildren(h('div', { class: 'list-view' },
     h('h1', null, bits.length ? bits.join(' · ') : 'All recipes'),
     h('p', { class: 'muted' }, items.length + (items.length === 1 ? ' recipe' : ' recipes'),
-      bits.length ? h('button', { class: 'link', onclick: () => { app.filter = { q: '', course: null, tag: null }; app.go('#/'); } }, 'Clear filters') : null),
+      bits.length ? h('button', { class: 'link', onclick: () => { app.filter = { q: '', course: null, tags: [] }; app.go('#/'); } }, 'Clear filters') : null),
     items.length
       ? h('ul', { class: 'cards' }, items.map((r) => h('li', null, card(r))))
       : h('p', { class: 'empty' }, 'No recipes match.')));

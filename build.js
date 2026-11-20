@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Validates recipes/*.json and ingredients.json, then writes recipes.json for the site.
+// Validates recipes/*.json, ingredients.json and tags.json, then writes recipes.json for the site.
 // Usage: node build.js          (validate + write recipes.json)
 //        node build.js --check  (validate only)
 //        node build.js --root <dir>  (use another data folder; used by the tests)
@@ -19,6 +19,7 @@ const fail = (where, msg) => errors.push(where + ': ' + msg);
 const schemas = {
   'recipe.schema.json': read('schema/recipe.schema.json', __dirname),
   'ingredients.schema.json': read('schema/ingredients.schema.json', __dirname),
+  'tags.schema.json': read('schema/tags.schema.json', __dirname),
 };
 
 function resolveRef(ref, base) {
@@ -103,6 +104,10 @@ const catalogue = read('ingredients.json');
 errors.push(...check(schemas['ingredients.schema.json'], catalogue, 'ingredients.json', 'ingredients.schema.json'));
 const ingredients = Object.fromEntries(Object.entries(catalogue).filter(([k]) => !k.startsWith('$')));
 
+const tagCatalogue = read('tags.json');
+errors.push(...check(schemas['tags.schema.json'], tagCatalogue, 'tags.json', 'tags.schema.json'));
+const tags = Object.fromEntries(Object.entries(tagCatalogue).filter(([k]) => !k.startsWith('$')));
+
 const aliasOwner = {};
 for (const [id, ing] of Object.entries(ingredients)) {
   for (const a of ing.aliases || []) {
@@ -130,6 +135,7 @@ const sameDimension = (a, b) => a === b || (CONVERT[a] && CONVERT[b] && CONVERT[
 const referencedBy = {}; // recipe id -> Set of recipe ids that use it
 
 function checkRecipe(r, where, fileId) {
+  for (const t of r.tags || []) if (!tags[t]) fail(where, 'unknown tag "' + t + '" (add it to tags.json with a group)');
   for (const [i, line] of (r.ingredients || []).entries()) {
     if (line.item && !ingredients[line.item]) fail(where, 'ingredients[' + i + ']: unknown item "' + line.item + '" (add it to ingredients.json)');
     if (line.qtyMax !== undefined && (line.qty === undefined || line.qtyMax <= line.qty)) fail(where, 'ingredients[' + i + ']: qtyMax needs a smaller qty');
@@ -213,6 +219,8 @@ const usedItems = new Set();
 const collect = (r) => { (r.ingredients || []).forEach((l) => l.item && usedItems.add(l.item)); (r.parts || []).forEach((p) => (p.choose || [p.recipe]).forEach((o) => typeof o === 'object' && collect(o))); };
 Object.values(recipes).forEach(collect);
 for (const id of Object.keys(ingredients)) if (!usedItems.has(id)) warnings.push('ingredients.json: "' + id + '" is not used by any recipe');
+const usedTags = new Set(Object.values(recipes).flatMap((r) => r.tags || []));
+for (const id of Object.keys(tags)) if (!usedTags.has(id)) warnings.push('tags.json: "' + id + '" is not used by any recipe');
 
 // ---------- Report / write ----------
 for (const w of warnings) console.warn('warning  ' + w);
@@ -223,9 +231,9 @@ if (errors.length) {
 }
 const count = Object.keys(recipes).length;
 if (process.argv.includes('--check')) {
-  console.log('OK: ' + count + ' recipes, ' + Object.keys(ingredients).length + ' ingredients.');
+  console.log('OK: ' + count + ' recipes, ' + Object.keys(ingredients).length + ' ingredients, ' + Object.keys(tags).length + ' tags.');
 } else {
-  const out = { recipes: Object.fromEntries(Object.entries(recipes).map(([id, r]) => { const { $schema, ...rest } = r; return [id, rest]; })), ingredients };
+  const out = { recipes: Object.fromEntries(Object.entries(recipes).map(([id, r]) => { const { $schema, ...rest } = r; return [id, rest]; })), ingredients, tags };
   fs.writeFileSync(path.join(ROOT, 'recipes.json'), JSON.stringify(out) + '\n');
-  console.log('Wrote recipes.json: ' + count + ' recipes, ' + Object.keys(ingredients).length + ' ingredients.');
+  console.log('Wrote recipes.json: ' + count + ' recipes, ' + Object.keys(ingredients).length + ' ingredients, ' + Object.keys(tags).length + ' tags.');
 }

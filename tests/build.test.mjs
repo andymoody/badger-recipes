@@ -13,11 +13,18 @@ function run(mutate, extraArgs = ['--check']) {
   try {
     fs.cpSync(path.join(ROOT, 'recipes'), path.join(dir, 'recipes'), { recursive: true });
     fs.copyFileSync(path.join(ROOT, 'ingredients.json'), path.join(dir, 'ingredients.json'));
+    fs.copyFileSync(path.join(ROOT, 'tags.json'), path.join(dir, 'tags.json'));
     if (fs.existsSync(path.join(ROOT, 'images'))) fs.cpSync(path.join(ROOT, 'images'), path.join(dir, 'images'), { recursive: true });
     const files = {
       read: (id) => JSON.parse(fs.readFileSync(path.join(dir, 'recipes', id + '.json'), 'utf8')),
       write: (id, r) => fs.writeFileSync(path.join(dir, 'recipes', id + '.json'), JSON.stringify(r, null, 2)),
       edit: (id, fn) => { const r = files.read(id); fn(r); files.write(id, r); },
+      tags: (fn) => {
+        const p = path.join(dir, 'tags.json');
+        const c = JSON.parse(fs.readFileSync(p, 'utf8'));
+        fn(c);
+        fs.writeFileSync(p, JSON.stringify(c, null, 2));
+      },
       catalogue: (fn) => {
         const p = path.join(dir, 'ingredients.json');
         const c = JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -55,6 +62,8 @@ describe('valid data', () => {
     assert.equal(out.recipes.thai_red_curry.$schema, undefined);
     assert.equal(out.ingredients.$schema, undefined);
     assert.equal(out.ingredients.salt.name, 'Salt');
+    assert.deepEqual(out.tags.thai, { name: 'Thai', group: 'cuisine' });
+    assert.equal(out.tags.$schema, undefined);
   });
 });
 
@@ -84,6 +93,10 @@ const failures = [
   ['a recipe that includes itself', (f) => f.edit('jasmine_rice', (r) => { r.parts = [{ key: 'curry', recipe: 'thai_red_curry' }]; r.steps.push({ text: 'Serve with curry.', part: 'curry' }); }), /includes itself/],
   ['a missing image', curry((r) => { r.image = 'images/thai_red_curry.jpg'; }), /image .* not found/],
   ['a catalogue entry with an unknown scaling', (f) => f.catalogue((c) => { c.salt.scaling = 'gentle'; }), /"gentle" is not one of linear/],
+  ['an unknown tag', curry((r) => { r.tags.push('chilli'); }), /unknown tag "chilli" \(add it to tags.json with a group\)/],
+  ['a tag without a group', (f) => f.tags((t) => { delete t.thai.group; }), /tags\.json\.thai: missing "group"/],
+  ['a tag in a group that does not exist', (f) => f.tags((t) => { t.thai.group = 'region'; }), /"region" is not one of cuisine/],
+  ['tags on an inline part', (f) => f.edit('scotch_eggs', (r) => { r.parts[0].choose[0].tags = ['pork']; }), /not allowed here.*tags/],
   ['an unknown property (typo)', curry((r) => { r.serve = 4; }), /unexpected property "serve"/],
 ];
 
@@ -103,6 +116,11 @@ describe('warnings (the build still passes)', () => {
     const r = run((f) => f.catalogue((c) => { c.saffron = { name: 'Saffron' }; }));
     assert.equal(r.code, 0, r.out);
     assert.match(r.out, /warning .*saffron/);
+  });
+  test('an unused tag', () => {
+    const r = run((f) => f.tags((t) => { t.mediterranean = { name: 'Mediterranean', group: 'cuisine' }; }));
+    assert.equal(r.code, 0, r.out);
+    assert.match(r.out, /warning .*tags.json: "mediterranean" is not used/);
   });
   test('an unlisted recipe nothing uses', () => {
     const r = run((f) => f.edit('american_pancakes', (p) => { p.listed = false; }));

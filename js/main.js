@@ -4,7 +4,7 @@ import { renderRecipe } from './views/recipe.js';
 
 const app = {
   data: null,
-  filter: { q: '', course: null, tag: null },
+  filter: { q: '', course: null, tags: [] },
   main: document.getElementById('main'),
   sidebar: document.getElementById('sidebar'),
   go: (hash) => { if (location.hash === hash) route(); else location.hash = hash; },

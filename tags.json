@@ -1,0 +1,39 @@
+{
+  "$schema": "schema/tags.schema.json",
+  "brunch": {
+    "name": "Brunch",
+    "group": "occasion"
+  },
+  "curry": {
+    "name": "Curry",
+    "group": "dish"
+  },
+  "deep_fry": {
+    "name": "Deep-fried",
+    "group": "method"
+  },
+  "eggs": {
+    "name": "Eggs",
+    "group": "ingredient"
+  },
+  "pancakes": {
+    "name": "Pancakes",
+    "group": "dish"
+  },
+  "paste": {
+    "name": "Paste",
+    "group": "dish"
+  },
+  "pork": {
+    "name": "Pork",
+    "group": "ingredient"
+  },
+  "rice": {
+    "name": "Rice",
+    "group": "ingredient"
+  },
+  "thai": {
+    "name": "Thai",
+    "group": "cuisine"
+  }
+}

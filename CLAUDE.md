@@ -4,7 +4,7 @@ A personal recipe collection. It's a static site (vanilla HTML/CSS/JS), moving f
 
 ## Current state
 
-The repo is **mid-redesign**. The data side (`recipes/`, `ingredients.json`, `schema/`, `build.js`) and the site (`index.html`, `styles.css`, `js/`) implement the model below, with five hand-converted example recipes. Don't extend the old model. If the new model fits a recipe or feature awkwardly, **propose a model change to the user** rather than quietly working around it. `main` still serves 109 old-format recipes; the redesign happens on a branch and is merged only when it's complete.
+The repo is **mid-redesign**. The data side (`recipes/`, `ingredients.json`, `tags.json`, `schema/`, `build.js`) and the site (`index.html`, `styles.css`, `js/`) implement the model below, with five hand-converted example recipes. Don't extend the old model. If the new model fits a recipe or feature awkwardly, **propose a model change to the user** rather than quietly working around it. `main` still serves 109 old-format recipes; the redesign happens on a branch and is merged only when it's complete.
 
 Plan, in order:
 1. Housekeeping: remove the add-recipe form and the issue workflow, write the docs. **(done)**
@@ -20,7 +20,7 @@ Plan, in order:
 
 ### Recipe: `recipes/<id>.json` (one file per recipe)
 - `id`: snake_case, the same as the filename. Recipe files are the only global namespace.
-- `title`, `course` (one of `main, side, starter, dessert, baking, breakfast, sauce, drink, snack, basic`), `tags` (free list).
+- `title`, `course` (one of `main, side, starter, dessert, baking, breakfast, sauce, drink, snack, basic`; this is the meal type), `tags` (IDs from `tags.json`, top-level recipes only).
 - `serves` (a **number**) and/or `yield`: every recipe needs at least one. `yield` is `{ qty, unit }` (e.g. 300 g of paste) or text ("12 pancakes"); a paste or stock can have `yield` alone.
 - `time`: minutes as numbers, `{ prep, cook, rest?, total? }`.
 - `source`: `{ type: "web", url, title }`, `{ type: "book", title, page }`, `{ type: "file", drive, name }` (a Google Drive link), or `{ type: "own" }`, plus optional `adapted: true`.
@@ -73,8 +73,15 @@ Keyed by a canonical snake_case ID:
 - Every `item` must exist in the catalogue. Map onto existing IDs and aliases before adding new entries.
 - There's no aisle field; AnyList categorises pasted items itself.
 
+### Tags catalogue: `tags.json`
+Keyed by a snake_case ID: `"thai": { "name": "Thai", "group": "cuisine" }`.
+- `group` is one of `cuisine` (region or country), `dish` (curry, soup, pie), `ingredient` (the headline ingredient: lamb, cod), `occasion` (christmas, weeknight), `diet` (vegetarian, gluten_free) or `method` (bbq, slow_cooker). The sidebar shows tags under these groups.
+- `name` is the display text ("Deep-fried"). Every recipe tag must exist in the catalogue, so new tags are added there (with a group) during extraction. Check for an existing tag first, to avoid near-duplicates.
+- Regions are flat for now (Thai, Indian). If the list grows long, a parent region could be added to the catalogue later without touching recipes.
+- "Vegetarian" etc. are tags, not worked out from ingredients.
+
 ### Build checks
-The build fails on: an unknown part reference or catalogue item; an `only` naming something that isn't a choice part, or an option that doesn't exist; a recipe that includes itself (directly or through parts); duplicate part keys, or duplicate option IDs within a `choose`; a `default` that isn't one of its options; a part that no step references when the parent has steps; `use` units that don't match the part's `yield`; a shared part with no `use` where the parent or the part lacks `serves`.
+The build fails on: an unknown part reference or catalogue item; an `only` naming something that isn't a choice part, or an option that doesn't exist; a recipe that includes itself (directly or through parts); duplicate part keys, or duplicate option IDs within a `choose`; a `default` that isn't one of its options; a part that no step references when the parent has steps; `use` units that don't match the part's `yield`; a shared part with no `use` where the parent or the part lacks `serves`; a tag that isn't in `tags.json`, or a tag without a valid group. It warns about catalogue entries and tags that no recipe uses.
 
 ### Reference guides
 Non-recipe content, such as the old temperature charts, is set aside for now. It will become a separate content type later.
@@ -97,7 +104,7 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
 ## Site (target)
 - Code: vanilla ES modules in `js/`, loaded straight by the browser with no build step. `quantity.js` (scaling, units, rounding, display), `resolve.js` (turns a recipe and the page state into a tree of parts with factors, scaled lines and filtered steps), `shopping.js` (the merged list and AnyList text) and `state.js` (URL state) are pure and unit-tested; `views/` and `main.js` build the DOM with `dom.js`'s `h()`, never `innerHTML` with data.
 - URL state: `#/<id>?serves=6` (or `x=2` for yield-only recipes), `<choice path>=<option>` (e.g. `filling=chorizo`; nested choices use the full path) and `full.<part path>=1|0`. Defaults are left out.
-- A list view with a sidebar by course, search (titles, tags, course and the titles of choice options, so "chicken" finds a curry offering chicken, seafood or tofu; matching is from the start of words; ingredients and shared parts aren't searched, so "salt cod" doesn't find everything with salt in it and "rice" doesn't find every curry served with rice) and tag filters. A recipe view at `#/<id>`.
+- A list view with a sidebar by course, search (titles, tags, course and the titles of choice options, so "chicken" finds a curry offering chicken, seafood or tofu; matching is from the start of words; ingredients and shared parts aren't searched, so "salt cod" doesn't find everything with salt in it and "rice" doesn't find every curry served with rice) and tag filters grouped as in `tags.json`. You can pick several tags: a recipe matches if it has any of the picked tags within a group and all the groups picked (Thai or Indian, and Chicken). A recipe view at `#/<id>`.
 - On the recipe view:
   - **Servings control** that scales everything, including parts. Each part has a "make full batch" toggle. Parts that use some of a yield show "Recipe makes 300 g; you need 100 g".
   - **Ingredients tab**: parts first, in the order the method uses them, then the recipe's own ingredients under its title. Choice options used through conditional steps (the curry's protein) join the end of that last group.

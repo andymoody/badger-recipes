@@ -29,7 +29,7 @@ How to turn a source (website, PDF, image, Word doc, pasted text) into recipe fi
 - `id`: snake_case from the title (`thai_red_curry`), the same as the filename. Check it isn't already taken.
 - `title`: sentence case ("Fluffy American pancakes").
 - `course`: `main, side, starter, dessert, baking, breakfast, sauce, drink, snack, basic`. `basic` is for building blocks such as stocks, pastes and doughs.
-- `tags`: lowercase snake_case: cuisine (`thai`), occasion (`christmas`), diet (`vegetarian`), main ingredient or method (`bbq`, `deep_fry`).
+- `tags`: IDs from `tags.json`, each in one group: cuisine (`thai`), dish (`curry`), main ingredient (`lamb`), occasion (`christmas`), diet (`vegetarian`) and method (`bbq`, `deep_fry`). Use an existing tag where one fits; otherwise add it to `tags.json` with a `name` and `group`, and list new tags in the approval summary. Meal type isn't a tag: it's `course`.
   - Tags are how recipes are found: search covers titles, tags, course and choice option titles, but **not ingredients**. Tag the headline ingredient (`lamb`, `cod`) unless it's already in the title or an option title, and only ingredients someone would search for, never salt, onions and the like.
 - `serves`: a number. For "Serves 6–8", use 6 and mention the range in `notes` if it matters. Use `yield` for things measured by quantity: `{ "qty": 300, "unit": "g" }`, or text such as "12 pancakes".
 - `time`: minutes as integers (`prep`, `cook`, optional `rest` or `total`). Omit it if the source doesn't say; don't guess.
@@ -51,10 +51,13 @@ Work through these in order and use the **simplest** option that keeps the metho
 | A sub-recipe that other recipes use (or could use): rice, pastes, stocks, doughs | its **own file**, referenced with `{ "key": …, "recipe": "<id>" }` |
 | Alternatives that each fit **one block** of the method (Scotch egg fillings) | a **choice part** whose options have their own steps; a parent step embeds it with `{ "part": "<key>" }` |
 | Alternatives that differ at **a few points** in the method (chicken browned first, seafood added at the end) | a **choice part** whose options carry only ingredients, plus parent steps with `"only": { "<key>": ["<option>"] }` |
+| **Cooking methods** (oven, sous vide, slow cooker) | the same as any other alternative, by how much differs: a `method` choice whose options have their own steps, embedded where the cooking happens; or options with no steps plus `only` steps. It's independent of other choices: `only` can name both (`{ "protein": ["chicken"], "method": ["sous_vide"] }`) and the step shows when both match. Give an option its own `time` if the method changes it. |
+| An alternative that only exists for **one option** (lamb shoulder has one method, lamb leg has oven or sous vide) | a **choice inside the option** (the `leg` option has its own `method` choice), if cooking the lamb is self-contained. The parent's steps can't use `only` on a nested choice, so if the nested option changes the parent's later steps (sous-vide leg added at the end instead of braised), use **one flat choice** instead: shoulder / leg, roasted / leg, sous vide. |
 | Alternatives whose **whole method** differs | **separate recipes** that share parts |
 | Small tweaks ("use self-raising flour for extra fluffiness") | `notes` |
 
 Rules that apply throughout:
+- If many steps need `only` on two choices at once, the combinations are multiplying: separate recipes are probably clearer.
 - **No change lists or patch-style variants**, and no copying a whole recipe as a variant.
 - Steps embed **whole parts**. Never refer to an individual step inside a part.
 - The parent's steps **set the order across parts**: write them so the cook knows when to start each part ("Start the rice so it's ready when the curry is"). A parent with no steps shows its parts one after another.
