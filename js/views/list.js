@@ -1,6 +1,7 @@
 import { h } from '../dom.js';
 import { COURSES, COURSE_SINGULAR, TAG_GROUPS, minutes, tagName } from '../format.js';
 import { filterRecipes } from '../search.js';
+import { resolve, recipeTime } from '../resolve.js';
 
 export const BADGER = 'assets/badger.jpg';
 
@@ -61,12 +62,13 @@ export function renderList(app) {
     h('p', { class: 'muted' }, items.length + (items.length === 1 ? ' recipe' : ' recipes'),
       bits.length ? h('button', { class: 'link', onclick: () => { app.filter = { q: '', course: null, tags: [] }; app.go('#/'); } }, 'Clear filters') : null),
     items.length
-      ? h('ul', { class: 'cards' }, items.map((r) => h('li', null, card(r))))
+      ? h('ul', { class: 'cards' }, items.map((r) => h('li', null, card(r, app.data))))
       : h('p', { class: 'empty' }, 'No recipes match.')));
 }
 
-function card(r) {
-  const t = r.time || {};
+function card(r, data) {
+  // The time with the default options, which may give their own (a sous-vide method).
+  const t = recipeTime(resolve(data, r.id)) || {};
   const total = t.total || ((t.prep || 0) + (t.cook || 0) + (t.rest || 0)) || null;
   return h('a', { class: 'card', href: '#/' + r.id },
     r.image ? h('img', { src: r.image, alt: '', loading: 'lazy' }) : h('div', { class: 'card-placeholder', 'aria-hidden': 'true' }, r.title[0]),

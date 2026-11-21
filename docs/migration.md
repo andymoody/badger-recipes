@@ -11,7 +11,7 @@ Routes and batching are explained in `.claude/skills/extract-recipe/SKILL.md` (B
 | Route | Mode | Done individually | In a row with no process change |
 |---|---|---|---|
 | web | individual | 0 | 0 |
-| document (PDF, image, Word, text) | individual | 0 | 0 |
+| document (PDF, image, Word, text) | individual | 1 | 0 |
 
 ## Recipes
 
@@ -127,7 +127,7 @@ Old titles are as they were. They may not be the titles the new recipes get.
 | 101 | Slow Cooker Korean Beef | slow_cooker_korean_beef | Main Course |  |  | not found |  |  |
 | 102 | One Pot Chicken Orzo | one_pot_chicken_orzo | Main Course |  |  | not found |  |  |
 | 103 | Sous Vide Barbecue Pulled Pork Shoulder | sous_vide_barbecue_pulled_pork_shoulder | Main Course |  |  | not found |  |  |
-| 104 | Slow Cooked Lamb with Orzo (Giouvetsi) | slow_cooked_lamb_with_orzo | Main Course |  |  | not found |  |  |
+| 104 | Slow Cooked Lamb with Orzo (Giouvetsi) | slow_cooked_lamb_with_orzo | Main Course | Drive: lamb-yoivetsi.pdf | document | approved | `lamb_youvetsi` | Replaced by the user's own PDF version; the old A Fork & A Pencil recipe is not being extracted. |
 | 105 | Genuine Cornish Pasty | genuine_cornish_pasty | Main Course |  |  | not found |  |  |
 | 106 | Baked Spiced Cod with Garlic and Lemon | baked_spiced_cod_garlic_lemon | Main Course |  |  | not found |  |  |
 | 107 | How to Wet Brine a Turkey | kitchn_turkey_wet_brine_guide | Christmas |  |  | skipped |  | Reference guide: a separate content type, later. |
@@ -139,3 +139,22 @@ Old titles are as they were. They may not be the titles the new recipes get.
 One dated entry per recipe (or batch): what the review found, what was corrected, and the retrospective's answer, including "no process changes". Approved process changes are listed with the files they touched.
 
 - **2026-11-21**: Extraction skill, reviewer agent and tools built (step 4). Pilot next: 2 or 3 recipes from each source type, including one with variants, one with a sub-recipe and one poor-quality source.
+- **2026-11-21, lamb youvetsi** (pilot 1, document route, PDF): The user's own three-method recipe, which replaces old #104. Structure: one flat cooking-method choice (shoulder, the default; sous vide leg; roast leg), each with its own steps and time, plus a shared orzo finish.
+  - **Review:** the first review found the spare-stock wording contradicted itself in two methods, amounts in notes that don't scale, and that the old entry was missed because of its different spelling. The re-review found stock wording that still clashed and a pepper twist count that didn't scale. All fixed.
+  - **User decisions:**
+    - match-day framing dropped;
+    - shoulder made the default;
+    - stock is 1.2 l in total;
+    - source recorded as "PDF";
+    - lemon optional;
+    - `adapted` only for changes of substance.
+  - **Site changes:**
+    - chosen inline options switch straight into the method instead of a collapsible section;
+    - the header and card times follow the chosen options.
+  - **Process changes (approved):**
+    - old-recipe search matches keywords and near spellings;
+    - the parser handles smashed and crumbled, "dry" and "cheese", and warns about OR alternatives and extra ingredients in brackets;
+    - the lint flags numbers in notes and accepts "spices" for herbs and ground spices;
+    - the guide covers spare amounts and option-only ingredients;
+    - the skill gets a migration-row check and the option time rule.
+  - **Counter:** reset to 0 because the process changed.

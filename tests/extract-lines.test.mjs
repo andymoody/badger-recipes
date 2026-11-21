@@ -77,6 +77,26 @@ describe('prep, notes and optional lines', () => {
   });
 });
 
+describe('lines from the lamb youvetsi PDF (pilot recipe 1)', () => {
+  test('"smashed" and "crumbled" are preparation', () => {
+    assert.deepEqual(line('4–6 garlic cloves, smashed'), { name: 'garlic', qty: 4, qtyMax: 6, unit: 'clove', prep: 'smashed' });
+    assert.deepEqual(line('200g feta cheese, crumbled'), { name: 'feta cheese', qty: 200, unit: 'g', prep: 'crumbled' });
+  });
+  test('"dry orzo" is orzo, and "feta cheese" is feta', () => {
+    const cat = { orzo: { name: 'Orzo' }, feta: { name: 'Feta' } };
+    assert.deepEqual(matchItem('dry orzo', cat), { id: 'orzo', how: 'without descriptors' });
+    assert.deepEqual(matchItem('feta cheese', cat), { id: 'feta', how: 'without "cheese"' });
+  });
+  test('alternatives in one line ("leg OR shoulder") are flagged', () => {
+    const r = parseLine('2–2.3kg bone-in leg of lamb OR 2kg bone-in shoulder (trim thick fat >5mm)');
+    assert.ok(r.warnings.some((w) => /offers alternatives/.test(w)), r.warnings.join('; '));
+  });
+  test('an extra ingredient in brackets ("+ 1 tbsp olive oil for Variant A only") is flagged', () => {
+    const r = parseLine('2 large onions, thinly sliced (+ 1 tbsp olive oil for Variant A only)');
+    assert.ok(r.warnings.some((w) => /adds another ingredient/.test(w)), r.warnings.join('; '));
+  });
+});
+
 describe('converting American and imperial amounts (docs/extraction.md)', () => {
   const conv = (s, opts) => { const r = parseLine(s, opts); return [r.qty, r.unit, r.conversions.join('; ')]; };
   test('cups of flour, sugars and butter by weight', () => {

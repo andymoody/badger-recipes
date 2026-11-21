@@ -111,7 +111,7 @@
                   "id": "oven",
                   "title": "Roasted",
                   "time": {
-                    "cook": 80
+                    "cook": 100
                   },
                   "steps": [
                     "Roast at 180°C for 1 hour 20 minutes, then rest."
@@ -121,7 +121,7 @@
                   "id": "sous_vide",
                   "title": "Sous vide",
                   "time": {
-                    "cook": 480
+                    "cook": 500
                   },
                   "ingredients": [
                     {

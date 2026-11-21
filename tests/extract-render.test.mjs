@@ -32,17 +32,18 @@ describe('one variant as the page shows it', () => {
   test('conditional steps show only for their option (the shoulder is pulled off the bone)', () => {
     const shoulder = renderRecipe(site, 'lamb_youvetsi', { choices: { lamb: 'shoulder' } });
     const leg = renderRecipe(site, 'lamb_youvetsi', { choices: { lamb: 'leg' } });
-    assert.match(section(shoulder, 'Method'), /3\. Pull the meat off the bone/);
+    assert.match(section(shoulder, 'Method'), /3\. Brown the shoulder all over[^\n]*\n4\. Pull the meat off the bone/);
     assert.doesNotMatch(section(leg, 'Method'), /Pull the meat/);
   });
-  test('embedded parts are printed in place, nested ones indented, with full-batch state', () => {
+  test('shared parts are printed in place with their full-batch state; chosen options switch into the method', () => {
     const m = section(renderRecipe(site, 'lamb_youvetsi', { choices: { lamb: 'leg', 'lamb/leg/method': 'sous_vide' } }), 'Method');
     assert.match(m, /1\. Make the stock, or use 500ml from the freezer\.\n  ▸ Chicken stock  \(recipe: chicken_stock\)  \[full batch\]\n    1\. Simmer/);
-    assert.match(m, /      ▸ Method: Sous vide\n        1\. Bag the leg and cook at 57°C for 8 hours\./);
+    assert.match(m, /2\. Cook the lamb\.\n3\. Season the leg well\.\n4\. Cook the leg\.\n5\. Bag the leg and cook at 57°C for 8 hours\.\n6\. Pat dry/, 'chosen options switch into the numbered method');
+    assert.doesNotMatch(m, /▸ (Lamb|Method):/);
   });
   test('numbering carries on across headings', () => {
     const m = section(renderRecipe(site, 'lamb_youvetsi'), 'Method');
-    assert.match(m, /3\. Pull the meat off the bone and discard the bone\.\n\[The orzo\]\n4\. Mix the spice blend\./);
+    assert.match(m, /4\. Pull the meat off the bone and discard the bone\.\n\[The orzo\]\n5\. Mix the spice blend\./);
   });
   test('the shopping list merges a nested option\'s line with the parent\'s (olive oil 2 + 1 tbsp)', () => {
     const shop = section(renderRecipe(site, 'lamb_youvetsi', { choices: { lamb: 'leg', 'lamb/leg/method': 'sous_vide' } }), 'Shopping');
@@ -63,6 +64,10 @@ describe('one variant as the page shows it', () => {
     assert.match(r, /- 4 tins Coconut milk \(400ml, full-fat\)/);
     assert.match(r, /- 3¾ tbsp Fish sauce  ≈ in proportion: 4 tbsp/);
     assert.match(r, /Recipe makes 12 tbsp; you need 8 tbsp\. Make full batch: on\./);
+  });
+  test('the header shows the chosen option\'s time', () => {
+    assert.match(renderRecipe(real, 'lamb_youvetsi'), /Main · Serves 8 · Cook 3 hr 25 min\n/);
+    assert.match(renderRecipe(real, 'lamb_youvetsi', { choices: { method: 'sous_vide_leg' } }), /Cook 18 hr 5 min/);
   });
   test('a yield-only recipe scales with x', () => {
     assert.match(renderRecipe(site, 'chicken_stock', { x: 2 }), /Scaled: × 2/);

@@ -53,6 +53,8 @@ Plan, in order:
 
 ### Steps
 - A plain string, or `{ text?, part?, only? }`. The parent's steps **set the order across parts**: a step with `part` shows that part as a section you can expand in place.
+- An **inline choice option** embedded by a step switches straight into the method: its steps replace the embedding step's place (after the step's text, if it has any), numbered with the rest, rather than appearing as a collapsible section. Shared parts and shared options stay collapsible, with a link to their own page.
+- An option's `time` is the whole recipe's time with that option: its fields replace the recipe's in the header and the list card.
 - `only: { "<choice key>": ["<option id>", …] }` shows a step only when one of those options is selected. Use it when alternatives differ at a few points in the method (e.g. brown the chicken first, add seafood at the end); the options then just carry their ingredients.
 - Every part must be referenced by some step (through `part`, or through `only` for a choice), unless the parent has no steps (then its parts are shown one after another).
 - Steps reference whole parts, never individual steps inside a part.
@@ -125,7 +127,8 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
   - **Checkboxes** so you can untick what you have. Staple and `optional` lines start unticked.
   - **Copy for AnyList** copies the ticked lines as plain text, one item per line, for pasting into AnyList.
   - **Choices** between parts show as radio buttons, and the selection is kept in the URL (`#/scotch_eggs?filling=chorizo`). Steps with `only` show only for the selected option.
-  - **Embedded parts** in steps expand in place. Shared parts that are listed also link to their own page. A parent with no steps shows its parts one after another, as collapsible sections.
+  - **Embedded parts** in steps expand in place. Shared parts that are listed also link to their own page. Inline choice options don't: the chosen option's steps switch straight into the numbered method.
+  - The header's times follow the chosen options. A parent with no steps shows its parts one after another, as collapsible sections.
 - Display rules for amounts:
   - Use the catalogue `plural` when the quantity isn't 1, and plural units ("3 cloves").
   - Show ranges as "1–2" and fractions as ½, ¼, ¾, ⅓ and ⅔.

@@ -10,6 +10,7 @@ import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import { ROOT } from './helpers.mjs';
 import { findChrome } from '../tools/lib/chrome.mjs';
 import { readYield, readTranscription } from '../tools/draft.mjs';
+import { findOld } from '../tools/old-recipe.mjs';
 
 const FIX = path.join(ROOT, 'tests/fixtures/sources');
 // Async, so the test's own web server can answer while a tool runs.
@@ -174,7 +175,7 @@ describe('draft', () => {
   test('reading yields', async () => {
     assert.deepEqual(readYield(['Serves 4']), { serves: 4, note: null });
     assert.deepEqual(readYield(['4 servings']), { serves: 4, note: null });
-    assert.deepEqual(readYield(['6-8']), { serves: 6, note: 'The source says serves 6–8.' });
+    assert.deepEqual(readYield(['6-8']), { serves: 6, note: 'Serves 6–8.' });
     assert.deepEqual(readYield(['300g']), { yield: { qty: 300, unit: 'g' } });
     assert.deepEqual(readYield(['Makes 12 pancakes']), { yield: '12 pancakes' });
     assert.deepEqual(readYield([]), {});
@@ -210,6 +211,20 @@ describe('render and lint', () => {
 });
 
 describe('old-recipe', () => {
+  test('matching old titles: word starts, keywords and near spellings', () => {
+    const list = [
+      { id: 'slow_cooked_lamb_with_orzo', title: 'Slow Cooked Lamb with Orzo (Giouvetsi)', keywords: 'lamb orzo, Greek' },
+      { id: 'lamb_raan', title: 'Lamb Raan' },
+      { id: 'beef_rendang', title: 'Beef rendang' },
+    ];
+    const ids = (q) => findOld(list, q).map((r) => r.id);
+    assert.deepEqual(ids('youvetsi'), ['slow_cooked_lamb_with_orzo']);
+    assert.deepEqual(ids('greek lamb'), ['slow_cooked_lamb_with_orzo'], 'keywords count');
+    assert.deepEqual(ids('lam'), ['slow_cooked_lamb_with_orzo', 'lamb_raan']);
+    assert.deepEqual(ids('rendan'), ['beef_rendang']);
+    assert.deepEqual(ids('ramen'), [], 'short words must match from the start, not loosely');
+  });
+
   const hasOld = spawnSync('git', ['cat-file', '-e', '4623299'], { cwd: ROOT }).status === 0;
   test('lists the old collection and finds entries by title words', { skip: !hasOld && 'old commit not in this clone' }, async () => {
     const list = await run('old-recipe.mjs', '--list');
@@ -218,5 +233,6 @@ describe('old-recipe', () => {
     assert.equal(found.status, 0);
     assert.match(found.stdout, /"title": "Slow Cooked Lamb with Orzo \(Giouvetsi\)"/);
     assert.equal((await run('old-recipe.mjs', 'no such dish')).status, 1);
+    assert.match((await run('old-recipe.mjs', 'lamb', 'youvetsi')).stdout, /Giouvetsi/, 'a different spelling still finds it');
   });
 });

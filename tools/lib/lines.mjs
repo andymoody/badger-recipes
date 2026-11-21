@@ -79,8 +79,8 @@ export function roundConverted(v) {
   return Math.round(v / 5) * 5;
 }
 
-const PREP_WORDS = /^(?:(?:very |finely |roughly |coarsely |thinly |thickly |freshly |lightly |well |just )?(?:chopped|diced|sliced|minced|grated|crushed|peeled|melted|softened|beaten|whisked|cubed|shredded|torn|toasted|drained|rinsed|halved|quartered|deseeded|seeded|trimmed|zested|juiced|cut|picked|sifted|cooked|ground|pitted|cored|mashed|squeezed|scrubbed|julienned|bruised|warmed|chilled|cooled|separated|at room temperature|room temperature)\b)/i;
-const LEADING_PREP = /^((?:(?:very|finely|roughly|coarsely|thinly|freshly|lightly)\s+)?(?:chopped|diced|sliced|minced|grated|crushed|melted|softened|beaten|cubed|shredded|toasted|sifted|cooked|mashed|peeled|halved))\s+/i;
+const PREP_WORDS = /^(?:(?:very |finely |roughly |coarsely |thinly |thickly |freshly |lightly |well |just )?(?:chopped|diced|sliced|minced|grated|crushed|peeled|melted|softened|beaten|whisked|cubed|shredded|torn|toasted|drained|rinsed|halved|quartered|deseeded|seeded|trimmed|zested|juiced|cut|picked|sifted|cooked|ground|pitted|cored|mashed|squeezed|scrubbed|julienned|bruised|warmed|chilled|cooled|separated|smashed|crumbled|bashed|flaked|blanched|soaked|at room temperature|room temperature)\b)/i;
+const LEADING_PREP = /^((?:(?:very|finely|roughly|coarsely|thinly|freshly|lightly)\s+)?(?:chopped|diced|sliced|minced|grated|crushed|melted|softened|beaten|cubed|shredded|toasted|sifted|cooked|mashed|peeled|halved|smashed|crumbled))\s+/i;
 const NO_QTY = '(to taste|to season|for frying|for deep[- ]frying|for greasing|for dusting|as needed|to serve|for serving|to garnish|for garnish)';
 const NO_QTY_NOTE = new RegExp('\\b' + NO_QTY + '\\b', 'i');
 const OPTIONAL = /\(optional\)|,?\s*\boptional\b|\b(?:to serve|for serving|to garnish|for garnish)\b/i;
@@ -236,6 +236,8 @@ export function parseLine(source, opts = {}) {
   }
   for (let i = conversions.length - 1; i >= 0; i--) if (conversions[i].startsWith('check')) warnings.unshift(...conversions.splice(i, 1));
 
+  if (/\s(?:or|OR)\s/.test(name)) warnings.push('"' + name + '" offers alternatives: if they change the method, they may be a choice; otherwise use one item and put the other in note');
+  for (const p of parens) if (/^\+/.test(p)) warnings.push('"(' + p + ')" adds another ingredient: give it its own line (in the option it belongs to, if it is only for one)');
   if (/\s(?:and|&)\s/.test(name)) warnings.push('"' + name + '" may be two ingredients: give each its own line');
   if (qty == null && !notes.length && !warnings.length) warnings.push('no quantity: add a note ("to taste") or a qty');
   if (qtyMax != null && qty != null && qtyMax <= qty) { warnings.push('range ' + qty + '-' + qtyMax + ' does not increase'); qtyMax = null; }
@@ -276,7 +278,7 @@ export function convertTemperatures(text) {
 
 // ---------- Catalogue matching ----------
 
-const DESCRIPTORS = /\b(?:fresh|large|small|medium|big|ripe|good[- ]quality|good|quality|organic|free[- ]range|extra|whole|raw|hot|cold|warm|boneless|skinless|skin[- ]on|bone[- ]in|thick|thin|heaped|level|generous|about|approx\.?|approximately)\b/gi;
+const DESCRIPTORS = /\b(?:dry|fresh|large|small|medium|big|ripe|good[- ]quality|good|quality|organic|free[- ]range|extra|whole|raw|hot|cold|warm|boneless|skinless|skin[- ]on|bone[- ]in|thick|thin|heaped|level|generous|about|approx\.?|approximately)\b/gi;
 
 export function singular(w) {
   if (w.length <= 3) return w;
@@ -320,6 +322,9 @@ export function matchItem(name, catalogue, index = catalogueIndex(catalogue)) {
   if (index.has(n)) return { id: index.get(n), how: 'exact' };
   const stripped = normaliseName(String(name).replace(DESCRIPTORS, ' '));
   if (stripped && index.has(stripped)) return { id: index.get(stripped), how: 'without descriptors' };
+  // "feta cheese" is feta.
+  const noCheese = stripped.replace(/ cheese$/, '');
+  if (noCheese !== stripped && index.has(noCheese)) return { id: index.get(noCheese), how: 'without "cheese"' };
   const candidates = fuzzy(name, catalogue);
   // "unsalted butter" ends with "butter": likely the same thing, but a different product is
   // possible (smoked paprika isn't paprika), so it's a candidate, not a match.

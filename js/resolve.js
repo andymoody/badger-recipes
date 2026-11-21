@@ -125,12 +125,22 @@ function resolveNode(data, recipe, info, st) {
 
   const embedded = new Set();
   node.steps = [];
+  node.used = []; // parts in the order the method embeds them
   for (const s of recipe.steps || []) {
     if (typeof s === 'string') { node.steps.push({ text: s }); continue; }
     if (s.heading) { node.steps.push({ heading: s.heading }); continue; }
     if (s.only && !Object.entries(s.only).every(([key, ids]) => ids.includes(node.selected[key]))) continue;
     const part = s.part ? byKey[s.part] : null;
     if (part) embedded.add(part);
+    if (part && !node.used.includes(part)) node.used.push(part);
+    if (part && part.choice && !part.sharedId) {
+      // An inline choice option switches in and out of the method: its steps take the place of
+      // the step that embeds it, rather than sitting in a section of their own.
+      part.inline = true;
+      if (s.text) node.steps.push({ text: s.text });
+      node.steps.push(...part.steps);
+      continue;
+    }
     node.steps.push({ text: s.text, part });
   }
   // With no steps, the parts are shown one after another.
@@ -160,7 +170,7 @@ export function partTitle(node) {
 export function ingredientGroups(root) {
   const groups = [];
   const order = [];
-  for (const s of root.steps) if (s.part && !order.includes(s.part)) order.push(s.part);
+  for (const c of root.used) order.push(c);
   for (const c of root.children) if (!order.includes(c) && !root.loose.includes(c)) order.push(c);
   // A part with nothing to show (an option with no ingredients, such as an oven method) gets no
   // group, unless it can be made as a full batch, which has a toggle to show.
@@ -174,6 +184,23 @@ export function ingredientGroups(root) {
   }
   if (own.length) groups.push({ node: root, title: groups.length ? root.title : null, lines: own });
   return groups.concat(after);
+}
+
+/**
+ * The recipe's time with the chosen options: an option's own `time` fields replace the recipe's
+ * (a sous-vide option's cook time replaces the oven's). Deeper choices win.
+ */
+export function recipeTime(root) {
+  const time = { ...(root.recipe.time || {}) };
+  walk(root, (n) => { if (n !== root && n.choice && n.recipe.time) Object.assign(time, n.recipe.time); });
+  return Object.keys(time).length ? time : null;
+}
+
+/** Notes of options shown inline in the method, which have no section of their own: [{ node, text }]. */
+export function inlineNotes(root) {
+  const out = [];
+  walk(root, (n) => { if (n.inline && n.recipe.notes) out.push({ node: n, text: n.recipe.notes }); });
+  return out;
 }
 
 /** Every node in the tree, depth first, parents before children. */

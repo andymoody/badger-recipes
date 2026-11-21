@@ -50,6 +50,31 @@ describe('a sloppy extraction', () => {
   });
 });
 
+describe('numbers in notes, and spices (from the lamb youvetsi reviews)', () => {
+  const base = { id: 'x', title: 'X', course: 'main', serves: 4, source: { type: 'own' }, steps: ['Rub the lamb with the oil and spices, then add the wine, tomatoes and black pepper.'] };
+  const lint = (ingredients) => lintRecipe({ ...base, ingredients }, data).filter((f) => /note/.test(f.message) || /never mentioned/.test(f.message)).map((f) => f.message);
+  test('a substitute or a count in a note is flagged, because it won\'t scale', () => {
+    assert.deepEqual(lint([
+      { item: 'red_wine', qty: 150, unit: 'ml', note: 'or 150ml stock + 1 tbsp balsamic' },
+      { item: 'black_pepper', qty: 1.5, qtyMax: 2, unit: 'tsp', note: 'about 30–35 twists' },
+    ]), [
+      'the note "or 150ml stock + 1 tbsp balsamic" has a number that won\'t scale with the amount',
+      'the note "about 30–35 twists" has a number that won\'t scale with the amount',
+    ]);
+  });
+  test('pack sizes, plain sizes and lines without an amount are fine', () => {
+    assert.deepEqual(lint([
+      { item: 'chopped_tomatoes', qty: 2, unit: 'tin', note: '400g' },
+      { item: 'red_wine', qty: 1, note: '75cl' },
+      { item: 'black_pepper', note: 'to taste, about 10 twists' },
+    ]).filter((m) => /note/.test(m)), ['the note "75cl" has a number that won\'t scale with the amount']);
+  });
+  test('"spices" in the method covers dried herbs and ground spices', () => {
+    assert.deepEqual(lint([{ item: 'dried_oregano', qty: 2, unit: 'tsp' }, { item: 'ground_cinnamon', qty: 1, unit: 'tsp' }]), []);
+    assert.deepEqual(lint([{ item: 'orzo', qty: 600, unit: 'g' }]), ['"Orzo" is never mentioned in the method']);
+  });
+});
+
 describe('the real collection', () => {
   test('has no warnings ("shrimp paste" is British too)', () => {
     const warns = Object.values(data.recipes).flatMap((r) => lintRecipe(r, data)).filter((x) => x.level === 'warn');

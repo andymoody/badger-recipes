@@ -50,7 +50,7 @@ Read `recipes/<id>.json` (and its shared parts) and any entries added to `ingred
    - The course is right.
    - Tags include the headline ingredient (unless it's in the title or an option title) and the cuisine, and none are near-duplicates of existing tags.
    - Times are as the source gives them, or left out; never guessed.
-   - `source` is complete, and `adapted` is set if the recipe has been changed.
+   - `source` is complete. `adapted` is set only if what the cook does or uses has changed in meaning (ingredients, amounts, instructions); rewording, dropped framing, option order or a different default don't count.
    - Estimates are labelled as estimates in `notes`.
 6. **How it reads.** In the render, check that lines read naturally (plurals, units, notes in brackets), that headings group things as the source does, and that nothing looks odd to a cook.
 7. **Catalogue additions.** For each new entry, check that the `name` is in sentence case, that `plural` is there for countable items, that `staple` and `scaling` are right, that it isn't a duplicate of an existing ID or alias, and that the ID is singular and has no preparation in it.

@@ -16,6 +16,14 @@
     "name": "Eggs",
     "group": "ingredient"
   },
+  "greek": {
+    "name": "Greek",
+    "group": "cuisine"
+  },
+  "lamb": {
+    "name": "Lamb",
+    "group": "ingredient"
+  },
   "pancakes": {
     "name": "Pancakes",
     "group": "dish"
@@ -31,6 +39,10 @@
   "rice": {
     "name": "Rice",
     "group": "ingredient"
+  },
+  "sous_vide": {
+    "name": "Sous vide",
+    "group": "method"
   },
   "thai": {
     "name": "Thai",

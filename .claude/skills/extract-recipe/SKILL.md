@@ -14,6 +14,7 @@ Work in phases, in order. Scripts do the mechanical work; your judgement goes in
 
 ## 0. Before starting
 - Find the recipe's row in `docs/migration.md` (during the migration) and note its **route**: `web` (websites) or `document` (PDF, image, Word doc, text). Check the route's mode (individual or batch) in the Process status table.
+- Search the old titles with `node tools/old-recipe.mjs`, which allows for different spellings ("youvetsi" finds "Giouvetsi"). If the source is a new version of an old recipe, record that in its row straight away.
 - Check `recipes/` for an existing or near-duplicate recipe, and for shared parts it could reuse (rice, stock, pastry).
 - Look up the old entry: `node tools/old-recipe.mjs <words from the title>`. It's not a source. You'll compare it with the source in phase 3.
 
@@ -53,6 +54,7 @@ This writes `draft.json` and `draft-report.md` in the snapshot (never in `recipe
 
 ## 3. Structure and finish (judgement)
 - Choose the structure with the decision guide in `docs/extraction.md`. Look for variations in **all** of the source: the method, the notes, and the page text that the structured data left out ("for a vegetarian version…", "can also be slow-cooked"). Decide how each one is represented: a choice, a choice with `only` steps, separate recipes sharing parts, or notes.
+- Alternative cooking methods with different durations: give each option its own `time` (the whole recipe's time with that method, using the top of any range), so the header shows the time for the chosen method.
 - If the model fits awkwardly, **stop and propose a model change** (`docs/extraction.md`, principle 3).
 - Write `recipes/<id>.json` (and any shared part files), with tags from `tags.json` (add new tags with a group).
 - Compare with the old entry. List every difference that could be the user's own adjustment, to ask about.

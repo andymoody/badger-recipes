@@ -1,0 +1,219 @@
+{
+  "$schema": "../schema/recipe.schema.json",
+  "id": "lamb_youvetsi",
+  "title": "Lamb youvetsi",
+  "course": "main",
+  "tags": [
+    "greek",
+    "lamb",
+    "sous_vide"
+  ],
+  "serves": 8,
+  "source": {
+    "type": "file",
+    "name": "PDF"
+  },
+  "ingredients": [
+    {
+      "heading": "The rub"
+    },
+    {
+      "item": "olive_oil",
+      "qty": 2,
+      "unit": "tbsp"
+    },
+    {
+      "item": "salt",
+      "qty": 2,
+      "unit": "tsp",
+      "note": "sea salt"
+    },
+    {
+      "item": "black_pepper",
+      "qty": 1.5,
+      "qtyMax": 2,
+      "unit": "tsp"
+    },
+    {
+      "item": "dried_oregano",
+      "qty": 2,
+      "unit": "tsp"
+    },
+    {
+      "item": "ground_cinnamon",
+      "qty": 0.5,
+      "qtyMax": 1,
+      "unit": "tsp"
+    },
+    {
+      "item": "garlic",
+      "qty": 4,
+      "qtyMax": 6,
+      "unit": "clove",
+      "prep": "smashed"
+    },
+    {
+      "heading": "Tomato and cinnamon base"
+    },
+    {
+      "item": "onion",
+      "qty": 2,
+      "prep": "thinly sliced",
+      "note": "large"
+    },
+    {
+      "item": "tomato_puree",
+      "qty": 2,
+      "unit": "tbsp"
+    },
+    {
+      "item": "red_wine",
+      "qty": 150,
+      "unit": "ml",
+      "note": "or the same amount of stock plus 1 tbsp balsamic for every 150ml"
+    },
+    {
+      "item": "chopped_tomatoes",
+      "qty": 2,
+      "unit": "tin",
+      "note": "400g"
+    },
+    {
+      "item": "lamb_stock",
+      "qty": 1.2,
+      "unit": "l",
+      "note": "or chicken stock"
+    },
+    {
+      "item": "cinnamon_stick",
+      "qty": 1,
+      "note": "whole quill"
+    },
+    {
+      "item": "bay_leaf",
+      "qty": 2
+    },
+    {
+      "heading": "Orzo finish"
+    },
+    {
+      "item": "orzo",
+      "qty": 600,
+      "unit": "g",
+      "note": "dry"
+    },
+    {
+      "item": "feta",
+      "qty": 200,
+      "unit": "g",
+      "prep": "crumbled"
+    },
+    {
+      "item": "parsley",
+      "qty": 1,
+      "unit": "bunch",
+      "prep": "chopped",
+      "note": "small; flat-leaf, or mint"
+    },
+    {
+      "item": "lemon",
+      "qty": 1,
+      "prep": "cut into wedges",
+      "optional": true
+    }
+  ],
+  "parts": [
+    {
+      "key": "method",
+      "label": "Cooking method",
+      "default": "shoulder",
+      "choose": [
+        {
+          "id": "shoulder",
+          "title": "Classic lamb shoulder (forgiving and rich)",
+          "time": {
+            "cook": 205
+          },
+          "ingredients": [
+            {
+              "item": "lamb_shoulder",
+              "qty": 2,
+              "unit": "kg",
+              "prep": "thick fat (over 5mm) trimmed",
+              "note": "bone-in"
+            }
+          ],
+          "steps": [
+            "Prep: pat the shoulder dry and rub with the oil, spices and garlic. Place in a large deep roasting tin with the raw sliced onions, tomato purée, wine, chopped tomatoes, all the stock, cinnamon quill and bay leaves.",
+            "Roast: seal tightly with foil and bake at 160°C (140°C fan) for 2.5 to 3 hours until completely fall-apart tender.",
+            "Shred: uncover, pull the meat off the bone (skimming off any excess surface oil with a spoon), and discard the bone."
+          ]
+        },
+        {
+          "id": "sous_vide_leg",
+          "title": "Sous vide leg of lamb (best for flexible timing)",
+          "time": {
+            "cook": 1085
+          },
+          "ingredients": [
+            {
+              "item": "lamb_leg",
+              "qty": 2,
+              "qtyMax": 2.3,
+              "unit": "kg",
+              "prep": "thick fat (over 5mm) trimmed",
+              "note": "bone-in"
+            },
+            {
+              "item": "olive_oil",
+              "qty": 1,
+              "unit": "tbsp",
+              "note": "for frying the onions"
+            }
+          ],
+          "steps": [
+            "Prep and cook, 13+ hours ahead: pat the leg dry, rub with the oil and spices, and bag with the smashed garlic (pad sharp bone ends with folded kitchen roll). Cook in a water bath at 74°C for 13–15 hours.",
+            "Make the sauce base: fry the sliced onions in the extra olive oil for 8–10 mins until soft. Mix in a large deep roasting tin with the tomato purée, wine, chopped tomatoes, the hot stock, keeping a little back to loosen the orzo later, cinnamon quill and bay leaves.",
+            "Hold or braise: shred the warm lamb off the bone straight into the roasting tin, pouring in all the hot bag juices. Seal tightly with foil and hold in the oven at 140–150°C (120–130°C fan) for 1.5–2.5 hours until you’re ready to finish."
+          ]
+        },
+        {
+          "id": "roast_leg",
+          "title": "Slow-roasted leg of lamb (all-in-one oven method)",
+          "time": {
+            "cook": 175
+          },
+          "ingredients": [
+            {
+              "item": "lamb_leg",
+              "qty": 2,
+              "qtyMax": 2.3,
+              "unit": "kg",
+              "prep": "thick fat (over 5mm) trimmed",
+              "note": "bone-in"
+            }
+          ],
+          "steps": [
+            "Make the sauce base: mix the raw sliced onions in a large deep roasting tin with the tomato purée, wine, chopped tomatoes, all the stock, cinnamon quill and bay leaves.",
+            "Roast: pat the leg dry, rub with the oil, spices and garlic, and sit it directly in the sauce. Seal tightly with a double layer of foil. Bake at 160–170°C (140–150°C fan) for 2 to 2.5 hours until tender.",
+            "Shred: uncover, pull the lamb off the bone into bite-sized chunks with two forks, and discard the bone."
+          ]
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "part": "method"
+    },
+    {
+      "heading": "The 25-minute orzo finish"
+    },
+    "Ramp the heat: turn the oven up to 200°C (180°C fan) / gas mark 6. Fish out and discard the bay leaves and cinnamon quill from the hot lamb and sauce.",
+    "Add the orzo: stir the dry orzo straight into the bubbling broth so it is completely submerged. If the sauce looks thick rather than soupy, stir in a splash of hot water or stock.",
+    "Bake covered: re-cover the tin tightly with foil and bake for 15 minutes.",
+    "Uncover and brown: remove the foil, give the orzo a quick stir, and bake uncovered for 5 to 10 minutes until the pasta is tender and has absorbed the sauce.",
+    "Serve: scatter the crumbled feta and chopped parsley over the top, and bring straight to the table with the lemon wedges."
+  ],
+  "notes": "Slow-braised Greek lamb and baked orzo. Serves 8–9."
+}

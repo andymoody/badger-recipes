@@ -37,7 +37,7 @@ export function readYield(list) {
   for (const y of list) {
     const s = String(y).trim();
     const m = s.match(/^(?:serves|servings?:?|feeds|for)?\s*(\d+)(?:\s*(?:-|–|to)\s*(\d+))?\s*(?:servings?|people|persons?|portions?)?$/i);
-    if (m) return { serves: Number(m[1]), note: m[2] ? 'The source says serves ' + m[1] + '–' + m[2] + '.' : null };
+    if (m) return { serves: Number(m[1]), note: m[2] ? 'Serves ' + m[1] + '–' + m[2] + '.' : null };
   }
   for (const y of list) {
     const p = parseLine(String(y));

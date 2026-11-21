@@ -1,6 +1,6 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { resolve, resolveLine, partRatio, choices, walk, lineDisplay, ingredientGroups, partTitle } from '../js/resolve.js';
+import { resolve, resolveLine, partRatio, choices, walk, lineDisplay, ingredientGroups, partTitle, recipeTime } from '../js/resolve.js';
 import path from 'node:path';
 import { loadData, CATALOGUE, near, ROOT } from './helpers.mjs';
 
@@ -95,13 +95,23 @@ describe('Thai red curry (shared paste and rice, protein choice with conditional
 });
 
 describe('Scotch eggs (inline choice embedded in a step)', () => {
-  test('black pudding by default, embedded where the method says "Make the filling."', () => {
+  test('black pudding by default: its steps switch into the method straight after "Make the filling."', () => {
     const root = resolve(data, 'scotch_eggs');
-    const step = root.steps.find((s) => s.part);
-    assert.equal(step.text, 'Make the filling.');
-    assert.equal(step.part.path, 'filling/black_pudding');
-    assert.equal(step.part.title, 'Black pudding and pork');
+    const filling = child(root, 'filling/black_pudding');
+    assert.equal(filling.title, 'Black pudding and pork');
+    assert.equal(filling.inline, true);
+    assert.ok(!root.steps.some((s) => s.part), 'no collapsible section for an inline option');
+    const at = root.steps.findIndex((s) => s.text === 'Make the filling.');
+    assert.deepEqual(root.steps.slice(at + 1, at + 1 + filling.steps.length), filling.steps);
+    assert.deepEqual(root.used, [filling]);
     assert.equal(root.loose.length, 0);
+  });
+  test('choosing chorizo switches the chorizo steps in and the black pudding ones out', () => {
+    const texts = (root) => root.steps.map((s) => s.text).join(' ');
+    const bp = resolve(data, 'scotch_eggs'), ch = resolve(data, 'scotch_eggs', { choices: { filling: 'chorizo' } });
+    assert.match(texts(ch), /chorizo/i);
+    assert.doesNotMatch(texts(ch), /black pudding/i);
+    assert.match(texts(bp), /black pudding/i);
   });
   test('choosing chorizo swaps the filling and its steps', () => {
     const root = resolve(data, 'scotch_eggs', { choices: { filling: 'chorizo' } });
@@ -136,6 +146,24 @@ describe('American pancakes (headings, optional and fixed lines)', () => {
   test('optional "to serve" lines are flagged', () => {
     const root = resolve(data, 'american_pancakes');
     assert.equal(line(root, 'maple_syrup').optional, true);
+  });
+});
+
+describe('recipeTime: the time with the chosen options (sample youvetsi)', () => {
+  const site = loadData(path.join(ROOT, 'tests/fixtures/site'));
+  test('the recipe\'s own time when the chosen options give none (shoulder)', () => {
+    assert.deepEqual(recipeTime(resolve(site, 'lamb_youvetsi')), { prep: 20, cook: 200 });
+  });
+  test('a nested option\'s cook time replaces the recipe\'s, keeping its prep', () => {
+    assert.deepEqual(recipeTime(resolve(site, 'lamb_youvetsi', { choices: { lamb: 'leg' } })), { prep: 20, cook: 100 });
+    assert.deepEqual(recipeTime(resolve(site, 'lamb_youvetsi', { choices: { lamb: 'leg', 'lamb/leg/method': 'sous_vide' } })), { prep: 20, cook: 500 });
+  });
+  test('no time anywhere is null', () => {
+    assert.equal(recipeTime(resolve(site, 'spice_blend')), null);
+  });
+  test('the real youvetsi: each method gives its own time', () => {
+    const t = (m) => recipeTime(resolve(data, 'lamb_youvetsi', { choices: { method: m } })).cook;
+    assert.deepEqual([t('shoulder'), t('roast_leg'), t('sous_vide_leg')], [205, 175, 1085]);
   });
 });
 

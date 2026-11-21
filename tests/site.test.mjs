@@ -150,10 +150,10 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
     test('method: conditional step for the shoulder, headings continue the numbering', async () => {
       await open('#/lamb_youvetsi');
       assert.deepEqual(await texts('.method > .steps > li > p'), [
-        'Make the stock, or use 500ml from the freezer.', 'Cook the lamb.', 'Pull the meat off the bone and discard the bone.',
+        'Make the stock, or use 500ml from the freezer.', 'Cook the lamb.', 'Brown the shoulder all over, then braise, covered, at 160°C for 3 hours.', 'Pull the meat off the bone and discard the bone.',
         'Mix the spice blend.', 'Soften the onion in the oil, add the spice blend, tomatoes, stock and orzo, and bake at 180°C for 20 minutes.', 'Serve the lamb on the orzo, topped with feta.',
       ]);
-      assert.deepEqual(await page.eval(() => [...document.querySelectorAll('.method > .steps')].map((o) => o.start)), [1, 4]);
+      assert.deepEqual(await page.eval(() => [...document.querySelectorAll('.method > .steps')].map((o) => o.start)), [1, 5]);
       assert.deepEqual(await texts('.method > .step-heading'), ['The orzo']);
     });
     test('embedded parts expand in place', async () => {
@@ -169,19 +169,30 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
       await click('input[name="choice-lamb"]', 'leg');
       assert.equal(await hash(), '#/lamb_youvetsi?lamb=leg');
       assert.deepEqual(await texts('.choice legend'), ['Lamb', 'Method']);
-      assert.ok(!(await texts('.method > .steps > li > p')).some((t) => t.startsWith('Pull the meat')));
+      const steps = await texts('.method > .steps > li > p');
+      assert.ok(!steps.some((t) => t.startsWith('Pull the meat') || t.startsWith('Brown the shoulder')));
+      assert.deepEqual(steps.slice(1, 5), ['Cook the lamb.', 'Season the leg well.', 'Cook the leg.', 'Roast at 180°C for 1 hour 20 minutes, then rest.'], 'the chosen options switch straight into the method');
+      assert.deepEqual(await texts('details.part > summary'), ['Chicken stock', 'Spice blend'], 'only shared parts are collapsible');
       assert.deepEqual(await texts('#panel-ingredients h3'), ['Chicken stock', 'Lamb: Leg', 'Spice blend', 'Lamb youvetsi'], 'roasting adds no ingredients, so it has no empty heading');
     });
-    test('choosing sous vide: its steps nest inside the leg, its oil joins the shopping list', async () => {
+    test('choosing sous vide: its steps replace the roast, its oil joins the shopping list', async () => {
       await open('#/lamb_youvetsi?lamb=leg');
       await click('input[name="choice-lamb/leg/method"]', 'sous_vide');
       assert.equal(await hash(), '#/lamb_youvetsi?lamb=leg&lamb/leg/method=sous_vide');
       assert.deepEqual((await group('Method: Sous vide')).lines, ['1 tbsp Olive oil (for searing)'], 'sous vide brings its own oil, so it has a group');
-      await click('details.part > summary', 'Lamb: Leg');
-      await click('details.part details.part > summary', 'Method: Sous vide');
-      assert.deepEqual(await texts('details.part details.part .steps li'), ['Bag the leg and cook at 57°C for 8 hours.', 'Pat dry and sear all over in a very hot pan.']);
+      const steps = await texts('.method > .steps > li > p');
+      assert.deepEqual(steps.slice(3, 6), ['Cook the leg.', 'Bag the leg and cook at 57°C for 8 hours.', 'Pat dry and sear all over in a very hot pan.']);
+      assert.ok(!steps.some((t) => t.startsWith('Roast at')));
       await click('.tab', 'Shopping list');
       assert.ok((await texts('.shopping li')).includes('3 tbsp Olive oilstaple'));
+    });
+    test('the header time follows the chosen method', async () => {
+      await open('#/lamb_youvetsi');
+      assert.equal(await text('.recipe-header .meta'), 'Main · Serves 4 · Prep 20 min · Cook 3 hr 20 min');
+      await click('input[name="choice-lamb"]', 'leg');
+      assert.equal(await text('.recipe-header .meta'), 'Main · Serves 4 · Prep 20 min · Cook 1 hr 40 min');
+      await click('input[name="choice-lamb/leg/method"]', 'sous_vide');
+      assert.equal(await text('.recipe-header .meta'), 'Main · Serves 4 · Prep 20 min · Cook 8 hr 20 min');
     });
     test('the selection survives a reload, and the default leaves the URL', async () => {
       await open('#/lamb_youvetsi?lamb=leg');

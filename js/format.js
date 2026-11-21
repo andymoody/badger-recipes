@@ -32,9 +32,12 @@ export function yieldText(y, factor = 1) {
   return displayAmount(y.qty * factor, null, y.unit, factor !== 1);
 }
 
-/** The recipe header's facts: ["Main", "Serves 4", "Makes 300g", "Prep 20 min", "Cook 1 hr"]. */
-export function metaParts(r) {
-  const t = r.time || {};
+/**
+ * The recipe header's facts: ["Main", "Serves 4", "Makes 300g", "Prep 20 min", "Cook 1 hr"].
+ * time defaults to the recipe's own; pass recipeTime(root) for the chosen options' times.
+ */
+export function metaParts(r, time = r.time) {
+  const t = time || {};
   return [
     COURSE_SINGULAR[r.course],
     r.serves && 'Serves ' + r.serves,

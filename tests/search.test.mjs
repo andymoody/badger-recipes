@@ -17,8 +17,12 @@ describe('search by title, tags and course', () => {
     assert.deepEqual(ids({ q: 'salt' }), []);
   });
   test('the course counts as a keyword ("breakfast", "mains")', () => {
-    assert.deepEqual(ids({ q: 'breakfast' }), ['american_pancakes']);
-    assert.deepEqual(ids({ q: 'main' }), ['scotch_eggs', 'thai_red_curry']);
+    // Compared with the collection itself, so the test holds as recipes are added.
+    const byCourse = (c) => Object.values(data.recipes).filter((r) => r.course === c && r.listed !== false).map((r) => r.id).sort();
+    assert.ok(ids({ q: 'breakfast' }).includes('american_pancakes'));
+    assert.deepEqual(ids({ q: 'breakfast' }).sort(), byCourse('breakfast'));
+    assert.ok(ids({ q: 'main' }).includes('thai_red_curry') && ids({ q: 'main' }).includes('scotch_eggs'));
+    assert.deepEqual(ids({ q: 'main' }).sort(), byCourse('main'));
   });
   test('words match from their start, so typing part of a word works and the middle of a word does not', () => {
     assert.deepEqual(ids({ q: 'panc' }), ['american_pancakes']);

@@ -38,6 +38,8 @@ export function bodies(recipe) {
 // Words too general to show an ingredient is mentioned ("white" in white pepper).
 const GENERIC = new Set(['white', 'black', 'green', 'fresh', 'dried', 'ground', 'whole', 'large', 'small', 'smoked', 'sweet', 'plain', 'strong', 'fast', 'action', 'light', 'dark', 'extra', 'virgin']);
 
+const SPICES = /\b(?:spices|spice mix|seasonings?|herbs)\b/i;
+
 const stepText = (s) => (typeof s === 'string' ? s : s.text || s.heading || '');
 
 export function lintRecipe(recipe, data, { exists = () => true } = {}) {
@@ -69,6 +71,10 @@ export function lintRecipe(recipe, data, { exists = () => true } = {}) {
       if (l.text) add('warn', where, 'free-text line "' + l.text + '": a last resort; can it be a catalogue line?');
       if (l.qtyMax != null && l.qty != null && l.qtyMax <= l.qty) add('warn', where, 'qtyMax ' + l.qtyMax + ' is not above qty ' + l.qty);
       if (l.qty === 0) add('warn', where, 'qty is 0');
+      // A number in a note stays fixed when the line scales ("150ml" in a substitute, "30 twists").
+      // Pack sizes on tins and packs, and a size on its own ("400g", "5cm"), are fine.
+      const scales = l.qty != null && (l.scaling || (data.ingredients[l.item] || {}).scaling) !== 'fixed';
+      if (scales && l.note && /\d/.test(l.note) && !['tin', 'pack'].includes(l.unit) && !/^\s*\d+(?:\.\d+)?\s*(?:g|kg|ml|l|cm)\s*$/.test(l.note)) add('check', where, 'the note "' + l.note + '" has a number that won\'t scale with the amount');
     });
 
     // Ingredients the method never mentions (by name, plural, alias or id words), and the reverse
@@ -83,7 +89,9 @@ export function lintRecipe(recipe, data, { exists = () => true } = {}) {
         const e = data.ingredients[l.item] || {};
         if (e.staple) continue;
         const names = [l.item, e.name, e.plural, ...(e.aliases || [])].filter(Boolean).map(normaliseName);
-        const hit = names.some((n) => n.split(' ').some((w) => w.length > 2 && !GENERIC.has(w) && said.has(w)));
+        // "rub with the oil and spices" covers the dried herbs and ground spices.
+        const spiceLike = /^(?:ground|dried)\b/i.test(e.name || '') || ['strong_spice', 'seasoning'].includes(e.scaling);
+        const hit = names.some((n) => n.split(' ').some((w) => w.length > 2 && !GENERIC.has(w) && said.has(w))) || (spiceLike && SPICES.test(method + ' ' + parentMethod));
         if (!hit) add('check', path, '"' + (e.name || l.item) + '" is never mentioned in the method');
       }
     }

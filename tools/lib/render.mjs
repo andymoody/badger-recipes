@@ -2,7 +2,7 @@
 // combination of choices, a scaled version and the full-batch toggles flipped. The reviewer
 // compares this with the source. It uses the site's own code (js/), so what's printed is what
 // the page shows.
-import { resolve, choices, lineDisplay, partTitle, ingredientGroups } from '../../js/resolve.js';
+import { resolve, choices, lineDisplay, partTitle, ingredientGroups, recipeTime, inlineNotes } from '../../js/resolve.js';
 import { shoppingList } from '../../js/shopping.js';
 import { metaParts, partNeed, tagName } from '../../js/format.js';
 import { formatAmount } from '../../js/quantity.js';
@@ -78,7 +78,7 @@ export function renderRecipe(data, id, state = {}, { sections = ['header', 'ingr
 
   if (has('header')) {
     out.push('# ' + r.title);
-    out.push(metaParts(r).join(' · '));
+    out.push(metaParts(r, recipeTime(root)).join(' · '));
     if (r.tags && r.tags.length) out.push('Tags: ' + r.tags.map((t) => tagName(t, data)).join(', '));
     out.push(sourceText(r.source));
     if (r.image) out.push('Image: ' + r.image);
@@ -109,6 +109,7 @@ export function renderRecipe(data, id, state = {}, { sections = ['header', 'ingr
     const notes = [];
     if (r.notes) notes.push(r.notes);
     for (const c of root.loose) if (c.recipe.notes) notes.push(partTitle(c) + ': ' + c.recipe.notes);
+    for (const { node, text } of inlineNotes(root)) notes.push(partTitle(node) + ': ' + text);
     if (notes.length) out.push('', '## Notes', ...notes);
   }
   if (has('shopping')) {

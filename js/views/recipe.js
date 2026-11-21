@@ -1,7 +1,7 @@
 import { h } from '../dom.js';
 import { metaParts, partNeed, tagName } from '../format.js';
 import { formatAmount } from '../quantity.js';
-import { resolve, choices, lineDisplay, partTitle, ingredientGroups } from '../resolve.js';
+import { resolve, choices, lineDisplay, partTitle, ingredientGroups, recipeTime, inlineNotes } from '../resolve.js';
 import { shoppingList, anyListText } from '../shopping.js';
 import { readState, hashWith, MULTIPLIERS } from '../state.js';
 
@@ -24,7 +24,7 @@ export function renderRecipe(app, id, params) {
   };
 
   app.main.replaceChildren(h('article', { class: 'recipe' },
-    header(recipe, app),
+    header(recipe, app, root),
     controls(recipe, state, set),
     optionsPanel(root, set),
     ingredientsAndShopping(root, set),
@@ -34,8 +34,8 @@ export function renderRecipe(app, id, params) {
 
 // ---------- Header ----------
 
-function header(r, app) {
-  const meta = metaParts(r);
+function header(r, app, root) {
+  const meta = metaParts(r, recipeTime(root));
   return h('header', { class: 'recipe-header' },
     h('a', { class: 'back', href: '#/' }, '← All recipes'),
     r.image ? h('img', { class: 'hero', src: r.image, alt: r.title }) : null,
@@ -234,5 +234,6 @@ function notes(root) {
   const items = [];
   if (root.recipe.notes) items.push(h('p', null, root.recipe.notes));
   for (const c of root.loose) if (c.recipe.notes) items.push(h('p', null, h('strong', null, partTitle(c) + ': '), c.recipe.notes));
+  for (const { node, text } of inlineNotes(root)) items.push(h('p', null, h('strong', null, partTitle(node) + ': '), text));
   return items.length ? h('section', { class: 'notes-section' }, h('h2', null, 'Notes'), items) : null;
 }
