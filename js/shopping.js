@@ -1,5 +1,5 @@
 // The combined shopping list: every ingredient line in the active tree, merged by item.
-import { dimension, formatAmount, itemName, shownAmount, toBase } from './quantity.js';
+import { dimension, formatAmount, itemName, shownAmount, toBase, MEASURED } from './quantity.js';
 import { walk } from './resolve.js';
 
 /**
@@ -43,9 +43,11 @@ export function shoppingList(root) {
       }
       return shownAmount(qty, a.range ? qtyMax : null, unit, a.round || units.size > 1);
     });
-    // Plural when the figure shown for things without a unit is more than 1 ("2 Eggs").
+    // Plural when the figure shown for things without a unit is more than 1 ("2 Eggs"), or when
+    // it's bought by weight or volume ("300g Almonds").
     const count = shown.find((s) => !s.unit);
-    const name = itemName(g.entry, count ? count.qty : null, count ? count.qtyMax : null, undefined);
+    const measured = shown.find((s) => MEASURED.has(s.unit));
+    const name = count ? itemName(g.entry, count.qty, count.qtyMax, undefined) : itemName(g.entry, null, null, measured ? measured.unit : undefined);
     const amounts = shown.map((s) => formatAmount(s.qty, s.qtyMax, s.unit));
     const optional = g.lines.every((l) => l.optional);
     return entry(g.key, name, amounts, !!g.entry.staple, optional);

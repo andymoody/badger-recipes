@@ -130,7 +130,7 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
   - **Embedded parts** in steps expand in place. Shared parts that are listed also link to their own page. Inline choice options don't: the chosen option's steps switch straight into the numbered method.
   - The header's times follow the chosen options, and its servings and counted yield follow the scaling together ("Serves 12 · Makes 12 Scotch eggs"). A parent with no steps shows its parts one after another, as collapsible sections.
 - Display rules for amounts:
-  - Use the catalogue `plural` when the quantity isn't 1, and plural units ("3 cloves").
+  - Use the catalogue `plural` when the quantity isn't 1, or when measured by weight, volume or spoon ("300g Almonds", but "5cm Cinnamon stick"), and plural units ("3 cloves").
   - Show ranges as "1–2" and fractions as ½, ¼, ¾, ⅓ and ⅔.
   - Tidy units when scaling: 1000 g shows as 1 kg, 3 tsp as 1 tbsp.
   - Rounding after scaling: whole numbers for things without a unit (eggs) and for cloves, slices, sheets, sprigs and sticks, and below 1 the closest of ¼, ⅓, ½, ⅔ or ¾; the nearest ¼ for tsp and tbsp, and below 1 tsp the closest of ⅛, ¼, ⅓, ½, ⅔ or ¾ (thirds aren't spoon sizes but are easy to judge by eye), with less than ⅛ tsp shown as "1 pinch"; for g and ml, whole numbers from 10 to 100, the nearest 5 above 100 and the nearest ½ below 10; other units to the nearest ½. Unscaled amounts are shown exactly as written.

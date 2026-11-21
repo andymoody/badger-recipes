@@ -11,7 +11,7 @@ Routes and batching are explained in `.claude/skills/extract-recipe/SKILL.md` (B
 | Route | Mode | Done individually | In a row with no process change |
 |---|---|---|---|
 | web | individual | 0 | 0 |
-| document (PDF, image, Word, text) | individual | 2 | 0 |
+| document (PDF, image, Word, text) | individual | 3 | 0 |
 
 ## Recipes
 
@@ -54,7 +54,7 @@ Old titles are as they were. They may not be the titles the new recipes get.
 | 28 | Honey Dijon Pork Tenderloin | honey_dijon_pork_tenderloin | Main Course |  |  | not found |  |  |
 | 29 | J Sheekey's fish pie | j_sheekeys_fish_pie | Main Course |  |  | not found |  |  |
 | 30 | Jerk Chicken with Rice & Peas | jerk_chicken_with_rice_and_peas | Main Course |  |  | not found |  |  |
-| 31 | Lamb Raan | raan_leg_of_lamb | Main Course |  |  | not found |  |  |
+| 31 | Lamb Raan | raan_leg_of_lamb | Main Course | Drive: Lamb raan 1.JPG, Lamb raan 2.JPG (photos of a cookbook) | document | approved | `lamb_raan` | Old entry had the previous recipe's servings (4–6) and 1 tsp chilli; the book says 8–10 and 1½ tsp. |
 | 32 | Lasagne | lasagne | Main Course |  |  | not found |  |  |
 | 33 | Mexican tortilla bake | mexican_tortilla_bake | Main Course |  |  | not found |  |  |
 | 34 | Millionaire’s Shortbread | millionaires_shortbread | Baking |  |  | not found |  |  |
@@ -177,4 +177,13 @@ One dated entry per recipe (or batch): what the review found, what was corrected
     - the alternatives warning ignores "homemade or shop-bought";
     - lint flags counts in steps ("12 balls");
     - the guide says derived yields aren't invented.
+  - **Counter:** reset to 0.
+- **2026-11-21, Lamb raan** (pilot 3, document route, two photos of book pages): A single recipe with no variants.
+  - **Structure:** the ingredient groups follow the user's pencil brackets. The cook time (5 hr 40 min) adds up the stated times. The book gives 1½ tsp chilli and serves 8–10; the old entry's 1 tsp and 4–6 servings were misreadings.
+  - **Review:** found a note repeating the steps, "Greek yoghurt" listed as another name for natural yoghurt, the spice id `clove` clashing with the unit, and cardamom and saffron needing gentler scaling. All fixed.
+  - **Tool bugs fixed:** a °F after a gas mark was converted instead of dropped (it gave a wrong 160°C); fractions leaked into notes as "6/24".
+  - **Process changes (approved):**
+    - plural names with weights and volumes ("300g Almonds");
+    - the parser reads book tables ("Cumin seeds: 2 tsp", "1 x 3kg leg of lamb");
+    - lint flags catalogue ids that are unit names.
   - **Counter:** reset to 0.

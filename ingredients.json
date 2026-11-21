@@ -1,5 +1,9 @@
 {
   "$schema": "schema/ingredients.schema.json",
+  "almond": {
+    "name": "Almond",
+    "plural": "Almonds"
+  },
   "baking_powder": {
     "name": "Baking powder",
     "scaling": "leavening"
@@ -25,12 +29,20 @@
   "butter": {
     "name": "Butter"
   },
+  "cardamom_seeds": {
+    "name": "Cardamom seeds",
+    "scaling": "strong_spice"
+  },
   "caster_sugar": {
     "name": "Caster sugar"
   },
   "chicken_thigh": {
     "name": "Chicken thigh",
     "plural": "Chicken thighs"
+  },
+  "chilli_powder": {
+    "name": "Chilli powder",
+    "scaling": "strong_spice"
   },
   "chopped_tomatoes": {
     "name": "Chopped tomatoes",
@@ -93,6 +105,13 @@
   "garlic": {
     "name": "Garlic"
   },
+  "ginger": {
+    "name": "Ginger",
+    "aliases": [
+      "Fresh root ginger",
+      "Root ginger"
+    ]
+  },
   "ground_cinnamon": {
     "name": "Ground cinnamon"
   },
@@ -122,6 +141,9 @@
   "lemon": {
     "name": "Lemon",
     "plural": "Lemons"
+  },
+  "lemon_juice": {
+    "name": "Lemon juice"
   },
   "lemongrass": {
     "name": "Lemongrass stalk",
@@ -189,6 +211,13 @@
   "red_wine": {
     "name": "Red wine"
   },
+  "saffron": {
+    "name": "Saffron",
+    "aliases": [
+      "Saffron threads"
+    ],
+    "scaling": "strong_spice"
+  },
   "salt": {
     "name": "Salt",
     "staple": true,
@@ -197,6 +226,12 @@
   "shrimp_paste": {
     "name": "Shrimp paste",
     "scaling": "seasoning"
+  },
+  "soft_brown_sugar": {
+    "name": "Soft brown sugar",
+    "aliases": [
+      "Light brown sugar"
+    ]
   },
   "sunflower_oil": {
     "name": "Sunflower oil",
@@ -211,6 +246,12 @@
       "Tomato paste"
     ]
   },
+  "turmeric": {
+    "name": "Turmeric",
+    "aliases": [
+      "Ground turmeric"
+    ]
+  },
   "vegetable_oil": {
     "name": "Vegetable oil",
     "staple": true
@@ -222,5 +263,22 @@
   "white_pepper": {
     "name": "White pepper",
     "scaling": "strong_spice"
+  },
+  "whole_clove": {
+    "name": "Whole clove",
+    "plural": "Whole cloves",
+    "aliases": [
+      "Cloves",
+      "Clove"
+    ],
+    "scaling": "strong_spice"
+  },
+  "yoghurt": {
+    "name": "Natural yoghurt",
+    "aliases": [
+      "Yogurt",
+      "Yoghurt",
+      "Plain yogurt"
+    ]
   }
 }

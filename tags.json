@@ -24,6 +24,10 @@
     "name": "Greek",
     "group": "cuisine"
   },
+  "indian": {
+    "name": "Indian",
+    "group": "cuisine"
+  },
   "lamb": {
     "name": "Lamb",
     "group": "ingredient"

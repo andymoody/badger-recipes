@@ -66,6 +66,10 @@ describe('prep, notes and optional lines', () => {
   test('"Salt and pepper" is flagged as two ingredients', () => {
     assert.match(parseLine('Salt and pepper, to taste').warnings[0], /two ingredients/);
   });
+  test('fractions in notes are shown as written ("1¼ cups", not the parser\'s working form)', () => {
+    assert.equal(parseLine('300ml yogurt (US 1¼ cups)').note, 'US 1¼ cups');
+    assert.equal(parseLine('2 tbsp sugar (or ½ cup honey)').note, 'or ½ cup honey');
+  });
   test('a vague amount is kept as a note, with a warning to estimate', () => {
     const r = parseLine('thumb-sized piece ginger, grated');
     assert.equal(r.name, 'ginger');
@@ -102,6 +106,22 @@ describe('lines from the lamb youvetsi PDF (pilot recipe 1)', () => {
   test('an extra ingredient in brackets ("+ 1 tbsp olive oil for Variant A only") is flagged', () => {
     const r = parseLine('2 large onions, thinly sliced (+ 1 tbsp olive oil for Variant A only)');
     assert.ok(r.warnings.some((w) => /adds another ingredient/.test(w)), r.warnings.join('; '));
+  });
+});
+
+describe('book tables: the amount after the name (Lamb raan)', () => {
+  test('"Name: amount" lines are read', () => {
+    assert.deepEqual(line('Cumin seeds: 2 tsp'), { name: 'Cumin seeds', qty: 2, unit: 'tsp' });
+    assert.deepEqual(line('Hot chilli powder: 1½ tsp'), { name: 'Hot chilli powder', qty: 1.5, unit: 'tsp' });
+    assert.deepEqual(line('Large garlic cloves, peeled: 12'), { name: 'Large garlic', qty: 12, unit: 'clove', prep: 'peeled' });
+    assert.deepEqual(line('Unblanched almonds: 150g/5oz (US 1 cup)'), { name: 'Unblanched almonds', qty: 150, unit: 'g', note: 'US 1 cup' });
+  });
+  test('"1 x 3kg leg of lamb" is 3kg, but "2 x 400g tins" are tins', () => {
+    assert.deepEqual(line('Leg of lamb, trimmed of fat: 1 x 3kg/6lb'), { name: 'Leg of lamb', qty: 3, unit: 'kg', prep: 'trimmed of fat' });
+    assert.deepEqual(line('2 x 400g tins chopped tomatoes'), { name: 'chopped tomatoes', qty: 2, unit: 'tin', note: '400g' });
+  });
+  test('a colon without an amount is left alone', () => {
+    assert.equal(parseLine('Note: buy the best saffron').qty, undefined);
   });
 });
 
@@ -160,6 +180,12 @@ describe('oven temperatures in steps', () => {
     assert.equal(convertTemperatures('Bake at 425 F (220°C) for 20 minutes').text, 'Bake at 220°C for 20 minutes');
     assert.equal(convertTemperatures('Heat oven to 180C/160C fan/350F/gas 4').text, 'Heat oven to 180C/160C fan/gas 4');
     assert.equal(convertTemperatures('Preheat the oven to 350°F (175°C)').text, 'Preheat the oven to 175°C');
+  });
+  test('°F after a gas mark in brackets is dropped, not converted (Lamb raan: 325°F is 160°C, but the book says 170°C)', () => {
+    const r = convertTemperatures('Reduce the temperature to warm 170°C (Gas Mark 3, 325°F), cover the pan and roast.');
+    assert.equal(r.text, 'Reduce the temperature to warm 170°C (Gas Mark 3), cover the pan and roast.');
+    assert.deepEqual(r.changes, ['dropped 325°F given next to °C']);
+    assert.equal(convertTemperatures('Preheat the oven to hot 220°C (Gas Mark 7, 425°F).').text, 'Preheat the oven to hot 220°C (Gas Mark 7).');
   });
   test('text without temperatures, and sous-vide °C, is left alone', () => {
     assert.deepEqual(convertTemperatures('Cook at 57°C for 8 hours.'), { text: 'Cook at 57°C for 8 hours.', changes: [] });

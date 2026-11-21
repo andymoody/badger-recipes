@@ -93,6 +93,10 @@ describe('the real collection', () => {
     const f = lintRecipe(data.recipes.thai_red_curry, data);
     assert.ok(!f.some((x) => /in the step text/.test(x.message)), JSON.stringify(f, null, 1));
   });
+  test('a catalogue id that is also a unit name is flagged ("clove")', () => {
+    const f = lintCatalogues({ ingredients: { clove: { name: 'Clove' }, whole_clove: { name: 'Whole clove' } }, tags: {} });
+    assert.deepEqual(f.map((x) => x.message), ['"clove" is also a unit name, so "8 cloves" could mean either: use a fuller id (whole_clove)']);
+  });
   test('the catalogues have no near-duplicates', () => {
     assert.deepEqual(lintCatalogues(data), []);
     assert.equal(lintCatalogues({ ingredients: { chilli: { name: 'Chilli' }, chili: { name: 'Chili' } }, tags: {} })[0].message, '"chilli" and "chili" look like the same ingredient');

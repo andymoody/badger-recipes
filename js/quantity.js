@@ -142,9 +142,18 @@ export function shownAmount(qty, qtyMax, unit, round) {
   return { qty: lo, qtyMax: hi != null && hi > lo ? hi : null, unit: t.unit };
 }
 
-/** The catalogue name, plural when there's more than one of a thing without a unit. */
+// Units that measure a quantity of something countable ("300g almonds", "2 tbsp capers").
+// Not cm ("5cm cinnamon stick") or the counting units (clove, slice, tin…).
+export const MEASURED = new Set(['g', 'kg', 'ml', 'l', 'tsp', 'tbsp', 'handful']);
+
+/**
+ * The catalogue name: plural when there's more than one of a thing without a unit ("2 Eggs"),
+ * or when it's measured by weight, volume or spoon ("300g Almonds"), if it has a plural.
+ */
 export function itemName(entry, qty, qtyMax, unit) {
   if (!entry) return '';
+  if (!entry.plural) return entry.name;
+  if (unit) return MEASURED.has(unit) ? entry.plural : entry.name;
   const top = qtyMax != null ? qtyMax : qty;
-  return !unit && top != null && top > 1 && entry.plural ? entry.plural : entry.name;
+  return top != null && top > 1 ? entry.plural : entry.name;
 }

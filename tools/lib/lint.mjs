@@ -107,8 +107,11 @@ export function lintRecipe(recipe, data, { exists = () => true } = {}) {
 }
 
 /** Near-duplicate entries in the catalogues, which usually means one was added by mistake. */
+const UNIT_NAMES = new Set(['g', 'kg', 'ml', 'l', 'tsp', 'tbsp', 'cm', 'clove', 'tin', 'pack', 'pinch', 'handful', 'sprig', 'bunch', 'slice', 'stick', 'sheet']);
+
 export function lintCatalogues(data) {
   return [
+    ...Object.entries(data.ingredients).filter(([id, e]) => UNIT_NAMES.has(id) || UNIT_NAMES.has(normaliseName(e.name || ''))).map(([id]) => ({ level: 'warn', where: 'ingredients.json', message: '"' + id + '" is also a unit name, so "8 cloves" could mean either: use a fuller id (whole_clove)' })),
     ...nearDuplicates(data.ingredients).map(([a, b]) => ({ level: 'warn', where: 'ingredients.json', message: '"' + a + '" and "' + b + '" look like the same ingredient' })),
     ...nearDuplicates(data.tags).map(([a, b]) => ({ level: 'warn', where: 'tags.json', message: '"' + a + '" and "' + b + '" look like the same tag' })),
   ];

@@ -14,7 +14,7 @@ describe('Thai red curry shopping list', () => {
   test('merges lines across the curry, the paste, the rice and the chosen protein', () => {
     assert.equal(byKey(entries, 'lime_leaf').text, '10–11 Lime leaves', 'curry 4–5 plus paste 6');
     assert.equal(byKey(entries, 'jasmine_rice').text, '300g Jasmine rice');
-    assert.equal(byKey(entries, 'chicken_thigh').text, '500g Chicken thigh');
+    assert.equal(byKey(entries, 'chicken_thigh').text, '500g Chicken thighs');
     assert.equal(byKey(entries, 'firm_tofu'), undefined, 'only the selected option is bought');
     assert.equal(entries.filter((e) => e.key === 'lime_leaf').length, 1);
   });

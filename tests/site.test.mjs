@@ -131,14 +131,14 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
       const stock = await group('Chicken stock');
       assert.match(stock.info, /Recipe makes 1l; you need 500ml\./);
       assert.match(stock.info, /Open Chicken stock →/);
-      assert.deepEqual(stock.lines, ['1kg Chicken wing', '1.5l Water', '1 Onion, halved']);
+      assert.deepEqual(stock.lines, ['1kg Chicken wings', '1.5l Water', '1 Onion, halved']);
       assert.equal(await page.eval(() => document.querySelector('#panel-ingredients .group .toggle input').checked), true);
     });
     test('unticking "Make full batch" scales the part to what is needed, and goes in the URL', async () => {
       await open('#/lamb_youvetsi');
       await click('#panel-ingredients .group .toggle input');
       assert.equal(await hash(), '#/lamb_youvetsi?full.stock=0');
-      assert.deepEqual((await group('Chicken stock')).lines, ['500g Chicken wing', '750ml Water', '½ Onion, halved']);
+      assert.deepEqual((await group('Chicken stock')).lines, ['500g Chicken wings', '750ml Water', '½ Onion, halved']);
     });
     test('an unlisted part used in part: scaled to the 1 tbsp needed, no link, ≈ on the chilli', async () => {
       await open('#/lamb_youvetsi');
@@ -229,7 +229,7 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
       const items = await page.eval(() => [...document.querySelectorAll('.shopping li')].map((li) => [li.querySelector('.shop-text').textContent, li.querySelector('input').checked]));
       assert.deepEqual(items, [
         ['2 tbsp Olive oil', false], ['2 Onions', true], ['1 tin Chopped tomatoes', true], ['300g Orzo', true], ['Salt', false], ['100g Feta', false],
-        ['1kg Chicken wing', true], ['1.5l Water', false], ['1½ tsp Smoked paprika', true], ['¾ tsp Ground cumin', true], ['⅓ tsp Chilli flakes', true],
+        ['1kg Chicken wings', true], ['1.5l Water', false], ['1½ tsp Smoked paprika', true], ['¾ tsp Ground cumin', true], ['⅓ tsp Chilli flakes', true],
         ['1.2kg Lamb shoulder', true],
       ]);
     });
@@ -242,7 +242,7 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
       assert.equal(await text('.copy-row .primary'), 'Copy 7 for AnyList');
       await click('.copy-row .primary');
       await page.waitFor(() => window.copied);
-      assert.equal(await page.eval(() => window.copied), ['1 tin Chopped tomatoes', '300g Orzo', '1kg Chicken wing', '1½ tsp Smoked paprika', '¾ tsp Ground cumin', '⅓ tsp Chilli flakes', '1.2kg Lamb shoulder'].join('\n'));
+      assert.equal(await page.eval(() => window.copied), ['1 tin Chopped tomatoes', '300g Orzo', '1kg Chicken wings', '1½ tsp Smoked paprika', '¾ tsp Ground cumin', '⅓ tsp Chilli flakes', '1.2kg Lamb shoulder'].join('\n'));
       assert.equal(await text('.copy-status'), 'Copied. Paste it into AnyList.');
     });
     test('the tab stays selected when the page re-renders', async () => {

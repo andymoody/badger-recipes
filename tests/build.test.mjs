@@ -116,14 +116,14 @@ describe('the build fails with a clear message for', () => {
 
 describe('warnings (the build still passes)', () => {
   test('an unused catalogue entry', () => {
-    const r = run((f) => f.catalogue((c) => { c.saffron = { name: 'Saffron' }; }));
+    const r = run((f) => f.catalogue((c) => { c.zz_unused_test_item = { name: 'Unused test item' }; }));
     assert.equal(r.code, 0, r.out);
-    assert.match(r.out, /warning .*saffron/);
+    assert.match(r.out, /warning .*zz_unused_test_item/);
   });
   test('an unused tag', () => {
-    const r = run((f) => f.tags((t) => { t.mediterranean = { name: 'Mediterranean', group: 'cuisine' }; }));
+    const r = run((f) => f.tags((t) => { t.zz_unused_tag = { name: 'Unused test tag', group: 'cuisine' }; }));
     assert.equal(r.code, 0, r.out);
-    assert.match(r.out, /warning .*tags.json: "mediterranean" is not used/);
+    assert.match(r.out, /warning .*tags.json: "zz_unused_tag" is not used/);
   });
   test('a text yield that starts with a number, with the structured form to use', () => {
     const r = run((f) => f.edit('scotch_eggs', (s) => { s.yield = '6 Scotch eggs'; }));

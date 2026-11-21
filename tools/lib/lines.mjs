@@ -13,6 +13,10 @@ function normaliseText(s) {
   return t.replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
 }
 
+const GLYPH = Object.fromEntries(Object.entries(FRACTION_CHARS).map(([g, v]) => [Math.round(v * 24), g]));
+/** Undoes normaliseText's fractions in text that is shown ("1 6/24 cups" back to "1¼ cups"). */
+const restoreFractions = (s) => s.replace(/(\d+ )?(\d+)\/24\b/g, (m, whole, n) => (GLYPH[n] ? (whole ? whole.trim() : '') + GLYPH[n] : m));
+
 const NUM = '(?:\\d+\\s+\\d+\\/\\d+|\\d+\\/\\d+|\\d+(?:[.,]\\d+)?)';
 const numValue = (s) => {
   s = s.trim().replace(',', '.');
@@ -161,6 +165,9 @@ export function parseLine(source, opts = {}) {
   const warnings = [];
   const notes = [];
   let t = normaliseText(source).replace(/^[-•*]\s*/, '');
+  // Book tables put the amount after the name ("Cumin seeds: 2 tsp"): move it to the front.
+  const table = !readAmount(t) && t.match(new RegExp('^(.+?):\\s*((?:' + NUM + ')(?:\\s*(?:-|to|x|×)\\s*' + NUM + ')?.*)$', 'i'));
+  if (table) t = table[2].trim() + ' ' + table[1].trim();
   let qty = null, qtyMax = null, unit = null;
 
   const amt = readAmount(t);
@@ -194,6 +201,10 @@ export function parseLine(source, opts = {}) {
     if (!size && METRIC.has(unit) && qtyMax == null) {
       const tin = t.match(/^(?:tins?|cans?|packs?|packets?)\b\s*(?:of\s+)?/i);
       if (tin) { size = { qty, unit }; qty = 1; unit = /^(?:tin|can)/i.test(tin[0]) ? 'tin' : 'pack'; t = t.slice(tin[0].length); }
+    }
+    // "1 x 3kg leg of lamb": one item of that size, so the size is the amount.
+    if (size && unit == null && METRIC.has(size.unit) && !/\b(?:tins?|cans?|packs?|packets?|jars?|bottles?)\b/i.test(t)) {
+      qty = qty * size.qty; unit = size.unit; size = null;
     }
     if (size && (unit === 'tin' || unit === 'pack' || unit == null)) {
       let s = size;
@@ -242,12 +253,12 @@ export function parseLine(source, opts = {}) {
   if (qty == null && !notes.length && !warnings.length) warnings.push('no quantity: add a note ("to taste") or a qty');
   if (qtyMax != null && qty != null && qtyMax <= qty) { warnings.push('range ' + qty + '-' + qtyMax + ' does not increase'); qtyMax = null; }
 
-  const out = { source: String(source).trim(), name };
+  const out = { source: String(source).trim(), name: restoreFractions(name) };
   if (qty != null) out.qty = qty;
   if (qtyMax != null) out.qtyMax = qtyMax;
   if (unit) out.unit = unit;
-  if (prep.length) out.prep = prep.join(', ');
-  if (notes.length) out.note = notes.join(', ');
+  if (prep.length) out.prep = restoreFractions(prep.join(', '));
+  if (notes.length) out.note = restoreFractions(notes.join(', '));
   if (optional) out.optional = true;
   out.conversions = conversions;
   out.warnings = warnings;
@@ -269,6 +280,11 @@ export function convertTemperatures(text) {
   t = t.replace(new RegExp('(' + C_TEMP + ')\\s*(?:/|\\(|,)\\s*' + F_TEMP + '\\s*\\)?', 'gi'), (m, c, f) => { changes.push('dropped ' + f + '°F given next to °C'); return c; });
   t = t.replace(new RegExp(F_TEMP + '\\s*(?:/|\\(|,)\\s*(' + C_TEMP + ')\\s*\\)?', 'gi'), (m, f, c) => { changes.push('dropped ' + f + '°F given next to °C'); return c; });
   for (const m of t.matchAll(/\b(\d{2,3})\s*degrees\b(?!\s*[CF]\b|\s*(?:celsius|fahrenheit))/gi)) changes.push('check: "' + m[0] + '" has no unit (°C or °F?)');
+  // Where the step already gives °C, any °F left is a duplicate ("180°C (Gas Mark 4, 350°F)"):
+  // drop it rather than convert it, since a converted figure can differ from the source's °C.
+  if (new RegExp(C_TEMP, 'i').test(t)) {
+    t = t.replace(new RegExp('\\s*(?:,|/)?\\s*' + F_TEMP, 'gi'), (m, f) => { changes.push('dropped ' + f + '°F given next to °C'); return ''; });
+  }
   t = t.replace(new RegExp('\\b' + F_TEMP, 'gi'), (m, f) => {
     const c = Math.round(((Number(f) - 32) * 5) / 9 / 10) * 10;
     changes.push('converted ' + f + '°F to ' + c + '°C');

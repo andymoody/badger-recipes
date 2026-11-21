@@ -172,3 +172,18 @@ describe('itemName', () => {
     assert.equal(itemName({ name: 'Thai basil' }, 2), 'Thai basil');
   });
 });
+
+describe('itemName: plurals with weights and volumes', () => {
+  const almond = { name: 'Almond', plural: 'Almonds' }, stick = { name: 'Cinnamon stick', plural: 'Cinnamon sticks' }, garlic = { name: 'Garlic' };
+  test('weights, volumes and spoons use the plural (300g Almonds)', () => {
+    assert.equal(itemName(almond, 300, null, 'g'), 'Almonds');
+    assert.equal(itemName(almond, 1, null, 'tbsp'), 'Almonds');
+    assert.equal(itemName(almond, 1, null, 'kg'), 'Almonds');
+  });
+  test('counts still depend on the number; cm and counting units stay singular', () => {
+    assert.equal(itemName(almond, 1, null, undefined), 'Almond');
+    assert.equal(itemName(almond, 2, null, undefined), 'Almonds');
+    assert.equal(itemName(stick, 5, null, 'cm'), 'Cinnamon stick');
+    assert.equal(itemName(garlic, 3, null, 'clove'), 'Garlic');
+  });
+});

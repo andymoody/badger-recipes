@@ -92,7 +92,7 @@ describe('structure and the review report', () => {
     assert.match(rep, /== Scaled \(default choices, serves 8\)/);
     assert.match(rep, /== Full batch off for Chicken stock \(stock\)/);
     assert.match(rep, /== Full batch on for Spice blend \(spice\)/);
-    assert.match(rep, /Full batch off for Chicken stock[\s\S]*?- 500g Chicken wing/);
+    assert.match(rep, /Full batch off for Chicken stock[\s\S]*?- 500g Chicken wings/);
   });
   test('too many combinations are flagged', () => {
     assert.match(reviewReport(real, 'thai_red_curry', { maxVariants: 2 }), /Variants: 3  WARNING: more than 2 combinations/);

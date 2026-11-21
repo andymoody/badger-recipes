@@ -1,0 +1,128 @@
+{
+  "$schema": "../schema/recipe.schema.json",
+  "id": "lamb_raan",
+  "title": "Lamb raan",
+  "course": "main",
+  "tags": [
+    "indian",
+    "lamb"
+  ],
+  "serves": 8,
+  "time": {
+    "cook": 340
+  },
+  "source": {
+    "type": "file",
+    "name": "Cookbook photos"
+  },
+  "ingredients": [
+    {
+      "item": "lamb_leg",
+      "qty": 3,
+      "unit": "kg",
+      "prep": "trimmed of fat"
+    },
+    {
+      "heading": "For the spice purée"
+    },
+    {
+      "item": "ginger",
+      "qty": 125,
+      "unit": "g",
+      "prep": "peeled and chopped",
+      "note": "fresh root ginger"
+    },
+    {
+      "item": "garlic",
+      "qty": 12,
+      "unit": "clove",
+      "prep": "peeled",
+      "note": "large"
+    },
+    {
+      "item": "lemon",
+      "qty": 1,
+      "prep": "rind thinly pared"
+    },
+    {
+      "item": "lemon_juice",
+      "qty": 5,
+      "unit": "tbsp"
+    },
+    {
+      "item": "cumin_seeds",
+      "qty": 2,
+      "unit": "tsp"
+    },
+    {
+      "item": "cardamom_seeds",
+      "qty": 1,
+      "unit": "tbsp"
+    },
+    {
+      "item": "whole_clove",
+      "qty": 8
+    },
+    {
+      "item": "turmeric",
+      "qty": 1,
+      "unit": "tsp"
+    },
+    {
+      "item": "chilli_powder",
+      "qty": 1.5,
+      "unit": "tsp",
+      "note": "hot"
+    },
+    {
+      "item": "salt",
+      "qty": 1,
+      "unit": "tbsp"
+    },
+    {
+      "heading": "For the almond purée"
+    },
+    {
+      "item": "almond",
+      "qty": 150,
+      "unit": "g",
+      "note": "unblanched"
+    },
+    {
+      "item": "soft_brown_sugar",
+      "qty": 4,
+      "unit": "tbsp"
+    },
+    {
+      "item": "yoghurt",
+      "qty": 300,
+      "unit": "ml"
+    },
+    {
+      "heading": "For the sauce"
+    },
+    {
+      "item": "saffron",
+      "qty": 0.5,
+      "unit": "tsp",
+      "prep": "threads, soaked in the boiling water"
+    },
+    {
+      "item": "water",
+      "qty": 2,
+      "unit": "tbsp",
+      "note": "boiling, for the saffron"
+    }
+  ],
+  "steps": [
+    "Prick the leg of lamb all over. Make several deep gashes in the flesh, then transfer to a large, deep roasting pan. Set aside.",
+    "Put the ginger, garlic, lemon rind and juice, cumin seeds, cardamom seeds, cloves, turmeric, chilli powder and salt in a blender and blend to a purée. Scrape the purée out of the blender and spread it all over the lamb. Set aside for 1 hour.",
+    "Put the almonds, half the sugar and half the yoghurt into the blender and blend until they form a purée. Transfer to a small bowl and stir in the remaining yoghurt. Spread this mixture all over the lamb, on top of the spice purée. Cover the pan and chill in the fridge for 48 hours.",
+    "Preheat the oven to hot 220°C (gas mark 7).",
+    "Remove the pan from the fridge and allow the lamb to warm to room temperature. Sprinkle over the remaining sugar. Put the pan into the oven and roast for 20 minutes. Reduce the oven temperature to moderate 180°C (gas mark 4) and roast for a further 1 hour. Reduce the temperature to warm 170°C (gas mark 3), cover the pan and roast, basting occasionally, for 4 hours.",
+    "Remove from the oven and, using two large forks or spoons, transfer the lamb to a large piece of foil. Cover the meat completely and return to the oven.",
+    "Remove any excess fat from the pan, then stir in the saffron mixture. Place the pan over high heat and boil the sauce rapidly for 15 to 20 minutes, or until it is reduced by half. Remove from the heat.",
+    "Remove the lamb from the oven and discard the foil. Arrange on a warmed serving dish, spoon over the sauce and serve at once."
+  ],
+  "notes": "Serves 8–10."
+}
