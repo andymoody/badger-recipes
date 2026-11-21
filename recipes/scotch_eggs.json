@@ -4,24 +4,39 @@
   "title": "Scotch eggs",
   "course": "main",
   "tags": [
+    "british",
     "eggs",
     "pork",
     "deep_fry"
   ],
   "serves": 6,
-  "yield": "6 Scotch eggs",
-  "time": {
-    "prep": 20,
-    "cook": 20
+  "yield": {
+    "qty": 6,
+    "name": "Scotch eggs"
+  },
+  "source": {
+    "type": "file",
+    "name": "Word document",
+    "adapted": true,
+    "changes": "The black pudding or chorizo is blitzed in a food processor before mixing (not in the source)."
   },
   "ingredients": [
-    {
-      "heading": "For the eggs"
-    },
     {
       "item": "egg",
       "qty": 6,
       "note": "medium, at room temperature"
+    },
+    {
+      "item": "sunflower_oil",
+      "note": "for deep-frying"
+    },
+    {
+      "item": "salt",
+      "note": "sea salt, to season"
+    },
+    {
+      "item": "black_pepper",
+      "note": "freshly ground, to season"
     },
     {
       "heading": "For the coating"
@@ -35,28 +50,13 @@
       "item": "egg",
       "qty": 1,
       "qtyMax": 2,
-      "prep": "beaten"
+      "note": "medium"
     },
     {
       "item": "breadcrumbs",
       "qty": 200,
       "unit": "g",
       "note": "coarse, fresh white"
-    },
-    {
-      "item": "salt",
-      "note": "to season"
-    },
-    {
-      "item": "black_pepper",
-      "note": "to season"
-    },
-    {
-      "heading": "To cook"
-    },
-    {
-      "item": "sunflower_oil",
-      "note": "for deep-frying"
     }
   ],
   "parts": [
@@ -72,7 +72,9 @@
             {
               "item": "black_pudding",
               "qty": 400,
-              "unit": "g"
+              "unit": "g",
+              "note": "homemade or good-quality shop-bought",
+              "prep": "blitzed in a food processor"
             },
             {
               "item": "pork_mince",
@@ -94,7 +96,7 @@
             }
           ],
           "steps": [
-            "Put the black pudding, pork mince, breadcrumbs and parsley in a large bowl. Mix until evenly combined, then divide into 12 even-sized balls."
+            "Blitz the black pudding in a food processor (or similar). Put it into a large bowl with the minced pork, breadcrumbs and parsley and mix until evenly combined, seasoning well with salt and pepper. Divide the mixture into even-sized balls, two for each egg."
           ]
         },
         {
@@ -105,11 +107,11 @@
               "item": "chorizo",
               "qty": 300,
               "unit": "g",
-              "prep": "finely processed"
+              "prep": "blitzed in a food processor"
             },
             {
               "item": "pork_mince",
-              "qty": 500,
+              "qty": 300,
               "unit": "g",
               "note": "fatty"
             },
@@ -127,7 +129,7 @@
             }
           ],
           "steps": [
-            "Put the chorizo, pork mince, breadcrumbs and parsley in a large bowl. Mix until evenly combined, then divide into 12 even-sized balls."
+            "Blitz the chorizo in a food processor (or similar). Put it into a large bowl with the minced pork, breadcrumbs and parsley and mix until evenly combined, seasoning well with salt and pepper. Divide the mixture into even-sized balls, two for each egg."
           ]
         }
       ]
@@ -135,13 +137,13 @@
   ],
   "steps": [
     "Preheat the oven to 180°C.",
-    "Bring a pan of water to the boil, add the 6 eggs and cook for 6 minutes for a soft-set yolk. Drain, run under cold water and carefully peel.",
     {
-      "text": "Make the filling.",
       "part": "filling"
     },
-    "Set out three coating bowls: flour seasoned with salt and pepper, beaten egg, and the coarse breadcrumbs.",
-    "Flatten the filling into 6cm discs, wrap them around each egg and seal the joins well. Coat in flour, then egg, then breadcrumbs. Chill until ready to cook.",
-    "Heat the oil to 175°C. Fry 2–3 eggs at a time for 2 minutes until golden, then transfer to the oven for 10 minutes. Drain and rest for 5–10 minutes."
+    "Bring a pan of water to the boil, add the eggs and cook for 6 minutes, which should give you a soft-set yolk. Drain the eggs and run them under the cold tap until cool enough to handle. Carefully shell them.",
+    "For the coating, set out three bowls. Put the flour into one bowl and season it with salt and pepper. Break an egg into the next and beat it lightly. Tip the coarse breadcrumbs into the third bowl.",
+    "Take two of the filling balls and flatten them out to rough discs, about 6cm in diameter. Place one disc in the palm of your hand, set a boiled egg in the middle, then top with the second disc. Mould the filling around the egg, sealing the joins well. Repeat with the remaining filling and eggs.",
+    "Coat each Scotch egg with seasoned flour. Next, dip it in the beaten egg (lightly beat in another egg if you need to) and finally roll it in the breadcrumbs. Chill the eggs until you’re ready to cook them.",
+    "Heat a 5–7cm depth of oil in a deep pan to 175°C, or until hot enough to turn a few breadcrumbs golden in 30–40 seconds. Cook 2 or 3 eggs at a time. Lower them into the oil and fry for 2 minutes, turning regularly until golden and crisp. Transfer to the oven and cook for 10 minutes. Drain on kitchen paper and leave to stand for 5–10 minutes before tucking in."
   ]
 }

@@ -105,7 +105,10 @@ function document(file, dir) {
   fs.copyFileSync(file, path.join(dir, path.basename(file)));
   const out = ['# Source snapshot', '', 'File: ' + path.basename(file), 'Converted: ' + new Date().toISOString().slice(0, 10) + ' (textutil)'];
   if (images.length) out.push('Images in the document: ' + images.join(', '));
-  out.push('', '## Document text', '', r.stdout.trim(), '', '## Transcription', '', '(Write the recipe here in the layout described in the extract-recipe skill, for tools/draft.mjs.)', '');
+  // Word's soft line breaks come through as Unicode line and paragraph separators, which don't
+  // show as new lines: make them real ones.
+  const text = r.stdout.replace(new RegExp('[' + String.fromCharCode(0x2028, 0x2029) + ']', 'g'), '\n').trim();
+  out.push('', '## Document text', '', text, '', '## Transcription', '', '(Write the recipe here in the layout described in the extract-recipe skill, for tools/draft.mjs.)', '');
   fs.writeFileSync(path.join(dir, 'source.md'), out.join('\n') + '\n');
   return { kind: 'document', name: path.basename(file), images };
 }

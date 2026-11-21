@@ -87,6 +87,14 @@ describe('lines from the lamb youvetsi PDF (pilot recipe 1)', () => {
     assert.deepEqual(matchItem('dry orzo', cat), { id: 'orzo', how: 'without descriptors' });
     assert.deepEqual(matchItem('feta cheese', cat), { id: 'feta', how: 'without "cheese"' });
   });
+  test('"or" in a description is not flagged as alternatives', () => {
+    assert.deepEqual(parseLine('400g homemade or good-quality shop-bought black pudding').warnings, []);
+    assert.ok(parseLine('1kg lamb leg or 1.2kg shoulder').warnings.some((w) => /offers alternatives/.test(w)));
+  });
+  test('a temperature with no unit is flagged', () => {
+    assert.deepEqual(convertTemperatures('Preheat the oven to 180 degrees.').changes, ['check: "180 degrees" has no unit (°C or °F?)']);
+    assert.deepEqual(convertTemperatures('Heat to 180 degrees C.').changes, []);
+  });
   test('alternatives in one line ("leg OR shoulder") are flagged', () => {
     const r = parseLine('2–2.3kg bone-in leg of lamb OR 2kg bone-in shoulder (trim thick fat >5mm)');
     assert.ok(r.warnings.some((w) => /offers alternatives/.test(w)), r.warnings.join('; '));

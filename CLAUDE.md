@@ -21,9 +21,9 @@ Plan, in order:
 ### Recipe: `recipes/<id>.json` (one file per recipe)
 - `id`: snake_case, the same as the filename. Recipe files are the only global namespace.
 - `title`, `course` (one of `main, side, starter, dessert, baking, breakfast, sauce, drink, snack, basic`; this is the meal type), `tags` (IDs from `tags.json`, top-level recipes only).
-- `serves` (a **number**) and/or `yield`: every recipe needs at least one. `yield` is `{ qty, unit }` (e.g. 300 g of paste) or text ("12 pancakes"); a paste or stock can have `yield` alone.
+- `serves` (a **number**) and/or `yield`: every recipe needs at least one. `yield` is an amount `{ qty, unit }` (300 g of paste), a count `{ qty, name }` (`{ "qty": 6, "name": "Scotch eggs" }`, which the page scales and rounds: "Makes 12 Scotch eggs"), or text for what a number can't describe ("a 23cm cake"). A paste or stock can have `yield` alone. The build warns about text yields that start with a number.
 - `time`: minutes as numbers, `{ prep, cook, rest?, total? }`.
-- `source`: `{ type: "web", url, title }`, `{ type: "book", title, page }`, `{ type: "file", drive, name }` (a Google Drive link), or `{ type: "own" }`, plus optional `adapted: true`.
+- `source`: `{ type: "web", url, title }`, `{ type: "book", title, page }`, `{ type: "file", drive, name }` (a Google Drive link), or `{ type: "own" }`. When the cook would do or use something different from the source (ingredients, amounts or instructions changed in meaning), set `adapted: true` and record what changed in `changes`, which the site doesn't show; the build requires both together.
 - `image`: an optional local file, `images/<id>.jpg`, extracted from the source (with your approval). No stock photos.
 - `listed`: defaults to true. Use `false` only for a shared recipe file that isn't interesting on its own (e.g. a spice blend).
 - `ingredients`, `steps`, `notes`, `parts`: see below.

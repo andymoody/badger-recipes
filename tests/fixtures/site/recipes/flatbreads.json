@@ -8,7 +8,10 @@
     "middle_eastern",
     "vegetarian"
   ],
-  "yield": "8 flatbreads",
+  "yield": {
+    "qty": 8,
+    "name": "flatbreads"
+  },
   "ingredients": [
     {
       "heading": "For the dough"

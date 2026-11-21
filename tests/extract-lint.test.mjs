@@ -69,6 +69,10 @@ describe('numbers in notes, and spices (from the lamb youvetsi reviews)', () => 
       { item: 'black_pepper', note: 'to taste, about 10 twists' },
     ]).filter((m) => /note/.test(m)), ['the note "75cl" has a number that won\'t scale with the amount']);
   });
+  test('counts in step text are flagged; times and batch sizes are not (Scotch eggs)', () => {
+    const counts = (steps) => lintRecipe({ ...base, ingredients: [], steps }, data).filter((f) => /won't scale with servings/.test(f.message)).map((f) => f.message.split('"')[1]);
+    assert.deepEqual(counts(['Divide the mixture into 12 even-sized balls.', 'Add the 6 eggs and cook for 6 minutes.', 'Cook 2 or 3 eggs at a time for 2 minutes.', 'Rest for 5–10 minutes.']), ['12 even-sized balls', '6 eggs']);
+  });
   test('"spices" in the method covers dried herbs and ground spices', () => {
     assert.deepEqual(lint([{ item: 'dried_oregano', qty: 2, unit: 'tsp' }, { item: 'ground_cinnamon', qty: 1, unit: 'tsp' }]), []);
     assert.deepEqual(lint([{ item: 'orzo', qty: 600, unit: 'g' }]), ['"Orzo" is never mentioned in the method']);

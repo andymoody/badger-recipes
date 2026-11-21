@@ -78,7 +78,7 @@ export function renderRecipe(data, id, state = {}, { sections = ['header', 'ingr
 
   if (has('header')) {
     out.push('# ' + r.title);
-    out.push(metaParts(r, recipeTime(root)).join(' · '));
+    out.push(metaParts(r, recipeTime(root), k).join(' · '));
     if (r.tags && r.tags.length) out.push('Tags: ' + r.tags.map((t) => tagName(t, data)).join(', '));
     out.push(sourceText(r.source));
     if (r.image) out.push('Image: ' + r.image);

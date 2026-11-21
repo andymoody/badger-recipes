@@ -24,15 +24,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { loadData } from './lib/data.mjs';
-import { parseLine, convertTemperatures, matchItem, catalogueIndex } from './lib/lines.mjs';
+import { parseLine, convertTemperatures, matchItem, catalogueIndex, normaliseName } from './lib/lines.mjs';
 
 const COURSE_WORDS = [
   [/\b(?:main|dinner|supper|lunch|entr[ée]e)\b/i, 'main'], [/\bside\b/i, 'side'], [/\b(?:starter|appeti[sz]er)\b/i, 'starter'],
-  [/\b(?:dessert|pudding)\b/i, 'dessert'], [/\b(?:baking|cake|bread|biscuit|cookie|bake)\b/i, 'baking'], [/\bbreakfast|brunch\b/i, 'breakfast'],
+  [/\bdessert\b|(?<!black |white )\bpudding\b/i, 'dessert'], [/\b(?:baking|cake|bread|biscuit|cookie|bake)\b/i, 'baking'], [/\bbreakfast|brunch\b/i, 'breakfast'],
   [/\b(?:sauce|condiment|dressing)\b/i, 'sauce'], [/\b(?:drink|cocktail|beverage)\b/i, 'drink'], [/\bsnack\b/i, 'snack'],
 ];
 
-/** "Serves 4", "4 servings", "4", "6-8" -> { serves, note }; "12 pancakes" -> { yield }; "300g" -> { yield: {qty, unit} }. */
+/** "Serves 4", "4 servings", "4", "6-8" -> { serves, note }; "12 pancakes" -> { yield: {qty, name} }; "300g" -> { yield: {qty, unit} }. */
 export function readYield(list) {
   for (const y of list) {
     const s = String(y).trim();
@@ -44,7 +44,11 @@ export function readYield(list) {
     if (p.qty != null && ['g', 'kg', 'ml', 'l', 'tbsp', 'tsp'].includes(p.unit) && !p.name) return { yield: { qty: p.qty, unit: p.unit } };
   }
   const text = list.find((y) => /\d/.test(y) && /[a-z]/i.test(y));
-  return text ? { yield: text.replace(/^(?:makes|yield:?)\s*/i, '') } : {};
+  if (!text) return {};
+  const t = text.replace(/^(?:makes|yield:?)\s*/i, '');
+  // "12 pancakes" is a count, so it scales; anything else stays as text.
+  const count = t.match(/^(\d+)\s+([^\d].*)$/);
+  return count ? { yield: { qty: Number(count[1]), name: count[2] } } : { yield: t };
 }
 
 /** The Transcription section of source.md in the same shape as recipe.json. */
@@ -116,11 +120,20 @@ export function draftRecipe(src, meta, data, { id, pints } = {}) {
     if (typeof raw === 'object' && raw.heading) { draft.ingredients.push({ heading: raw.heading }); report.push('- heading: ' + raw.heading); continue; }
     const p = parseLine(raw, { pints });
     const m = p.name ? matchItem(p.name, data.ingredients, index) : { id: null, candidates: [], suggestedId: '' };
-    const line = { item: m.id || 'NEW:' + m.suggestedId };
+    // A line ending in a known ingredient ("fatty minced pork") is that ingredient, with the extra
+    // words ("fatty") kept in the note, as are descriptors dropped to match ("medium" eggs).
+    const twoItems = p.warnings.some((w) => /two ingredients/.test(w));
+    const tail = !m.id && !twoItems && m.candidates.find((c) => c.why && c.why.startsWith('ends with'));
+    const id = m.id || (tail && tail.id);
+    const matchedWords = new Set(normaliseName(tail ? tail.why.replace(/^ends with "|"$/g, '') : id ? [id, data.ingredients[id].name, data.ingredients[id].plural, ...(data.ingredients[id].aliases || [])].join(' ') : '').split(' '));
+    const extra = id && !(m.id && m.how === 'exact') ? p.name.split(/\s+/).filter((w) => !matchedWords.has(normaliseName(w)) && !/^of$/i.test(w)).join(' ').replace(/^(?:and|or)\s+|\s+(?:and|or)$/gi, '') : '';
+    if (extra) p.note = p.note ? extra + ', ' + p.note : extra;
+    const line = { item: id || 'NEW:' + m.suggestedId };
     for (const k of ['qty', 'qtyMax', 'unit', 'prep', 'note', 'optional']) if (p[k] != null) line[k] = p[k];
     draft.ingredients.push(line);
     const bits = ['- "' + raw + '" → ' + JSON.stringify(line)];
     if (m.id) { if (m.how !== 'exact') bits.push('  matched ' + m.id + ' (' + m.how + '): check it is the same product'); }
+    else if (tail) bits.push('  matched ' + tail.id + ' by the end of the line (' + tail.why + ')' + (extra ? ', with "' + extra + '" in the note' : '') + ': check it is the same product (smoked paprika isn\'t paprika)');
     else bits.push('  NOT IN CATALOGUE' + (m.candidates.length ? '; candidates: ' + m.candidates.map((c) => c.id + (c.why ? ' (' + c.why + ')' : '')).join(', ') : '') + '; new id would be ' + m.suggestedId);
     for (const c of p.conversions) bits.push('  ' + c);
     for (const w of p.warnings) bits.push('  WARNING: ' + w);

@@ -214,6 +214,11 @@
             },
             "adapted": {
               "type": "boolean"
+            },
+            "changes": {
+              "type": "string",
+              "minLength": 1,
+              "description": "What was changed from the source, for the record (not shown on the site). Required when adapted is true."
             }
           }
         },
@@ -239,6 +244,11 @@
             },
             "adapted": {
               "type": "boolean"
+            },
+            "changes": {
+              "type": "string",
+              "minLength": 1,
+              "description": "What was changed from the source, for the record (not shown on the site). Required when adapted is true."
             }
           }
         },
@@ -262,6 +272,11 @@
             },
             "adapted": {
               "type": "boolean"
+            },
+            "changes": {
+              "type": "string",
+              "minLength": 1,
+              "description": "What was changed from the source, for the record (not shown on the site). Required when adapted is true."
             }
           }
         },
@@ -321,6 +336,9 @@
           "oneOf": [
             {
               "$ref": "#/$defs/amount"
+            },
+            {
+              "$ref": "#/$defs/count"
             },
             {
               "type": "string",
@@ -490,6 +508,25 @@
           ]
         }
       ]
+    },
+    "count": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "qty",
+        "name"
+      ],
+      "description": "A counted yield (\"6 Scotch eggs\"); the page scales the count and rounds it to whole numbers.",
+      "properties": {
+        "qty": {
+          "$ref": "#/$defs/qty"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What is counted, as it reads after the number (\"Scotch eggs\")."
+        }
+      }
     }
   }
 }

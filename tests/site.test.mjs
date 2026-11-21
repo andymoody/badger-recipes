@@ -270,6 +270,10 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
         '300g Greek yoghurt', '100–150ml Water (warm)', 'To finish', '2 tsp Nigella seedsoptional',
       ]);
     });
+    test('the yield in the header follows the quantity (8 flatbreads, × 2 makes 16)', async () => {
+      await open('#/flatbreads?x=2');
+      assert.equal(await text('.meta'), 'Baking · Makes 16 flatbreads');
+    });
     test('tapping ≈ shows the proportional amount', async () => {
       await open('#/flatbreads?x=2');
       const visible = () => page.eval(() => getComputedStyle(document.querySelector('.np-detail')).display !== 'none');

@@ -11,7 +11,7 @@ Routes and batching are explained in `.claude/skills/extract-recipe/SKILL.md` (B
 | Route | Mode | Done individually | In a row with no process change |
 |---|---|---|---|
 | web | individual | 0 | 0 |
-| document (PDF, image, Word, text) | individual | 1 | 0 |
+| document (PDF, image, Word, text) | individual | 2 | 0 |
 
 ## Recipes
 
@@ -33,7 +33,7 @@ Old titles are as they were. They may not be the titles the new recipes get.
 | 7 | Homemade Beef Jerky | beef_jerky | Snacks |  |  | not found |  |  |
 | 8 | Beef rendang & turmeric rice | beef_rendang_and_turmeric_rice | Main Course |  |  | not found |  |  |
 | 9 | The Perfect Burger | the_perfect_burger | Main Course |  |  | not found |  |  |
-| 10 | Black Pudding or Chorizo Scotch Eggs | black_pudding_scotch_eggs | Main Course |  |  | not found |  | `recipes/scotch_eggs.json` exists (step 2 example): check it against the original source. |
+| 10 | Black Pudding or Chorizo Scotch Eggs | black_pudding_scotch_eggs | Main Course | Drive: Black pudding _ chorizo scotch eggs.docx | document | approved | `scotch_eggs` | `recipes/scotch_eggs.json` exists (step 2 example): check it against the original source. |
 | 11 | Botham burgers - ½ original recipe | botham_burgers_half_recipe | Main Course |  |  | not found |  |  |
 | 12 | Caipirinha sorbet | caipirinha_sorbet | Dessert |  |  | not found |  |  |
 | 13 | Cambodian Chicken Amok | cambodian_chicken_amok | Main Course |  |  | not found |  |  |
@@ -158,3 +158,23 @@ One dated entry per recipe (or batch): what the review found, what was corrected
     - the guide covers spare amounts and option-only ingredients;
     - the skill gets a migration-row check and the option time rule.
   - **Counter:** reset to 0 because the process changed.
+- **2026-11-21, Scotch eggs** (pilot 2, document route, Word doc): The step 2 example, re-extracted from the user's Word doc.
+  - **Corrections from the source:** the method's order and full detail are restored; the chorizo is 300g with 300g pork, as the doc says ("300g each"), not the old 500g pork; invented times are dropped.
+  - **Review:** found "12 balls" in a step that wouldn't scale and a missing cuisine tag (British, now added). Both fixed.
+  - **User decisions:**
+    - the yield of 6 Scotch eggs stays, because it follows directly from the recipe;
+    - blitzing the black pudding or chorizo is added (adapted);
+    - no note repeating what the steps say.
+  - **Model changes (approved):**
+    - `source.changes` records what was adapted, isn't shown on the site, and is required with `adapted`;
+    - a counted yield `{ qty, name }` scales in the header ("Makes 12 Scotch eggs");
+    - the build warns about text yields that start with a number.
+  - **Process changes:**
+    - `fetch-source` turns Word line separators into new lines (a bug fix needed to read this source);
+    - the draft matches a line ending in a known ingredient and keeps the extra words in the note;
+    - "black pudding" no longer suggests a dessert;
+    - "180 degrees" without a unit is flagged;
+    - the alternatives warning ignores "homemade or shop-bought";
+    - lint flags counts in steps ("12 balls");
+    - the guide says derived yields aren't invented.
+  - **Counter:** reset to 0.

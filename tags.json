@@ -1,5 +1,9 @@
 {
   "$schema": "schema/tags.schema.json",
+  "british": {
+    "name": "British",
+    "group": "cuisine"
+  },
   "brunch": {
     "name": "Brunch",
     "group": "occasion"

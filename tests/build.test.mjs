@@ -98,6 +98,9 @@ const failures = [
   ['a tag in a group that does not exist', (f) => f.tags((t) => { t.thai.group = 'region'; }), /"region" is not one of cuisine/],
   ['tags on an inline part', (f) => f.edit('scotch_eggs', (r) => { r.parts[0].choose[0].tags = ['pork']; }), /not allowed here.*tags/],
   ['an unknown property (typo)', curry((r) => { r.serve = 4; }), /unexpected property "serve"/],
+  ['adapted without saying what changed', (f) => f.edit('scotch_eggs', (r) => { delete r.source.changes; }), /source is adapted: say what changed in "source.changes"/],
+  ['changes recorded without adapted', (f) => f.edit('scotch_eggs', (r) => { delete r.source.adapted; }), /source.changes without "adapted": true/],
+  ['a counted yield without a name', (f) => f.edit('scotch_eggs', (r) => { r.yield = { qty: 6 }; }), /yield/],
 ];
 
 describe('the build fails with a clear message for', () => {
@@ -121,6 +124,11 @@ describe('warnings (the build still passes)', () => {
     const r = run((f) => f.tags((t) => { t.mediterranean = { name: 'Mediterranean', group: 'cuisine' }; }));
     assert.equal(r.code, 0, r.out);
     assert.match(r.out, /warning .*tags.json: "mediterranean" is not used/);
+  });
+  test('a text yield that starts with a number, with the structured form to use', () => {
+    const r = run((f) => f.edit('scotch_eggs', (s) => { s.yield = '6 Scotch eggs'; }));
+    assert.equal(r.code, 0, r.out);
+    assert.match(r.out, /warning .*yield "6 Scotch eggs" starts with a number, so it won't scale: use \{ "qty": 6, "name": "Scotch eggs" \}/);
   });
   test('an unlisted recipe nothing uses', () => {
     const r = run((f) => f.edit('american_pancakes', (p) => { p.listed = false; }));

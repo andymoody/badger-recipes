@@ -236,7 +236,7 @@ export function parseLine(source, opts = {}) {
   }
   for (let i = conversions.length - 1; i >= 0; i--) if (conversions[i].startsWith('check')) warnings.unshift(...conversions.splice(i, 1));
 
-  if (/\s(?:or|OR)\s/.test(name)) warnings.push('"' + name + '" offers alternatives: if they change the method, they may be a choice; otherwise use one item and put the other in note');
+  if (/\sOR\s|\sor\s+(?:a\s+|an\s+)?\d/.test(name)) warnings.push('"' + name + '" offers alternatives: if they change the method, they may be a choice; otherwise use one item and put the other in note');
   for (const p of parens) if (/^\+/.test(p)) warnings.push('"(' + p + ')" adds another ingredient: give it its own line (in the option it belongs to, if it is only for one)');
   if (/\s(?:and|&)\s/.test(name)) warnings.push('"' + name + '" may be two ingredients: give each its own line');
   if (qty == null && !notes.length && !warnings.length) warnings.push('no quantity: add a note ("to taste") or a qty');
@@ -268,6 +268,7 @@ export function convertTemperatures(text) {
   // "180°C (350°F)", "180C/350F", "350°F (180°C)", "350°F/180°C"
   t = t.replace(new RegExp('(' + C_TEMP + ')\\s*(?:/|\\(|,)\\s*' + F_TEMP + '\\s*\\)?', 'gi'), (m, c, f) => { changes.push('dropped ' + f + '°F given next to °C'); return c; });
   t = t.replace(new RegExp(F_TEMP + '\\s*(?:/|\\(|,)\\s*(' + C_TEMP + ')\\s*\\)?', 'gi'), (m, f, c) => { changes.push('dropped ' + f + '°F given next to °C'); return c; });
+  for (const m of t.matchAll(/\b(\d{2,3})\s*degrees\b(?!\s*[CF]\b|\s*(?:celsius|fahrenheit))/gi)) changes.push('check: "' + m[0] + '" has no unit (°C or °F?)');
   t = t.replace(new RegExp('\\b' + F_TEMP, 'gi'), (m, f) => {
     const c = Math.round(((Number(f) - 32) * 5) / 9 / 10) * 10;
     changes.push('converted ' + f + '°F to ' + c + '°C');

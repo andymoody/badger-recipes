@@ -35,7 +35,7 @@ export function renderRecipe(app, id, params) {
 // ---------- Header ----------
 
 function header(r, app, root) {
-  const meta = metaParts(r, recipeTime(root));
+  const meta = metaParts(r, recipeTime(root), root.factor);
   return h('header', { class: 'recipe-header' },
     h('a', { class: 'back', href: '#/' }, '← All recipes'),
     r.image ? h('img', { class: 'hero', src: r.image, alt: r.title }) : null,

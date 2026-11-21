@@ -95,14 +95,15 @@ describe('Thai red curry (shared paste and rice, protein choice with conditional
 });
 
 describe('Scotch eggs (inline choice embedded in a step)', () => {
-  test('black pudding by default: its steps switch into the method straight after "Make the filling."', () => {
+  test('black pudding by default: its steps switch into the method where the filling is made', () => {
     const root = resolve(data, 'scotch_eggs');
     const filling = child(root, 'filling/black_pudding');
     assert.equal(filling.title, 'Black pudding and pork');
     assert.equal(filling.inline, true);
     assert.ok(!root.steps.some((s) => s.part), 'no collapsible section for an inline option');
-    const at = root.steps.findIndex((s) => s.text === 'Make the filling.');
-    assert.deepEqual(root.steps.slice(at + 1, at + 1 + filling.steps.length), filling.steps);
+    assert.equal(root.steps[0].text, 'Preheat the oven to 180°C.');
+    assert.deepEqual(root.steps.slice(1, 1 + filling.steps.length), filling.steps);
+    assert.match(root.steps[2].text, /^Bring a pan of water to the boil/);
     assert.deepEqual(root.used, [filling]);
     assert.equal(root.loose.length, 0);
   });
@@ -117,7 +118,7 @@ describe('Scotch eggs (inline choice embedded in a step)', () => {
     const root = resolve(data, 'scotch_eggs', { choices: { filling: 'chorizo' } });
     const filling = child(root, 'filling/chorizo');
     assert.equal(line(filling, 'chorizo').qty, 300);
-    assert.equal(line(filling, 'pork_mince').qty, 500);
+    assert.equal(line(filling, 'pork_mince').qty, 300);
     assert.match(filling.steps[0].text, /chorizo/);
   });
   test('inline options have no serves, so they follow the parent (factor = the page scaling)', () => {
@@ -127,7 +128,7 @@ describe('Scotch eggs (inline choice embedded in a step)', () => {
   });
   test('headings come through in ingredients', () => {
     const root = resolve(data, 'scotch_eggs');
-    assert.deepEqual(root.lines.filter((l) => l.heading).map((l) => l.heading), ['For the eggs', 'For the coating', 'To cook']);
+    assert.deepEqual(root.lines.filter((l) => l.heading).map((l) => l.heading), ['For the coating'], 'as the source groups them');
   });
 });
 

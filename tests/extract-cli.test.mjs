@@ -9,7 +9,8 @@ import path from 'node:path';
 import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import { ROOT } from './helpers.mjs';
 import { findChrome } from '../tools/lib/chrome.mjs';
-import { readYield, readTranscription } from '../tools/draft.mjs';
+import { readYield, readTranscription, draftRecipe } from '../tools/draft.mjs';
+import { loadData } from './helpers.mjs';
 import { findOld } from '../tools/old-recipe.mjs';
 
 const FIX = path.join(ROOT, 'tests/fixtures/sources');
@@ -107,6 +108,16 @@ describe('fetch-source: files', () => {
     assert.match(md, /## Document text\n\nGrandma's scones\n\n225g self-raising flour/);
     assert.match(md, /## Transcription/);
   });
+  test('Word line breaks (Unicode line separators) become real lines', { skip: !hasTextutil && 'textutil is macOS only' }, async () => {
+    const LS = String.fromCharCode(0x2028);
+    const txt = path.join(tmp, 'eggs.txt');
+    fs.writeFileSync(txt, 'Black pudding Scotch eggs' + LS + 'Serves 6' + LS + 'Ingredients' + LS + '400g black pudding' + LS + '200g fatty minced pork\n');
+    const docx = path.join(tmp, 'eggs.docx');
+    execFileSync('textutil', ['-convert', 'docx', txt, '-output', docx]);
+    const out = path.join(tmp, 'eggs');
+    assert.equal((await run('fetch-source.mjs', docx, '--out', out)).status, 0);
+    assert.match(read(out, 'source.md'), /Black pudding Scotch eggs\nServes 6\nIngredients\n400g black pudding\n200g fatty minced pork/);
+  });
   test('an image is copied to be read directly', async () => {
     const out = path.join(tmp, 'photo');
     const r = await run('fetch-source.mjs', path.join(ROOT, 'assets/badger.jpg'), '--out', out);
@@ -134,13 +145,13 @@ describe('draft', () => {
     assert.deepEqual(d.source, { type: 'web', url: 'https://sunnyside.example/best-banana-bread/', title: 'Sunny Side Kitchen' });
     assert.deepEqual(d.ingredients.find((l) => l.item === 'plain_flour'), { item: 'plain_flour', qty: 190, unit: 'g' });
     assert.deepEqual(d.ingredients.find((l) => l.item === 'salt'), { item: 'salt', qty: 1, unit: 'pinch' });
-    assert.deepEqual(d.ingredients.find((l) => l.item === 'NEW:unsalted_butter'), { item: 'NEW:unsalted_butter', qty: 75, unit: 'g', prep: 'melted' });
+    assert.deepEqual(d.ingredients.find((l) => l.item === 'butter'), { item: 'butter', qty: 75, unit: 'g', prep: 'melted', note: 'unsalted' });
     assert.deepEqual(d.steps[0], { heading: 'Make the batter' });
     assert.equal(d.steps[1], 'Preheat the oven to 175°C and butter a 4x8-inch loaf pan.');
     assert.match(d.steps[5], /at 180°C, until a tester/);
     const report = read(out, 'draft-report.md');
     assert.match(report, /Title looks like Title Case/);
-    assert.match(report, /NOT IN CATALOGUE; candidates: butter \(ends with "butter"\)/);
+    assert.match(report, /matched butter by the end of the line \(ends with "butter"\), with "unsalted" in the note: check it is the same product/);
     assert.match(report, /WARNING: needs a density: 0\.5 cup of walnuts/);
     assert.match(report, /step 2: dropped 350°F given next to °C/);
     assert.match(report, /Source image: https:\/\/sunnyside\.example\/wp-content\/uploads\/banana-bread-1200\.jpg/);
@@ -172,12 +183,32 @@ describe('draft', () => {
     assert.equal(r.status, 1);
     assert.match(r.stderr, /write the "## Transcription" section/);
   });
+  test('lines from the Scotch eggs Word doc (pilot 2): known ingredients at the end of a line, descriptors kept', async () => {
+    const src = {
+      name: 'Black pudding Scotch eggs', yield: ['Serves 6'],
+      ingredients: ['400g homemade or good-quality shop-bought black pudding', '200g fatty minced pork', '50g fresh white breadcrumbs', '6 medium eggs, at room temperature', 'Sea salt and freshly ground black pepper'],
+      instructions: [{ text: 'Preheat the oven to 180 degrees.' }],
+    };
+    const { draft, report } = draftRecipe(src, { kind: 'document', name: 'eggs.docx' }, loadData(), { id: 'scotch_eggs' });
+    assert.notEqual(draft.course, 'dessert', 'black pudding is not a pudding');
+    assert.deepEqual(draft.ingredients.slice(0, 4), [
+      { item: 'black_pudding', qty: 400, unit: 'g', note: 'homemade or good-quality shop-bought' },
+      { item: 'pork_mince', qty: 200, unit: 'g', note: 'fatty' },
+      { item: 'breadcrumbs', qty: 50, unit: 'g', note: 'fresh white' },
+      { item: 'egg', qty: 6, prep: 'at room temperature', note: 'medium' },
+    ]);
+    assert.match(draft.ingredients[4].item, /^NEW:/, 'two ingredients in one line are not matched to either');
+    assert.match(report, /matched pork_mince by the end of the line \(ends with "minced pork"\), with "fatty" in the note/);
+    assert.match(report, /check: "180 degrees" has no unit/);
+    assert.doesNotMatch(report, /offers alternatives/, '"homemade or shop-bought" is a description, not two ingredients');
+  });
   test('reading yields', async () => {
     assert.deepEqual(readYield(['Serves 4']), { serves: 4, note: null });
     assert.deepEqual(readYield(['4 servings']), { serves: 4, note: null });
     assert.deepEqual(readYield(['6-8']), { serves: 6, note: 'Serves 6–8.' });
     assert.deepEqual(readYield(['300g']), { yield: { qty: 300, unit: 'g' } });
-    assert.deepEqual(readYield(['Makes 12 pancakes']), { yield: '12 pancakes' });
+    assert.deepEqual(readYield(['Makes 12 pancakes']), { yield: { qty: 12, name: 'pancakes' } });
+    assert.deepEqual(readYield(['1 loaf (10 slices)', 'about a dozen']), { yield: { qty: 1, name: 'loaf (10 slices)' } });
     assert.deepEqual(readYield([]), {});
   });
   test('reading a transcription', async () => {

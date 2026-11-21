@@ -64,6 +64,8 @@ export function lintRecipe(recipe, data, { exists = () => true } = {}) {
     // Amounts written into step text stay as written when the recipe is scaled.
     (r.steps || []).forEach((s, i) => {
       const m = stepText(s).match(/\b\d+(?:[.,]\d+)?\s*(?:g|kg|ml|l|tsp|tbsp|teaspoons?|tablespoons?)\b(?!\s*(?:tin|can))/i);
+      const count = stepText(s).match(/\b\d+\s+(?:even-sized\s+|equal\s+|large\s+|small\s+)?(?!(?:minutes?|mins?|hours?|hrs?|seconds?|secs?|days?|degrees?|times?|batch(?:es)?)\b)[a-z]+s\b(?!\s+at a time)/i);
+      if (count) add('check', path + ' step ' + (i + 1), '"' + count[0] + '" in the step text won\'t scale with servings: fine if it\'s a fixed number, otherwise say "two for each egg" or "the eggs"');
       if (m) add('check', path + ' step ' + (i + 1), '"' + m[0] + '" in the step text won\'t scale with servings: fine if it\'s a fixed amount, otherwise say "the rest" or "half"');
     });
     (r.ingredients || []).forEach((l, i) => {

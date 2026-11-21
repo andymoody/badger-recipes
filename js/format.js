@@ -26,22 +26,27 @@ export const TAG_GROUPS = [
 /** A tag's display name from the catalogue ("deep_fry" → "Deep-fried"), or the id with spaces. */
 export const tagName = (t, data) => ((data && data.tags && data.tags[t]) || {}).name || t.replace(/_/g, ' ');
 
-/** A yield for display: text as written, or the amount ("300g"), scaled by factor. */
+/**
+ * A yield for display, scaled by factor: text as written, a count rounded to whole numbers
+ * ("12 Scotch eggs"), or an amount ("300g").
+ */
 export function yieldText(y, factor = 1) {
   if (typeof y === 'string') return y;
+  if (y.name) return formatAmount(factor === 1 ? y.qty : Math.max(1, Math.round(y.qty * factor))) + ' ' + y.name;
   return displayAmount(y.qty * factor, null, y.unit, factor !== 1);
 }
 
 /**
  * The recipe header's facts: ["Main", "Serves 4", "Makes 300g", "Prep 20 min", "Cook 1 hr"].
  * time defaults to the recipe's own; pass recipeTime(root) for the chosen options' times.
+ * k is the page's scaling: the yield follows it ("Makes 12 Scotch eggs"); servings show in the stepper.
  */
-export function metaParts(r, time = r.time) {
+export function metaParts(r, time = r.time, k = 1) {
   const t = time || {};
   return [
     COURSE_SINGULAR[r.course],
     r.serves && 'Serves ' + r.serves,
-    r.yield && 'Makes ' + yieldText(r.yield, 1),
+    r.yield && 'Makes ' + yieldText(r.yield, k),
     t.prep && 'Prep ' + minutes(t.prep),
     t.cook && 'Cook ' + minutes(t.cook),
     t.rest && 'Rest ' + minutes(t.rest),

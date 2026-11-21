@@ -135,6 +135,13 @@ const sameDimension = (a, b) => a === b || (CONVERT[a] && CONVERT[b] && CONVERT[
 const referencedBy = {}; // recipe id -> Set of recipe ids that use it
 
 function checkRecipe(r, where, fileId) {
+  const src = r.source || {};
+  if (src.adapted && !src.changes) fail(where, 'source is adapted: say what changed in "source.changes"');
+  if (src.changes && !src.adapted) fail(where, 'source.changes without "adapted": true');
+  if (typeof r.yield === 'string' && /^\s*\d/.test(r.yield)) {
+    const m = r.yield.match(/^\s*(\d+(?:\.\d+)?)\s+(.*)$/);
+    warnings.push(where + ': yield "' + r.yield + '" starts with a number, so it won\'t scale' + (m ? ': use { "qty": ' + m[1] + ', "name": "' + m[2] + '" }' : ''));
+  }
   for (const t of r.tags || []) if (!tags[t]) fail(where, 'unknown tag "' + t + '" (add it to tags.json with a group)');
   for (const [i, line] of (r.ingredients || []).entries()) {
     if (line.item && !ingredients[line.item]) fail(where, 'ingredients[' + i + ']: unknown item "' + line.item + '" (add it to ingredients.json)');

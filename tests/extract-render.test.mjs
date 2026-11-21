@@ -7,7 +7,7 @@ import path from 'node:path';
 import { ROOT, loadData } from './helpers.mjs';
 import { variants, renderRecipe, structure, reviewReport, lineText } from '../tools/lib/render.mjs';
 import { resolve } from '../js/resolve.js';
-import { metaParts, partNeed } from '../js/format.js';
+import { metaParts, partNeed, yieldText } from '../js/format.js';
 
 const site = loadData(path.join(ROOT, 'tests/fixtures/site'));
 const real = loadData();
@@ -109,6 +109,18 @@ describe('shared display helpers (js/format.js)', () => {
     const stock = (k) => resolve(site, 'lamb_youvetsi', { k }).children.find((c) => c.key === 'stock');
     assert.equal(partNeed(stock(1)), 'Recipe makes 1l; you need 500ml.');
     assert.equal(partNeed(stock(2)), 'Recipe makes 1l; you need 1l.');
+  });
+  test('a counted yield scales and rounds to whole numbers; text yields stay as written', () => {
+    assert.equal(yieldText({ qty: 6, name: 'Scotch eggs' }), '6 Scotch eggs');
+    assert.equal(yieldText({ qty: 6, name: 'Scotch eggs' }, 2), '12 Scotch eggs');
+    assert.equal(yieldText({ qty: 6, name: 'Scotch eggs' }, 0.6), '4 Scotch eggs');
+    assert.equal(yieldText({ qty: 8, name: 'flatbreads' }, 0.05), '1 flatbreads', 'never 0');
+    assert.equal(yieldText('a 23cm cake', 2), 'a 23cm cake');
+    assert.equal(yieldText({ qty: 12, unit: 'tbsp' }, 0.5), '6 tbsp');
+  });
+  test('the header\'s yield follows the servings (Scotch eggs for 12)', () => {
+    assert.deepEqual(metaParts(real.recipes.scotch_eggs, null, 2), ['Main', 'Serves 6', 'Makes 12 Scotch eggs']);
+    assert.match(renderRecipe(real, 'scotch_eggs', { serves: 12 }), /Main · Serves 6 · Makes 12 Scotch eggs/);
   });
   test('a part with servings', () => {
     const rice = resolve(real, 'thai_red_curry', { k: 1.5 }).children.find((c) => c.key === 'rice');
