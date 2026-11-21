@@ -1,0 +1,13 @@
+<!doctype html><html><head><title>Loading recipe…</title>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Recipe', name: 'Lemon drizzle cake',
+    recipeYield: '8', recipeIngredient: ['225g softened butter', '225g caster sugar', '4 eggs', '225g self-raising flour', '1 lemon, zested'],
+    recipeInstructions: 'Heat the oven to 180C.\nBeat everything together and bake for 45 mins.' });
+  document.head.appendChild(s);
+  document.title = 'Lemon drizzle cake';
+  document.body.innerHTML = '<h1>Lemon drizzle cake</h1>';
+});
+</script></head><body><p>Please enable JavaScript.</p></body></html>

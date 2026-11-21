@@ -4,14 +4,14 @@ A personal recipe collection. It's a static site (vanilla HTML/CSS/JS), moving f
 
 ## Current state
 
-The repo is **mid-redesign**. The data side (`recipes/`, `ingredients.json`, `tags.json`, `schema/`, `build.js`) and the site (`index.html`, `styles.css`, `js/`) implement the model below, with five hand-converted example recipes. Don't extend the old model. If the new model fits a recipe or feature awkwardly, **propose a model change to the user** rather than quietly working around it. `main` still serves 109 old-format recipes; the redesign happens on a branch and is merged only when it's complete.
+The repo is **mid-redesign**. The data side (`recipes/`, `ingredients.json`, `tags.json`, `schema/`, `build.js`) and the site (`index.html`, `styles.css`, `js/`) implement the model below, with five hand-converted example recipes. The extraction tooling (`tools/`, the `extract-recipe` skill and the `recipe-reviewer` agent) is built; the migration (`docs/migration.md`) starts with a pilot. Don't extend the old model. If the new model fits a recipe or feature awkwardly, **propose a model change to the user** rather than quietly working around it. `main` still serves 109 old-format recipes; the redesign happens on a branch and is merged only when it's complete.
 
 Plan, in order:
 1. Housekeeping: remove the add-recipe form and the issue workflow, write the docs. **(done)**
 2. Model and tooling: schemas, `ingredients.json`, `build.js`, a CI check, and hand-converted examples (pancakes, Scotch eggs, Thai curry with its paste and rice). **(done)**
 3. Site rewrite to the new model, with unit tests run in CI and a pre-commit hook. **(done)**
-4. Extraction tooling: a skill and scripts that turn a source (website, PDF, image, Word doc, text) into recipe files.
-5. Re-extract all 109 recipes from their **original sources**. The old `recipes.json` isn't reliable enough to convert; treat it only as a checklist of what to collect. **When this step starts, create `docs/migration.md`** from the old titles (in git history at `4623299`). Give each recipe its source location and a status (not found / extracted / approved / skipped), add to it and update it as each recipe is done, so work can continue across sessions.
+4. Extraction tooling: a skill and scripts that turn a source (website, PDF, image, Word doc, text) into recipe files. **(built; the pilot is next: 2 or 3 recipes of each source type)**
+5. Re-extract all 109 recipes from their **original sources**. The old `recipes.json` isn't reliable enough to convert; treat it only as a checklist of what to collect. `docs/migration.md` lists the old titles (from git history at `4623299`). Give each recipe its source location and a status (not found / extracted / approved / skipped), and update it as each recipe is done, so work can continue across sessions.
 6. Merge to `main`. Make the GitHub repo private and move hosting from GitHub Pages to Cloudflare (Pages or Workers static assets, connected to the private repo; the site is public to start with, and Cloudflare Access can be added later).
 
 ## Data model (target)
@@ -86,6 +86,17 @@ The build fails on: an unknown part reference or catalogue item; an `only` namin
 ### Reference guides
 Non-recipe content, such as the old temperature charts, is set aside for now. It will become a separate content type later.
 
+## Extraction tooling
+- **The process** is the `extract-recipe` skill (`.claude/skills/extract-recipe/SKILL.md`): snapshot, draft, structure, checks, independent review, correction, approval, retrospective. **The rules** it applies are in `docs/extraction.md`. The reviewer is a separate agent (`.claude/agents/recipe-reviewer.md`), given only the source snapshot and the recipe, not the extractor's reasoning.
+- **Batching:** each route (`web`, `document`) goes one recipe at a time until 5 in a row need no process change, then in batches of up to 5 (each recipe still reviewed separately). The counters are in `docs/migration.md`.
+- **Scripts** in `tools/` (Node, no dependencies), with their pure logic in `tools/lib/`:
+  - `fetch-source.mjs` saves a snapshot in `.extraction/<slug>/` (gitignored). For web pages it gets the JSON-LD and the page text, falling back to headless Chrome. Word, RTF and text files go through `textutil`, and PDFs and images are copied.
+  - `draft.mjs` drafts a recipe from the snapshot: metric amounts, catalogue matches, °C, and a report of every decision left to make.
+  - `render.mjs` prints the review report: the structure, then every variant as the page shows it, scaled, and with full batches on and off. It uses the site's own `js/` code.
+  - `lint.mjs` checks for imperial units, American words, free-text lines, amounts in step text, ingredients the method never mentions, and near-duplicate catalogue entries. It exits 1 on warnings.
+  - `old-recipe.mjs` looks up the old collection.
+- Lessons from each extraction go in the Process log in `docs/migration.md`. Changes to the process are proposed to the user, and script changes come with a test and a fixture in `tests/fixtures/sources/`.
+
 ## Build and deploy (target)
 - `node build.js` validates every recipe and the catalogue, then writes the combined `recipes.json` (`{ recipes: {id: recipe}, ingredients }`) that the site loads. That file is generated and gitignored. `node build.js --check` validates without writing it.
 - `schema/recipe.schema.json` and `schema/ingredients.schema.json` are the single source of truth for the shape of the data. `build.js` contains a small JSON Schema checker with no dependencies, plus the cross-file checks. Recipe files set `$schema` so editors can autocomplete them.
@@ -95,7 +106,8 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
 - **Every change to `js/` or `build.js` needs unit tests that use realistic recipe examples** (the real files in `recipes/` where possible, small hand-written fixtures for structures they don't cover yet). Tests prove behaviour the cook would see: amounts, merged shopping lines, which steps show.
 - Tests use Node's built-in runner (`node:test` and `node:assert`), so there's nothing to install: `node --test 'tests/*.test.mjs'`. They load `recipes/*.json` directly and don't need a build first.
 - `tests/build.test.mjs` runs `build.js --root <tmp>` against a copy of the data with one deliberate mistake each. Add a case there for every new build check.
-- **Browser tests** (`tests/site.test.mjs`) run the real site in headless Chrome, driven over the DevTools protocol by `tests/browser.mjs` (no dependencies), against the **sample recipes in `tests/fixtures/site/`**, not the real collection. They click through the page (filters, search, servings, choices, full-batch toggles, shopping list and copy, mobile layout) and fail on any console error. When the site gains a feature, add a test there, and extend the sample recipes if they don't cover it. They're skipped locally if Chrome isn't found (set `CHROME_PATH`), and required in CI.
+- **Browser tests** (`tests/site.test.mjs`) run the real site in headless Chrome, driven over the DevTools protocol by `tools/lib/chrome.mjs` (no dependencies; `tests/browser.mjs` adds the test server), against the **sample recipes in `tests/fixtures/site/`**, not the real collection. They click through the page (filters, search, servings, choices, full-batch toggles, shopping list and copy, mobile layout) and fail on any console error. When the site gains a feature, add a test there, and extend the sample recipes if they don't cover it. They're skipped locally if Chrome isn't found (set `CHROME_PATH`), and required in CI.
+- **Extraction tools** have tests too (`tests/extract-*.test.mjs`): parsing pages shaped like real recipe sites (`tests/fixtures/sources/`), ingredient lines and conversions against the real catalogue, the variant renderer, lint, and each command end to end. Every real recipe must pass `tools/lint.mjs` with no warnings.
 - The pre-commit hook in `.githooks/` runs the validation and the tests. Enable it once per clone: `git config core.hooksPath .githooks`.
 - After step 6, Cloudflare runs `node build.js` on every push, and each branch gets a preview URL.
 - Needs Node 22 or later; there's nothing to `npm install`.
@@ -108,7 +120,7 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
 - A list view with a sidebar by course, search (titles, tags, course and the titles of choice options, so "chicken" finds a curry offering chicken, seafood or tofu; matching is from the start of words; ingredients and shared parts aren't searched, so "salt cod" doesn't find everything with salt in it and "rice" doesn't find every curry served with rice) and tag filters grouped as in `tags.json`. You can pick several tags: a recipe matches if it has any of the picked tags within a group and all the groups picked (Thai or Indian, and Chicken). A recipe view at `#/<id>`.
 - On the recipe view:
   - **Servings control** that scales everything, including parts. Each part has a "make full batch" toggle. Parts that use some of a yield show "Recipe makes 300 g; you need 100 g".
-  - **Ingredients tab**: parts first, in the order the method uses them, then the recipe's own ingredients under its title. Choice options used through conditional steps (the curry's protein) join the end of that last group.
+  - **Ingredients tab**: parts first, in the order the method uses them, then the recipe's own ingredients under its title. Choice options used through conditional steps (the curry's protein) join the end of that last group. A part with no ingredients of its own (an oven method) gets no heading, unless it has a full-batch toggle.
   - **Combined ingredients list**, merged across parts by `item`. Lines merge only when their units convert (g with kg, ml with l, tsp with tbsp); otherwise they're shown together under one item ("Onion: 1 + 200 g").
   - **Checkboxes** so you can untick what you have. Staple and `optional` lines start unticked.
   - **Copy for AnyList** copies the ticked lines as plain text, one item per line, for pasting into AnyList.
@@ -128,7 +140,6 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
 
 ## Open questions
 - **AnyList line format.** Check whether AnyList reads quantities from a pasted line like "2 Onions".
-- **Extraction batching:** one recipe at a time or in batches. Decide in step 4.
 - **Cloudflare Pages or Workers static assets.** Check which Cloudflare recommends in step 6.
 - **Reference guides** (the old temperature charts): a separate content type, later.
 

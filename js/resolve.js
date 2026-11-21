@@ -117,7 +117,7 @@ function resolveNode(data, recipe, info, st) {
       needed,
       batchable,
       full,
-      use: part.use ? { qty: part.use.qty * info.factor, unit: part.use.unit } : null,
+      use: part.use ? { qty: part.use.qty * info.factor, unit: part.use.unit, scaled: !near(info.factor, 1) } : null,
     }, st);
     node.children.push(child);
     byKey[part.key] = child;
@@ -155,18 +155,22 @@ export function partTitle(node) {
  *   conditional steps rather than embedded (the curry's protein) belong to the recipe's own
  *   method, so their lines join the end of this group.
  * - With no parts, there is one group and no title.
+ * - Parts with no ingredients (and no full-batch toggle) have no group.
  */
 export function ingredientGroups(root) {
   const groups = [];
   const order = [];
   for (const s of root.steps) if (s.part && !order.includes(s.part)) order.push(s.part);
   for (const c of root.children) if (!order.includes(c) && !root.loose.includes(c)) order.push(c);
-  for (const c of order) walk(c, (n) => groups.push({ node: n, title: partTitle(n), lines: n.lines }));
+  // A part with nothing to show (an option with no ingredients, such as an oven method) gets no
+  // group, unless it can be made as a full batch, which has a toggle to show.
+  const add = (list) => (n) => { if (n.lines.length || n.batchable) list.push({ node: n, title: partTitle(n), lines: n.lines }); };
+  for (const c of order) walk(c, add(groups));
   const own = [...root.lines];
   const after = [];
   for (const c of root.loose) {
     own.push(...c.lines);
-    for (const cc of c.children) walk(cc, (n) => after.push({ node: n, title: partTitle(n), lines: n.lines }));
+    for (const cc of c.children) walk(cc, add(after));
   }
   if (own.length) groups.push({ node: root, title: groups.length ? root.title : null, lines: own });
   return groups.concat(after);

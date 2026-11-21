@@ -36,4 +36,13 @@ git config core.hooksPath .githooks
 ```
 
 ## Adding recipes
-For now, recipes are added by committing JSON files to `recipes/` that conform to `schema/recipe.schema.json`. Run `node build.js --check` before committing. Tooling to extract recipes from websites, PDFs, images and documents is planned.
+Recipes are extracted from their sources (websites, PDFs, images, Word documents) with the `extract-recipe` Claude Code skill in `.claude/skills/`, which uses the scripts in `tools/`:
+
+```sh
+node tools/fetch-source.mjs <url or file>   # snapshot the source into .extraction/
+node tools/draft.mjs .extraction/<id>       # first draft: metric amounts, catalogue matches
+node tools/render.mjs <id>                  # every variant as the site shows it, for review
+node tools/lint.mjs                         # extraction checks beyond the build
+```
+
+Recipe files conform to `schema/recipe.schema.json`. Run `node build.js --check` before committing. Progress on re-extracting the old collection is tracked in `docs/migration.md`.

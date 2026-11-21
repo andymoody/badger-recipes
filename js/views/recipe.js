@@ -1,6 +1,6 @@
 import { h } from '../dom.js';
-import { COURSE_SINGULAR, minutes, tagName } from '../format.js';
-import { displayAmount, formatAmount } from '../quantity.js';
+import { metaParts, partNeed, tagName } from '../format.js';
+import { formatAmount } from '../quantity.js';
 import { resolve, choices, lineDisplay, partTitle, ingredientGroups } from '../resolve.js';
 import { shoppingList, anyListText } from '../shopping.js';
 import { readState, hashWith, MULTIPLIERS } from '../state.js';
@@ -35,16 +35,7 @@ export function renderRecipe(app, id, params) {
 // ---------- Header ----------
 
 function header(r, app) {
-  const t = r.time || {};
-  const meta = [
-    COURSE_SINGULAR[r.course],
-    r.serves && 'Serves ' + r.serves,
-    r.yield && 'Makes ' + yieldText(r.yield, 1),
-    t.prep && 'Prep ' + minutes(t.prep),
-    t.cook && 'Cook ' + minutes(t.cook),
-    t.rest && 'Rest ' + minutes(t.rest),
-    t.total && 'Total ' + minutes(t.total),
-  ].filter(Boolean);
+  const meta = metaParts(r);
   return h('header', { class: 'recipe-header' },
     h('a', { class: 'back', href: '#/' }, '← All recipes'),
     r.image ? h('img', { class: 'hero', src: r.image, alt: r.title }) : null,
@@ -66,11 +57,6 @@ function source(s) {
   if (s.type === 'book') return h('p', { class: 'source' }, 'From ', h('cite', null, s.title), s.author ? ' by ' + s.author : '', s.page ? ', p. ' + s.page : '', adapted);
   if (s.type === 'file') return h('p', { class: 'source' }, 'Source: ', s.drive ? h('a', { href: s.drive, target: '_blank', rel: 'noopener' }, s.name) : s.name, adapted);
   return h('p', { class: 'source' }, 'Our own recipe');
-}
-
-function yieldText(y, factor) {
-  if (typeof y === 'string') return y;
-  return displayAmount(y.qty * factor, null, y.unit, factor !== 1);
 }
 
 // ---------- Scaling ----------
@@ -127,11 +113,8 @@ function partInfo(node, set) {
   const r = node.recipe;
   const bits = [];
   if (node.batchable) {
-    if (node.use) {
-      bits.push(h('p', { class: 'part-need' }, 'Recipe makes ' + yieldText(r.yield, 1) + '; you need ' + displayAmount(node.use.qty, null, node.use.unit, false) + '.'));
-    } else if (r.serves) {
-      bits.push(h('p', { class: 'part-need' }, 'Recipe serves ' + r.serves + '; you need enough for ' + formatAmount(r.serves * node.needed) + '.'));
-    }
+    const need = partNeed(node);
+    if (need) bits.push(h('p', { class: 'part-need' }, need));
     bits.push(h('label', { class: 'toggle' },
       h('input', { type: 'checkbox', checked: node.full, onchange: (e) => set({ ['full.' + node.path]: e.target.checked === !!r.batch ? null : e.target.checked ? 1 : 0 }) }),
       h('span', null, 'Make full batch')));

@@ -1,22 +1,11 @@
 // Shared test helpers. Tests load the real recipe files (not the generated recipes.json),
 // so they don't depend on running the build first.
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { loadData as load, REPO } from '../tools/lib/data.mjs';
 
-export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+export const ROOT = REPO;
 
-export function loadData() {
-  const dir = path.join(ROOT, 'recipes');
-  const recipes = {};
-  for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.json'))) {
-    const r = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
-    recipes[r.id] = r;
-  }
-  const { $schema, ...ingredients } = JSON.parse(fs.readFileSync(path.join(ROOT, 'ingredients.json'), 'utf8'));
-  const { $schema: _, ...tags } = JSON.parse(fs.readFileSync(path.join(ROOT, 'tags.json'), 'utf8'));
-  return { recipes, ingredients, tags };
-}
+/** The real collection, or another data folder (such as the site fixtures). */
+export const loadData = (root = ROOT) => load(root);
 
 /** A small catalogue for hand-written fixtures. */
 export const CATALOGUE = {

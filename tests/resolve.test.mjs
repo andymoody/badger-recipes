@@ -1,7 +1,8 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { resolve, resolveLine, partRatio, choices, walk, lineDisplay, ingredientGroups, partTitle } from '../js/resolve.js';
-import { loadData, CATALOGUE, near } from './helpers.mjs';
+import path from 'node:path';
+import { loadData, CATALOGUE, near, ROOT } from './helpers.mjs';
 
 const data = loadData();
 const texts = (node) => node.steps.map((s) => s.text);
@@ -16,7 +17,7 @@ describe('Thai red curry (shared paste and rice, protein choice with conditional
     assert.equal(paste.full, true, 'paste has batch: true, so full batch is on by default');
     assert.equal(paste.factor, 1);
     assert.ok(near(paste.needed, 4 / 12), 'needs 4 of 12 tbsp');
-    assert.deepEqual(paste.use, { qty: 4, unit: 'tbsp' });
+    assert.deepEqual(paste.use, { qty: 4, unit: 'tbsp', scaled: false });
     const rice = child(root, 'rice');
     assert.equal(rice.factor, 1, 'both serve 4');
     assert.equal(rice.batchable, false, 'nothing to toggle when the rice is used in full');
@@ -60,7 +61,7 @@ describe('Thai red curry (shared paste and rice, protein choice with conditional
     assert.equal(line(child(root, 'protein/chicken'), 'chicken_thigh').qty, 750);
     const paste = child(root, 'paste');
     assert.equal(paste.factor, 1);
-    assert.deepEqual(paste.use, { qty: 6, unit: 'tbsp' });
+    assert.deepEqual(paste.use, { qty: 6, unit: 'tbsp', scaled: true });
   });
 
   test('serving 6 without a full batch of paste: half the paste recipe', () => {
@@ -140,6 +141,13 @@ describe('American pancakes (headings, optional and fixed lines)', () => {
 
 describe('ingredientGroups: parts in method order, the recipe\'s own ingredients last', () => {
   const titles = (root) => ingredientGroups(root).map((g) => g.title);
+  test('a part with no ingredients has no group, unless it has a full-batch toggle (sample youvetsi)', () => {
+    const site = loadData(path.join(ROOT, 'tests/fixtures/site'));
+    const roast = resolve(site, 'lamb_youvetsi', { choices: { lamb: 'leg' } });
+    assert.deepEqual(titles(roast), ['Chicken stock', 'Lamb: Leg', 'Spice blend', 'Lamb youvetsi']);
+    const sv = resolve(site, 'lamb_youvetsi', { choices: { lamb: 'leg', 'lamb/leg/method': 'sous_vide' } });
+    assert.deepEqual(titles(sv), ['Chicken stock', 'Lamb: Leg', 'Method: Sous vide', 'Spice blend', 'Lamb youvetsi']);
+  });
   test('curry: paste, rice, then the curry itself with the chosen protein', () => {
     const groups = ingredientGroups(resolve(data, 'thai_red_curry'));
     assert.deepEqual(groups.map((g) => g.title), ['Thai red curry paste', 'Steamed jasmine rice', 'Thai red curry']);
@@ -266,7 +274,7 @@ describe('fixtures: structures the examples do not cover yet', () => {
     const stock = child(resolve(fixture, 'dinner', { k: 2 }), 'soup/stock');
     assert.equal(stock.full, true);
     assert.equal(stock.factor, 1);
-    assert.deepEqual(stock.use, { qty: 1000, unit: 'ml' });
+    assert.deepEqual(stock.use, { qty: 1000, unit: 'ml', scaled: true });
   });
   test('an option can reference a shared recipe; it follows serves (2 → 4 is × 2)', () => {
     const rice = child(resolve(fixture, 'dinner', { choices: { side: 'rice' } }), 'side/rice');

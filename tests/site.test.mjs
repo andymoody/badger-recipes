@@ -170,12 +170,13 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
       assert.equal(await hash(), '#/lamb_youvetsi?lamb=leg');
       assert.deepEqual(await texts('.choice legend'), ['Lamb', 'Method']);
       assert.ok(!(await texts('.method > .steps > li > p')).some((t) => t.startsWith('Pull the meat')));
-      assert.deepEqual(await texts('#panel-ingredients h3'), ['Chicken stock', 'Lamb: Leg', 'Method: Roasted', 'Spice blend', 'Lamb youvetsi']);
+      assert.deepEqual(await texts('#panel-ingredients h3'), ['Chicken stock', 'Lamb: Leg', 'Spice blend', 'Lamb youvetsi'], 'roasting adds no ingredients, so it has no empty heading');
     });
     test('choosing sous vide: its steps nest inside the leg, its oil joins the shopping list', async () => {
       await open('#/lamb_youvetsi?lamb=leg');
       await click('input[name="choice-lamb/leg/method"]', 'sous_vide');
       assert.equal(await hash(), '#/lamb_youvetsi?lamb=leg&lamb/leg/method=sous_vide');
+      assert.deepEqual((await group('Method: Sous vide')).lines, ['1 tbsp Olive oil (for searing)'], 'sous vide brings its own oil, so it has a group');
       await click('details.part > summary', 'Lamb: Leg');
       await click('details.part details.part > summary', 'Method: Sous vide');
       assert.deepEqual(await texts('details.part details.part .steps li'), ['Bag the leg and cook at 57°C for 8 hours.', 'Pat dry and sear all over in a very hot pan.']);

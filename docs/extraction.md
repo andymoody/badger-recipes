@@ -1,6 +1,6 @@
 # Recipe extraction guide
 
-How to turn a source (website, PDF, image, Word doc, pasted text) into recipe files. These are the rules agreed while designing the model. The extraction skill (step 4) should be built from this file, and you should follow it whenever you add or re-extract a recipe by hand. The data model itself is defined in `CLAUDE.md` and `schema/`. This file covers *how to apply it*.
+How to turn a source (website, PDF, image, Word doc, pasted text) into recipe files. These are the rules agreed while designing the model. The `extract-recipe` skill (`.claude/skills/extract-recipe/SKILL.md`) is the process that applies them, with scripts in `tools/` for the mechanical parts; follow these rules too whenever you add or change a recipe by hand. The data model itself is defined in `CLAUDE.md` and `schema/`. This file covers *how to apply it*.
 
 ## Principles
 
@@ -11,15 +11,16 @@ How to turn a source (website, PDF, image, Word doc, pasted text) into recipe fi
 3. **Question the model, don't just work around it.** If a recipe only fits awkwardly (it needs a workaround, a lot of duplication, a `{ text }` fallback, or an existing structure stretched beyond what it's for), **stop and ask whether a change to the model would fit better.** Propose it to the user: the problem, which recipes it affects, the proposed change to the schema or build, and the cost of leaving things as they are. Don't change the model, schema or `build.js` without approval. Until it's decided, extract with the best existing structure and note the workaround in the summary. Once a change is approved, update `schema/`, `build.js`, `CLAUDE.md` and this guide together, and re-check any recipes already extracted that it affects.
 4. **Don't invent data.** If the source has no yield, time or serving count, leave it out, or estimate it and **say so in `notes`** ("Yield of 12 tbsp is an estimate").
 5. **Record deliberate changes.** If you (or the user) improve a recipe, say what changed in `notes` and set `source.adapted: true`.
-6. **Do one recipe at a time and get it approved.** Show the user a short summary (structure chosen, new catalogue entries, estimates, any changes from the source, any model concerns, the proposed image) before finishing. *(Batching is an open question; decide it when building the skill.)*
+6. **Get every recipe approved.** Show the user a short summary (structure chosen, new catalogue entries, estimates, any changes from the source, any model concerns, the proposed image) before finishing. Each source route starts one recipe at a time and moves to small batches once the process has settled (see the skill's Batching section).
 7. **Validate before you're done:** `node build.js --check` must pass. Deal with any warnings as well, or explain them.
 
 ## Reading sources
 
-- **Google Drive** is where most source files live. Read them from the Drive for Desktop folder (`~/Library/CloudStorage/GoogleDrive-…`), or download them to a scratch folder. Never commit source files to the repo.
-- **Websites:** use the page's schema.org `Recipe` JSON-LD first (it's structured and reliable), then the visible page to check it or fill gaps.
+- **Start with `node tools/fetch-source.mjs <url | file>`**, which saves a snapshot of the source in `.extraction/` (gitignored) for extraction and review.
+- **Google Drive** is where most source files live. The user downloads them when they're needed. Never commit source files to the repo; record the Drive link in `source.drive`.
+- **Websites:** use the page's schema.org `Recipe` JSON-LD first (it's structured and reliable), then the visible page to check it or fill gaps. Structured data often leaves out notes, tips and variations, so always read the page text too.
 - **PDFs:** read the text directly. Scanned PDFs are treated like images.
-- **Word docs:** convert to text with macOS `textutil -convert txt <file>` (no install needed).
+- **Word docs:** converted to text with macOS `textutil` (no install needed); `fetch-source.mjs` does this.
 - **Images and photos:** read them visually and take extra care: check quantities and fractions twice.
 - **US sources:** convert units and ingredient names (see below).
 - **Reference material** (temperature charts, technique guides) isn't a recipe. Skip it and list it for later.
@@ -108,7 +109,7 @@ Convert during extraction:
   - liquids about 240ml.
   - For anything else, look up a density rather than guessing.
 - **oz to g:** × 28.35. **lb to g:** × 453.6. **fl oz to ml:** × 29.6 (US) or × 28.4 (UK). A **pint** is 473ml (US) or 568ml (UK); check which the source means.
-- **Temperatures in steps:** °F to °C (round to the nearest 5). Keep the source's fan or conventional wording, and gas marks if given.
+- **Temperatures in steps:** °F to °C, rounded to the nearest 10 as UK conversion tables do (350°F is 180°C, 400°F is 200°C). Where the source gives both, keep the °C. Keep the source's fan or conventional wording, and gas marks if given.
 - **Tins and packs:** use `unit: "tin"` with the size in `note` ("400ml").
 - **Lengths** ("5cm piece of ginger") use `cm`.
 
@@ -117,6 +118,7 @@ Convert during extraction:
 - Keep the source's method, lightly tidied: UK English, one action per step where that's natural, temperatures in °C.
 - Steps that embed a part say briefly what's happening ("Make the filling."). The part's own steps hold the detail.
 - Use `{ "heading": … }` to group steps when the source does.
+- **Amounts in step text don't scale.** Where the source says "add 4 tbsp of the paste" or "pour in 100ml of the stock", prefer wording that stays right when the recipe is scaled ("add the paste", "half the stock"), unless it's a fixed amount. Don't change the method to do it. `tools/lint.mjs` points these out.
 
 ## Images
 
