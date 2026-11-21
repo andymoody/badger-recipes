@@ -128,7 +128,7 @@ Non-recipe content, such as the old temperature charts, is set aside for now. It
   - **Copy for AnyList** copies the ticked lines as plain text, one item per line, for pasting into AnyList.
   - **Choices** between parts show as radio buttons, and the selection is kept in the URL (`#/scotch_eggs?filling=chorizo`). Steps with `only` show only for the selected option.
   - **Embedded parts** in steps expand in place. Shared parts that are listed also link to their own page. Inline choice options don't: the chosen option's steps switch straight into the numbered method.
-  - The header's times follow the chosen options. A parent with no steps shows its parts one after another, as collapsible sections.
+  - The header's times follow the chosen options, and its servings and counted yield follow the scaling together ("Serves 12 · Makes 12 Scotch eggs"). A parent with no steps shows its parts one after another, as collapsible sections.
 - Display rules for amounts:
   - Use the catalogue `plural` when the quantity isn't 1, and plural units ("3 cloves").
   - Show ranges as "1–2" and fractions as ½, ¼, ¾, ⅓ and ⅔.

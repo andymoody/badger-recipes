@@ -118,9 +118,10 @@ describe('shared display helpers (js/format.js)', () => {
     assert.equal(yieldText('a 23cm cake', 2), 'a 23cm cake');
     assert.equal(yieldText({ qty: 12, unit: 'tbsp' }, 0.5), '6 tbsp');
   });
-  test('the header\'s yield follows the servings (Scotch eggs for 12)', () => {
-    assert.deepEqual(metaParts(real.recipes.scotch_eggs, null, 2), ['Main', 'Serves 6', 'Makes 12 Scotch eggs']);
-    assert.match(renderRecipe(real, 'scotch_eggs', { serves: 12 }), /Main · Serves 6 · Makes 12 Scotch eggs/);
+  test('the header\'s servings and yield scale together (Scotch eggs for 12)', () => {
+    assert.deepEqual(metaParts(real.recipes.scotch_eggs, null, 2), ['Main', 'Serves 12', 'Makes 12 Scotch eggs']);
+    assert.match(renderRecipe(real, 'scotch_eggs', { serves: 12 }), /Main · Serves 12 · Makes 12 Scotch eggs/);
+    assert.match(renderRecipe(real, 'scotch_eggs', { serves: 3 }), /Main · Serves 3 · Makes 3 Scotch eggs/);
   });
   test('a part with servings', () => {
     const rice = resolve(real, 'thai_red_curry', { k: 1.5 }).children.find((c) => c.key === 'rice');

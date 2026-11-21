@@ -206,6 +206,7 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
       await click('.step-btn', '+');
       assert.equal(await hash(), '#/lamb_youvetsi?serves=5');
       assert.equal(await text('.stepper output'), '5');
+      assert.match(await text('.recipe-header .meta'), /Serves 5 ·/, 'the header follows the stepper');
       assert.match(await text('.reminder'), /Cooking times, pan sizes and raising agents/);
       const l = await lines();
       assert.ok(l.includes('375g Orzo'));
@@ -273,6 +274,8 @@ describe('site in a browser', { skip: !chrome && 'Chrome not found: set CHROME_P
     test('the yield in the header follows the quantity (8 flatbreads, × 2 makes 16)', async () => {
       await open('#/flatbreads?x=2');
       assert.equal(await text('.meta'), 'Baking · Makes 16 flatbreads');
+      await click('.step-btn', '−');
+      assert.equal(await text('.meta'), 'Baking · Makes 12 flatbreads', '× 1.5');
     });
     test('tapping ≈ shows the proportional amount', async () => {
       await open('#/flatbreads?x=2');

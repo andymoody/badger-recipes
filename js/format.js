@@ -39,13 +39,13 @@ export function yieldText(y, factor = 1) {
 /**
  * The recipe header's facts: ["Main", "Serves 4", "Makes 300g", "Prep 20 min", "Cook 1 hr"].
  * time defaults to the recipe's own; pass recipeTime(root) for the chosen options' times.
- * k is the page's scaling: the yield follows it ("Makes 12 Scotch eggs"); servings show in the stepper.
+ * k is the page's scaling: servings and yield follow it together ("Serves 12 · Makes 12 Scotch eggs").
  */
 export function metaParts(r, time = r.time, k = 1) {
   const t = time || {};
   return [
     COURSE_SINGULAR[r.course],
-    r.serves && 'Serves ' + r.serves,
+    r.serves && 'Serves ' + formatAmount(Math.round(r.serves * k * 100) / 100),
     r.yield && 'Makes ' + yieldText(r.yield, k),
     t.prep && 'Prep ' + minutes(t.prep),
     t.cook && 'Cook ' + minutes(t.cook),
