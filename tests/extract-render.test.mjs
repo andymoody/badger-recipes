@@ -7,7 +7,7 @@ import path from 'node:path';
 import { ROOT, loadData } from './helpers.mjs';
 import { variants, renderRecipe, structure, reviewReport, lineText } from '../tools/lib/render.mjs';
 import { resolve } from '../js/resolve.js';
-import { metaParts, partNeed, yieldText } from '../js/format.js';
+import { metaParts, partNeed, yieldText, minutes } from '../js/format.js';
 
 const site = loadData(path.join(ROOT, 'tests/fixtures/site'));
 const real = loadData();
@@ -122,6 +122,12 @@ describe('shared display helpers (js/format.js)', () => {
     assert.deepEqual(metaParts(real.recipes.scotch_eggs, null, 2), ['Main', 'Serves 12', 'Makes 12 Scotch eggs']);
     assert.match(renderRecipe(real, 'scotch_eggs', { serves: 12 }), /Main · Serves 12 · Makes 12 Scotch eggs/);
     assert.match(renderRecipe(real, 'scotch_eggs', { serves: 3 }), /Main · Serves 3 · Makes 3 Scotch eggs/);
+  });
+  test('marinating shows as its own time, in days when it\'s a day or more (Lamb raan)', () => {
+    assert.equal(minutes(2880), '2 days');
+    assert.equal(minutes(1500), '1 day 1 hr');
+    assert.equal(minutes(90), '1 hr 30 min');
+    assert.deepEqual(metaParts(real.recipes.lamb_raan), ['Main', 'Serves 8', 'Marinate 2 days', 'Cook 5 hr 40 min']);
   });
   test('a part with servings', () => {
     const rice = resolve(real, 'thai_red_curry', { k: 1.5 }).children.find((c) => c.key === 'rice');

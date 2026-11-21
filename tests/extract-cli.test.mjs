@@ -147,8 +147,8 @@ describe('draft', () => {
     assert.deepEqual(d.ingredients.find((l) => l.item === 'salt'), { item: 'salt', qty: 1, unit: 'pinch' });
     assert.deepEqual(d.ingredients.find((l) => l.item === 'butter'), { item: 'butter', qty: 75, unit: 'g', prep: 'melted', note: 'unsalted' });
     assert.deepEqual(d.steps[0], { heading: 'Make the batter' });
-    assert.equal(d.steps[1], 'Preheat the oven to 175°C and butter a 4x8-inch loaf pan.');
-    assert.match(d.steps[5], /at 180°C, until a tester/);
+    assert.equal(d.steps[1], 'Preheat the oven to 175°C (155°C fan) and butter a 4x8-inch loaf pan.');
+    assert.match(d.steps[5], /at 180°C \(160°C fan\), until a tester/);
     const report = read(out, 'draft-report.md');
     assert.match(report, /Title looks like Title Case/);
     assert.match(report, /matched butter by the end of the line \(ends with "butter"\), with "unsalted" in the note: check it is the same product/);
@@ -173,7 +173,7 @@ describe('draft', () => {
     assert.deepEqual(d.source, { type: 'file', name: 'badger.jpg', drive: 'TODO: Google Drive link' });
     assert.deepEqual(d.ingredients[1], { item: 'butter', qty: 100, unit: 'g', prep: 'cubed' });
     assert.deepEqual(d.ingredients[2], { heading: 'To finish' });
-    assert.deepEqual(d.steps, ['Heat the oven to 200°C.', 'Rub the butter into the flour.']);
+    assert.deepEqual(d.steps, ['Heat the oven to 200°C (180°C fan).', 'Rub the butter into the flour.']);
     assert.equal(d.notes, 'Nan used lard.');
   });
   test('no transcription yet: a clear error', async () => {

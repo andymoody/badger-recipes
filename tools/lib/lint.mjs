@@ -2,7 +2,7 @@
 // (imperial units, °F, American words) or a line that may not belong. Returns findings as
 // { level: 'warn' | 'check', where, message }. "warn" needs fixing or explaining; "check" is a
 // prompt to look again. Pure: takes the loaded data.
-import { nearDuplicates, normaliseName } from './lines.mjs';
+import { nearDuplicates, normaliseName, addFanTemps } from './lines.mjs';
 
 const IMPERIAL = [
   [/\b\d+\s*(?:°|º|degrees?)?\s*F(?:ahrenheit)?\b/, '°F temperature'],
@@ -61,6 +61,10 @@ export function lintRecipe(recipe, data, { exists = () => true } = {}) {
       for (const [re, what] of IMPERIAL) if (re.test(t)) add('warn', path + ' ' + where, what + ' in "' + t + '": convert to metric');
       for (const [us, uk] of AMERICAN) if (new RegExp('\\b' + us + '\\b', 'i').test(t)) add('warn', path + ' ' + where, 'American "' + t.match(new RegExp('\\b' + us + '\\b', 'i'))[0] + '": use "' + uk + '"');
     }
+    // Oven temperatures should give the fan figure too (docs/extraction.md, Units).
+    (r.steps || []).forEach((s, i) => {
+      if (addFanTemps(stepText(s)).changes.length) add('check', path + ' step ' + (i + 1), 'an oven temperature has no fan figure: add one 20°C lower, e.g. "220°C (200°C fan)"');
+    });
     // Amounts written into step text stay as written when the recipe is scaled.
     (r.steps || []).forEach((s, i) => {
       const m = stepText(s).match(/\b\d+(?:[.,]\d+)?\s*(?:g|kg|ml|l|tsp|tbsp|teaspoons?|tablespoons?)\b(?!\s*(?:tin|can))/i);

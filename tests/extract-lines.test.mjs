@@ -3,7 +3,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadData } from './helpers.mjs';
-import { parseLine, convertTemperatures, matchItem, nearDuplicates, suggestId, roundConverted, normaliseName } from '../tools/lib/lines.mjs';
+import { parseLine, convertTemperatures, addFanTemps, matchItem, nearDuplicates, suggestId, roundConverted, normaliseName } from '../tools/lib/lines.mjs';
 
 const { ingredients } = loadData();
 const line = (s, opts) => { const { source, conversions, warnings, ...rest } = parseLine(s, opts); return rest; };
@@ -186,6 +186,20 @@ describe('oven temperatures in steps', () => {
     assert.equal(r.text, 'Reduce the temperature to warm 170°C (Gas Mark 3), cover the pan and roast.');
     assert.deepEqual(r.changes, ['dropped 325°F given next to °C']);
     assert.equal(convertTemperatures('Preheat the oven to hot 220°C (Gas Mark 7, 425°F).').text, 'Preheat the oven to hot 220°C (Gas Mark 7).');
+  });
+  test('oven temperatures get a fan figure 20°C lower when the source gives none (Lamb raan)', () => {
+    assert.deepEqual(addFanTemps('Preheat the oven to hot 220°C (Gas Mark 7).'), { text: 'Preheat the oven to hot 220°C (200°C fan, Gas Mark 7).', changes: ['added 200°C fan to 220°C (check it is an oven temperature)'] });
+    assert.equal(addFanTemps('Reduce the oven temperature to moderate 180°C (gas mark 4) and roast for 1 hour. Reduce to 170°C, cover and roast.').text,
+      'Reduce the oven temperature to moderate 180°C (160°C fan, gas mark 4) and roast for 1 hour. Reduce to 170°C (150°C fan), cover and roast.');
+    assert.equal(addFanTemps('Bake at 160–170°C for 2 hours.').text, 'Bake at 160–170°C (140–150°C fan) for 2 hours.');
+    assert.equal(addFanTemps('Preheat the oven to 180°C.').text, 'Preheat the oven to 180°C (160°C fan).');
+  });
+  test('no fan figure for oil, water baths, steps that already give one, or steps not about the oven', () => {
+    const same = (s) => assert.equal(addFanTemps(s).text, s);
+    same('Heat a 5–7cm depth of oil in a deep pan to 175°C. Fry for 2 minutes, then transfer to the oven for 10 minutes.');
+    same('Cook in a water bath at 74°C for 13 hours, then roast.');
+    same('Bake at 160°C (140°C fan) for 2.5 hours.');
+    same('Heat the sugar to 160°C.');
   });
   test('text without temperatures, and sous-vide °C, is left alone', () => {
     assert.deepEqual(convertTemperatures('Cook at 57°C for 8 hours.'), { text: 'Cook at 57°C for 8 hours.', changes: [] });

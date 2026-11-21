@@ -369,6 +369,11 @@
             "total": {
               "type": "integer",
               "minimum": 0
+            },
+            "marinate": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Minutes of marinating, shown as its own time (\"Marinate 2 days\")."
             }
           }
         },

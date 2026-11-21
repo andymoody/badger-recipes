@@ -293,6 +293,25 @@ export function convertTemperatures(text) {
   return { text: t, changes };
 }
 
+/**
+ * Adds the fan-oven figure, 20°C lower, to oven temperatures that don't have one:
+ * "220°C (gas mark 7)" becomes "220°C (200°C fan, gas mark 7)". A source that doesn't say is
+ * taken as conventional. Only for steps about the oven, and not for oil, water or sugar.
+ */
+export function addFanTemps(text) {
+  const changes = [];
+  if (/\bfan\b/i.test(text) || !/\b(?:oven|bake|baking|roast|roasting|gas mark)\b/i.test(text)) return { text, changes };
+  const t = text.replace(/(\d{2,3})(?:[–-](\d{2,3}))?\s*°C(\s*\((?!\d)([^)]*)\))?/g, (m, a, b, br, inner, offset, s) => {
+    const n = Number(a);
+    if (n < 100 || n > 260) return m;
+    if (/\b(?:oil|water|sugar|syrup|thermometer|core|internal)\b[^.]*$/i.test(s.slice(Math.max(0, offset - 60), offset))) return m;
+    const fan = (b ? (n - 20) + '–' + (Number(b) - 20) : String(n - 20)) + '°C fan';
+    changes.push('added ' + fan + ' to ' + m.replace(/\s*\(.*$/, '') + ' (check it is an oven temperature)');
+    return a + (b ? '–' + b : '') + '°C (' + fan + (inner ? ', ' + inner : '') + ')';
+  });
+  return { text: t, changes };
+}
+
 // ---------- Catalogue matching ----------
 
 const DESCRIPTORS = /\b(?:dry|fresh|large|small|medium|big|ripe|good[- ]quality|good|quality|organic|free[- ]range|extra|whole|raw|hot|cold|warm|boneless|skinless|skin[- ]on|bone[- ]in|thick|thin|heaped|level|generous|about|approx\.?|approximately)\b/gi;

@@ -101,7 +101,7 @@ describe('Scotch eggs (inline choice embedded in a step)', () => {
     assert.equal(filling.title, 'Black pudding and pork');
     assert.equal(filling.inline, true);
     assert.ok(!root.steps.some((s) => s.part), 'no collapsible section for an inline option');
-    assert.equal(root.steps[0].text, 'Preheat the oven to 180°C.');
+    assert.equal(root.steps[0].text, 'Preheat the oven to 180°C (160°C fan).');
     assert.deepEqual(root.steps.slice(1, 1 + filling.steps.length), filling.steps);
     assert.match(root.steps[2].text, /^Bring a pan of water to the boil/);
     assert.deepEqual(root.used, [filling]);

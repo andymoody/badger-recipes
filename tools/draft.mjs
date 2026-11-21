@@ -24,7 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { loadData } from './lib/data.mjs';
-import { parseLine, convertTemperatures, matchItem, catalogueIndex, normaliseName } from './lib/lines.mjs';
+import { parseLine, convertTemperatures, addFanTemps, matchItem, catalogueIndex, normaliseName } from './lib/lines.mjs';
 
 const COURSE_WORDS = [
   [/\b(?:main|dinner|supper|lunch|entr[ée]e)\b/i, 'main'], [/\bside\b/i, 'side'], [/\b(?:starter|appeti[sz]er)\b/i, 'starter'],
@@ -145,8 +145,9 @@ export function draftRecipe(src, meta, data, { id, pints } = {}) {
   for (const s of src.instructions || []) {
     if (s.heading) { draft.steps.push({ heading: s.heading }); continue; }
     const c = convertTemperatures(s.text);
-    draft.steps.push(c.text);
-    for (const ch of c.changes) report.push('- step ' + draft.steps.length + ': ' + ch);
+    const f = addFanTemps(c.text);
+    draft.steps.push(f.text);
+    for (const ch of [...c.changes, ...f.changes]) report.push('- step ' + draft.steps.length + ': ' + ch);
   }
   if (src.notes && src.notes.length) draft.notes = src.notes.join(' ');
   if (meta.image) report.push('', '## Image', '', '- Source image: ' + meta.image + ' (propose it for approval; see docs/extraction.md)');

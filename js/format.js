@@ -12,6 +12,10 @@ export const COURSE_SINGULAR = {
 };
 
 export function minutes(n) {
+  if (n >= 1440) {
+    const d = Math.floor(n / 1440), hr = Math.round((n % 1440) / 60);
+    return d + (d === 1 ? ' day' : ' days') + (hr ? ' ' + hr + ' hr' : '');
+  }
   if (n < 60) return n + ' min';
   const hrs = Math.floor(n / 60), m = n % 60;
   return hrs + ' hr' + (m ? ' ' + m + ' min' : '');
@@ -48,6 +52,7 @@ export function metaParts(r, time = r.time, k = 1) {
     r.serves && 'Serves ' + formatAmount(Math.round(r.serves * k * 100) / 100),
     r.yield && 'Makes ' + yieldText(r.yield, k),
     t.prep && 'Prep ' + minutes(t.prep),
+    t.marinate && 'Marinate ' + minutes(t.marinate),
     t.cook && 'Cook ' + minutes(t.cook),
     t.rest && 'Rest ' + minutes(t.rest),
     t.total && 'Total ' + minutes(t.total),

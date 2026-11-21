@@ -33,7 +33,7 @@ How to turn a source (website, PDF, image, Word doc, pasted text) into recipe fi
 - `tags`: IDs from `tags.json`, each in one group: cuisine (`thai`), dish (`curry`), main ingredient (`lamb`), occasion (`christmas`), diet (`vegetarian`) and method (`bbq`, `deep_fry`). Use an existing tag where one fits; otherwise add it to `tags.json` with a `name` and `group`, and list new tags in the approval summary. Meal type isn't a tag: it's `course`.
   - Tags are how recipes are found: search covers titles, tags, course and choice option titles, but **not ingredients**. Tag the headline ingredient (`lamb`, `cod`) unless it's already in the title or an option title, and only ingredients someone would search for, never salt, onions and the like.
 - `serves`: a number. For "Serves 6–8", use 6 and mention the range in `notes` if it matters. Use `yield` for things measured by quantity: `{ "qty": 300, "unit": "g" }`; for things counted, `{ "qty": 12, "name": "pancakes" }`, so it scales; text only for what a number can't describe ("a 23cm cake").
-- `time`: minutes as integers (`prep`, `cook`, optional `rest` or `total`). Omit it if the source doesn't say; don't guess.
+- `time`: minutes as integers (`prep`, `cook`, optional `marinate`, `rest` or `total`). Use `marinate` for marinating ("Marinate 2 days" in the header). Omit times the source doesn't give; don't guess, but adding up the times a method states isn't guessing.
 - `source`, always filled in:
   - `{ "type": "web", "url": "…", "title": "Site name" }`
   - `{ "type": "book", "title": "…", "author": "…", "page": 112 }`
@@ -112,6 +112,7 @@ Convert during extraction:
   - For anything else, look up a density rather than guessing.
 - **oz to g:** × 28.35. **lb to g:** × 453.6. **fl oz to ml:** × 29.6 (US) or × 28.4 (UK). A **pint** is 473ml (US) or 568ml (UK); check which the source means.
 - **Temperatures in steps:** °F to °C, rounded to the nearest 10 as UK conversion tables do (350°F is 180°C, 400°F is 200°C). Where the source gives both, keep the °C. Keep the source's fan or conventional wording, and gas marks if given.
+- **Fan ovens:** every oven temperature gives the fan figure too. Where the source doesn't, add one 20°C lower in brackets: "220°C (200°C fan, gas mark 7)". A source that doesn't say is taken as conventional. Not for oil, sugar or water-bath temperatures. `draft.mjs` adds them and `lint.mjs` checks.
 - **Tins and packs:** use `unit: "tin"` with the size in `note` ("400ml").
 - **Lengths** ("5cm piece of ginger") use `cm`.
 
