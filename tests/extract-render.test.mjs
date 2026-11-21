@@ -127,7 +127,7 @@ describe('shared display helpers (js/format.js)', () => {
     assert.equal(minutes(2880), '2 days');
     assert.equal(minutes(1500), '1 day 1 hr');
     assert.equal(minutes(90), '1 hr 30 min');
-    assert.deepEqual(metaParts(real.recipes.lamb_raan), ['Main', 'Serves 8', 'Marinate 2 days', 'Cook 5 hr 40 min']);
+    assert.deepEqual(metaParts(real.recipes.lamb_raan), ['Main', 'Serves 8', 'Marinate 2 days 1 hr', 'Cook 5 hr 40 min']);
   });
   test('a part with servings', () => {
     const rice = resolve(real, 'thai_red_curry', { k: 1.5 }).children.find((c) => c.key === 'rice');

@@ -179,7 +179,7 @@ One dated entry per recipe (or batch): what the review found, what was corrected
     - the guide says derived yields aren't invented.
   - **Counter:** reset to 0.
 - **2026-11-21, Lamb raan** (pilot 3, document route, two photos of book pages): A single recipe with no variants.
-  - **Structure:** the ingredient groups follow the user's pencil brackets. The cook time (5 hr 40 min) adds up the stated times. The book gives 1½ tsp chilli and serves 8–10; the old entry's 1 tsp and 4–6 servings were misreadings.
+  - **Structure:** the ingredient groups follow the user's pencil brackets. The cook time (5 hr 40 min) adds up the stated times, and the marinate time is 2 days 1 hr (1 hour with the spice purée, then 48 hours). The book gives 1½ tsp chilli and serves 8–10; the old entry's 1 tsp and 4–6 servings were misreadings.
   - **Review:** found a note repeating the steps, "Greek yoghurt" listed as another name for natural yoghurt, the spice id `clove` clashing with the unit, and cardamom and saffron needing gentler scaling. All fixed.
   - **Tool bugs fixed:** a °F after a gas mark was converted instead of dropped (it gave a wrong 160°C); fractions leaked into notes as "6/24".
   - **Process changes (approved):**
